@@ -1,4 +1,6 @@
+import LangSwitch from "@/components/layout/LangSwitch"
 import { Locale, getDictionary } from "@/language/getLanguage"
+
 import { type FC } from "react"
 
 interface HomePageProps {
@@ -8,7 +10,13 @@ interface HomePageProps {
 }
 
 const HomePage: FC<HomePageProps> = async ({ params }) => {
-  return <div>HomePage</div>
+  const content = await getDictionary(params.lang)
+  return (
+    <div>
+      <LangSwitch locale={params.lang} />
+      <h1>{content.tailTourTn}</h1>
+    </div>
+  )
 }
 
 export default HomePage
