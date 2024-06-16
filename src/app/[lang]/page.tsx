@@ -13,7 +13,6 @@ const HomePage: FC<HomePageProps> = async ({ params }) => {
   const content = await getDictionary(params.lang)
   return (
     <div>
-      <LangSwitch locale={params.lang} />
       <h1>{content.tailTourTn}</h1>
     </div>
   )

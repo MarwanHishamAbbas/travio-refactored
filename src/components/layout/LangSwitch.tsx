@@ -12,6 +12,8 @@ import {
 import { i18n } from "@/language"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
+import Image from "next/image"
+import { ChevronDown } from "lucide-react"
 
 export default function LangSwitch({ locale }: { locale: string }) {
   const pathname = usePathname()
@@ -23,14 +25,31 @@ export default function LangSwitch({ locale }: { locale: string }) {
     return segments.join("/")
   }
 
+  const flags = {
+    en: "/languages/en.svg",
+    es: "/languages/es.png",
+    por: "/languages/por.png",
+  }
+
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline">Language</Button>
+      <DropdownMenuTrigger>
+        <Button
+          size={"sm"}
+          variant="secondary"
+          className="rounded-full flex items-center gap-1 "
+        >
+          {" "}
+          {/* @ts-expect-error */}
+          <Image src={flags[locale]} width={25} height={25} alt="Flag" />
+          <ChevronDown className="size-5" />
+        </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56">
+      <DropdownMenuContent className="w-32">
         {i18n.languages.map((lang) => (
-          <DropdownMenuCheckboxItem checked={lang.id === locale} key={lang.id}>
+          <DropdownMenuCheckboxItem key={lang.id} className="flex gap-1">
+            {/* @ts-expect-error */}
+            <Image src={flags[lang.id]} width={25} height={25} alt="Flag" />
             <Link href={redirectedPathName(lang.id)} className=" w-full">
               {/* @ts-expect-error */}
               {lang.title[locale]}
