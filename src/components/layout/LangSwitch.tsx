@@ -47,10 +47,13 @@ export default function LangSwitch({ locale }: { locale: string }) {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-32">
         {i18n.languages.map((lang) => (
-          <DropdownMenuCheckboxItem key={lang.id} className="flex gap-1">
-            {/* @ts-expect-error */}
-            <Image src={flags[lang.id]} width={25} height={25} alt="Flag" />
-            <Link href={redirectedPathName(lang.id)} className=" w-full">
+          <DropdownMenuCheckboxItem key={lang.id}>
+            <Link
+              href={redirectedPathName(lang.id)}
+              className=" w-full flex gap-1"
+            >
+              {/* @ts-expect-error */}
+              <Image src={flags[lang.id]} width={25} height={25} alt="Flag" />
               {/* @ts-expect-error */}
               {lang.title[locale]}
             </Link>

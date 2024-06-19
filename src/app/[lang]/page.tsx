@@ -14,7 +14,7 @@ interface HomePageProps {
 const HomePage: FC<HomePageProps> = async ({ params }) => {
   const content = await getDictionary(params.lang)
   const data = await getHomePage()
-  console.log(data.sections[0].image)
+
   return (
     <div>
       <Image

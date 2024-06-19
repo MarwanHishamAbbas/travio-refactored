@@ -1,6 +1,6 @@
 import { client } from "@/utils/sanity/client"
 
-export const layoutQuery = `*[_type == "globals"][0]{
+const layoutQuery = `*[_type == "globals"][0]{
     ...,
     navbar {
   ...,

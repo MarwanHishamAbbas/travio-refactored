@@ -2,6 +2,7 @@ import React from "react"
 
 import imageUrlBuilder from "@sanity/image-url"
 import { client } from "@/utils/sanity/client"
+import { Image } from "sanity"
 
 // Get a pre-configured url-builder from your sanity client
 const builder = imageUrlBuilder(client)
@@ -11,4 +12,8 @@ const builder = imageUrlBuilder(client)
 // parameters:
 export function urlFor(source: string) {
   return builder.image(source).url()
+}
+
+export const urlForImage = (source: Image) => {
+  return builder?.image(source).auto("format").fit("max").url()
 }

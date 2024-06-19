@@ -21,13 +21,15 @@ const config = {
       colors: {
         lightBlue: "#F2FAFF",
         darkBlue: "#140D31",
+        grey: "#726E83",
+        red: "#D10002",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "hsl(var(--primary))",
+          DEFAULT: "#3FA9F5",
           foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {

@@ -52,8 +52,6 @@ const DestinationsMenu: FC<DestinationsMenuProps> = ({
   const [activeTour, setActiveTour] = useState<any>(
     destinationsLinks.destinations[0]
   )
-  // console.log(destinationsLinks)
-  console.log(activeTour.tours[0].overview_card.about)
 
   return (
     <Sheet>
