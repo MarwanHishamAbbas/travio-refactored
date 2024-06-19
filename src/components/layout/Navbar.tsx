@@ -1,12 +1,13 @@
 import { type FC } from "react"
 import MaxWidth from "../common/MaxWidth"
-import { AlignRight, PhoneCall } from "lucide-react"
+import { AlignRight, ChevronDown } from "lucide-react"
 import { getBaseLayout } from "@/query/layout"
 import Image from "next/image"
 import { urlFor } from "@/lib/sanity/sanity-image"
 import { NavLink } from "@/types/sanity"
 import LangSwitch from "./LangSwitch"
 import Link from "next/link"
+import DestinationsMenu from "./DestinationsMenu"
 
 interface NavbarProps {
   locale: string
@@ -14,7 +15,6 @@ interface NavbarProps {
 
 const Navbar: FC<NavbarProps> = async ({ locale }) => {
   const content = await getBaseLayout()
-  console.log(content.banner.promo_banner)
 
   return (
     <header>
@@ -41,11 +41,18 @@ const Navbar: FC<NavbarProps> = async ({ locale }) => {
             width={140}
             height={70}
           />
-          <ul className="md:flex items-center gap-6 hidden">
+          <ul className="md:flex items-center gap-6 hidden text-sm">
             {content.navbar.links.map((link: NavLink, idx: number) => {
-              if (link._type !== "link") return
+              if (link._type !== "link")
+                return (
+                  <DestinationsMenu
+                    key={idx}
+                    locale={locale}
+                    destinationsLinks={link}
+                  />
+                )
               return (
-                <Link href={`/${link.url}`} key={idx}>
+                <Link href={`/${locale}/${link.url}`} key={idx} className="">
                   {/* @ts-expect-error */}
                   {link.text[locale]}
                 </Link>
@@ -74,7 +81,7 @@ const Navbar: FC<NavbarProps> = async ({ locale }) => {
           <MaxWidth className="text-xs md:text-sm flex items-center flex-wrap justify-center gap-1">
             <p>{content.banner.promo_banner.text[locale]}</p>
             <Link
-              href={content.banner.promo_banner.link.url}
+              href={`/${locale}/${content.banner.promo_banner.link.url}`}
               className="underline"
             >
               {content.banner.promo_banner.link.text[locale]}

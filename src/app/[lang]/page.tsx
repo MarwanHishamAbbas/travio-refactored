@@ -1,4 +1,3 @@
-import LangSwitch from "@/components/layout/LangSwitch"
 import { Locale, getDictionary } from "@/language/getLanguage"
 
 import { type FC } from "react"

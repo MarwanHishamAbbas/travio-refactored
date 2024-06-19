@@ -33,7 +33,7 @@ export default function LangSwitch({ locale }: { locale: string }) {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
+      <DropdownMenuTrigger asChild>
         <Button
           size={"sm"}
           variant="secondary"
