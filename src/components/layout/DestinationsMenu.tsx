@@ -14,6 +14,7 @@ import { useState, type FC } from "react"
 import { Card, CardContent, CardTitle } from "../ui/card"
 import { Button } from "../ui/button"
 import { getDictionary } from "@/language/getLanguage"
+import { ChevronDown } from "lucide-react"
 
 interface DestinationsMenuProps {
   locale: string
@@ -57,9 +58,15 @@ const DestinationsMenu: FC<DestinationsMenuProps> = ({
   return (
     <Sheet>
       <SheetTrigger>
-        {destinationsLinks.destinations_title[locale]}
+        <div className="flex text-xl md:text-sm items-center gap-1">
+          <p>{destinationsLinks.destinations_title[locale]}</p>
+          <ChevronDown className="size-5" />
+        </div>
       </SheetTrigger>
-      <SheetContent side="top" className="grid grid-cols-2 lg:grid-cols-4">
+      <SheetContent
+        side="top"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 p-10"
+      >
         <div className="flex flex-col gap-5">
           <h1 className="text-lg font-medium">
             {" "}
@@ -68,12 +75,12 @@ const DestinationsMenu: FC<DestinationsMenuProps> = ({
           <div className="flex flex-col gap-2 text-sm">
             {destinationsLinks.destinations.map((item: any, idx: number) => (
               <SheetClose key={idx} asChild>
-                <Link
+                <a
                   onMouseEnter={() => setActiveTour(item)}
                   href={`/${locale}/destinations/${item?.destination.slug?.current}`}
                 >
                   {item.destination.name?.[locale]}
-                </Link>
+                </a>
               </SheetClose>
             ))}
           </div>
@@ -86,15 +93,15 @@ const DestinationsMenu: FC<DestinationsMenuProps> = ({
           <div className="flex flex-col gap-2 text-sm">
             {activeTour?.text_tours.map((item: any, idx: number) => (
               <SheetClose key={idx} asChild>
-                <Link href={`/${locale}/tours/${item?.slug}`}>
+                <a href={`/${locale}/tours/${item?.slug}`}>
                   {item.title?.[locale]}
-                </Link>
+                </a>
               </SheetClose>
             ))}
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-2 md:col-span-2">
+        <div className="hidden md:grid grid-cols-2 gap-2 md:col-span-2">
           {activeTour?.tours.map((item: any, idx: number) => (
             <SheetClose asChild key={idx}>
               <Link href={`/${locale}/tours/${item?.slug.current}`}>

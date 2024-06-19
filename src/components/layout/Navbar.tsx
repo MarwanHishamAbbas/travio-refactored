@@ -8,6 +8,7 @@ import { NavLink } from "@/types/sanity"
 import LangSwitch from "./LangSwitch"
 import Link from "next/link"
 import DestinationsMenu from "./DestinationsMenu"
+import { Sheet, SheetClose, SheetContent, SheetTrigger } from "../ui/sheet"
 
 interface NavbarProps {
   locale: string
@@ -71,9 +72,36 @@ const Navbar: FC<NavbarProps> = async ({ locale }) => {
               alt="Whatsapp Logo"
             />
             <LangSwitch locale={locale} />
-            <AlignRight />
+            {/* Mobile Navigation */}
+            <Sheet>
+              <SheetTrigger>
+                <AlignRight />
+              </SheetTrigger>
+              <SheetContent className="flex flex-col text-xl gap-8">
+                {content.navbar.links.map((link: NavLink, idx: number) => {
+                  if (link._type !== "link")
+                    return (
+                      <SheetClose asChild key={idx}>
+                        <DestinationsMenu
+                          locale={locale}
+                          destinationsLinks={link}
+                        />
+                      </SheetClose>
+                    )
+                  return (
+                    <SheetClose key={idx} asChild>
+                      <Link href={`/${locale}/${link.url}`}>
+                        {/* @ts-expect-error */}
+                        {link.text[locale]}
+                      </Link>
+                    </SheetClose>
+                  )
+                })}
+              </SheetContent>
+            </Sheet>
           </div>
         </MaxWidth>
+
         {/* Promo Banner */}
       </div>
       {content.banner.promo_banner.show && (

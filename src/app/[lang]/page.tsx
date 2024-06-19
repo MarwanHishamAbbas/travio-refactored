@@ -1,4 +1,7 @@
 import { Locale, getDictionary } from "@/language/getLanguage"
+import { urlFor } from "@/lib/sanity/sanity-image"
+import { getHomePage } from "@/query/layout"
+import Image from "next/image"
 
 import { type FC } from "react"
 
@@ -10,9 +13,17 @@ interface HomePageProps {
 
 const HomePage: FC<HomePageProps> = async ({ params }) => {
   const content = await getDictionary(params.lang)
+  const data = await getHomePage()
+  console.log(data.sections[0].image)
   return (
     <div>
-      <h1>{content.tailTourTn}</h1>
+      <Image
+        src={urlFor(data.sections[0].image.asset._ref)}
+        alt={data.sections[0].image.alt?.[params.lang]}
+        width={1000}
+        height={1000}
+        className="w-full"
+      />
     </div>
   )
 }

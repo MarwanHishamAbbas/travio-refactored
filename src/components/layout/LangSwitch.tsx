@@ -41,8 +41,8 @@ export default function LangSwitch({ locale }: { locale: string }) {
         >
           {" "}
           {/* @ts-expect-error */}
-          <Image src={flags[locale]} width={25} height={25} alt="Flag" />
-          <ChevronDown className="size-5" />
+          <Image src={flags[locale]} width={22} height={22} alt="Flag" />
+          <ChevronDown className="size-4" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-32">
