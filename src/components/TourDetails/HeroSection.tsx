@@ -4,6 +4,7 @@ import Image from "next/image"
 import { urlFor } from "@/lib/sanity/sanity-image"
 import { Locale, getDictionary } from "@/language/getLanguage"
 import { Button } from "../ui/button"
+import Link from "next/link"
 
 interface HeroSectionProps {
   hero_section: any
@@ -121,8 +122,10 @@ const HeroSection: FC<HeroSectionProps> = async ({
           </div>
         </div>
         <div className="text-center border-l pl-3">
-          <Button size={"lg"} className="rounded-full">
-            {overview_card.cta_button.label[locale]}
+          <Button size={"lg"} className="rounded-full" asChild>
+            <Link href="#pricing">
+              {overview_card.cta_button.label[locale]}
+            </Link>
           </Button>
           <p className="text-sm text-red mt-2">
             {overview_card.cta_helper_text[locale]}

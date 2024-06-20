@@ -31,7 +31,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Navbar locale={params.lang} />
-        {children}
+        <div>{children}</div>
       </body>
     </html>
   )

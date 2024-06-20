@@ -1,20 +1,14 @@
-import MaxWidth from "@/components/common/MaxWidth"
-
-import { urlFor, urlForImage } from "@/lib/sanity/sanity-image"
+import { urlForImage } from "@/lib/sanity/sanity-image"
 import { getTourPage, getTourPageSeo } from "@/query/tour"
-import Image from "next/image"
-import { type FC } from "react"
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel"
-import { Locale, getDictionary } from "@/language/getLanguage"
-import { Button } from "@/components/ui/button"
+
+import React, { type FC } from "react"
+
+import { Locale } from "@/language/getLanguage"
+
 import HeroSection from "@/components/TourDetails/HeroSection"
 import MobileHeroSection from "@/components/TourDetails/MobileHeroSection"
+import { generatePriceList } from "@/lib/dates"
+import Pricing from "@/components/TourDetails/Pricing/Pricing"
 
 interface TourDetailsPageProps {
   params: {
@@ -69,12 +63,10 @@ export async function generateMetadata({
 
 const TourDetailsPage: FC<TourDetailsPageProps> = async ({ params }) => {
   const data = await getTourPage(params.tourSlug)
+  let prices = generatePriceList(data.sections[7])
 
-  console.log(data.overview_card)
-  const hero_section = data.hero_section
-  const overview_card = data.overview_card
   return (
-    <main>
+    <main className="md:mt-4 md:space-y-14">
       {/* DeskTop Hero Section */}
       <HeroSection
         overview_card={data.overview_card}
@@ -87,6 +79,11 @@ const TourDetailsPage: FC<TourDetailsPageProps> = async ({ params }) => {
         hero_section={data.hero_section}
         locale={params.lang}
         overview_card={data.overview_card}
+      />
+      <Pricing
+        tourSlug={params.tourSlug}
+        locale={params.lang}
+        prices={prices}
       />
     </main>
   )

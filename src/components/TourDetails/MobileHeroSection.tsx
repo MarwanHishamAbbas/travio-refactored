@@ -11,6 +11,7 @@ import Image from "next/image"
 import { urlFor } from "@/lib/sanity/sanity-image"
 import MaxWidth from "../common/MaxWidth"
 import { Button } from "../ui/button"
+import Link from "next/link"
 
 interface MobileHeroSectionProps {
   hero_section: any
@@ -114,8 +115,10 @@ const MobileHeroSection: FC<MobileHeroSectionProps> = async ({
             </div>
           </div>
           <div className="text-center">
-            <Button size={"lg"} className="rounded-full">
-              {overview_card.cta_button.label[locale]}
+            <Button size={"lg"} className="rounded-full" asChild>
+              <Link href="#pricing">
+                {overview_card.cta_button.label[locale]}
+              </Link>
             </Button>
             <p className="text-sm text-red mt-2">
               {overview_card.cta_helper_text[locale]}

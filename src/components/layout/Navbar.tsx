@@ -105,7 +105,7 @@ const Navbar: FC<NavbarProps> = async ({ locale }) => {
         {/* Promo Banner */}
       </div>
       {content.banner.promo_banner.show && (
-        <div className="bg-darkBlue text-white md:h-8 flex items-center py-1">
+        <div className="bg-darkBlue text-white md:h-8 flex items-center text-center py-1">
           <MaxWidth className="text-xs md:text-sm flex items-center flex-wrap justify-center gap-1">
             <p>{content.banner.promo_banner.text[locale]}</p>
             <Link

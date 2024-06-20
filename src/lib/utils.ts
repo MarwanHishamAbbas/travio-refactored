@@ -32,3 +32,52 @@ export function getChars(chars: string, length: number) {
   }
   return "We are sorry! this content is only available in english"
 }
+export function getPriceSymbol(locale: string) {
+  if (locale === "en") return "$"
+  else if (locale === "es") return "€"
+  else if (locale === "por") return "€"
+  else return "$"
+}
+
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "November",
+  "December",
+]
+
+const shortMonths = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+]
+
+export function DateFormat(date: Date, short: boolean = false) {
+  if (short)
+    return (
+      date.getDate() +
+      " " +
+      shortMonths[date.getMonth()] +
+      " " +
+      date.getFullYear()
+    )
+  return (
+    months[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear()
+  )
+}
