@@ -8,6 +8,7 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata: Metadata = {
   title: "Traviio Tours",
   description: "Traviio Tours",
+
   openGraph: {
     images:
       "https://travel-tour-ya83.vercel.app/_next/static/media/logo.5f25ce06.png",

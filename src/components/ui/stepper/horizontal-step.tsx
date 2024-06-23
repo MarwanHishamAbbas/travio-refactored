@@ -51,7 +51,6 @@ const HorizontalStep = React.forwardRef<HTMLDivElement, StepSharedProps>(
       <div
         aria-disabled={!hasVisited}
         className={cn(
-          "stepper__horizontal-step",
           "flex items-center relative transition-all duration-200",
           "[&:not(:last-child)]:flex-1",
           "[&:not(:last-child)]:after:transition-all [&:not(:last-child)]:after:duration-200",
@@ -76,7 +75,6 @@ const HorizontalStep = React.forwardRef<HTMLDivElement, StepSharedProps>(
       >
         <div
           className={cn(
-            "stepper__horizontal-step-container",
             "flex flex-col items-center",
             variant === "circle-alt" && "flex-col justify-center gap-1",
             variant === "line" && "w-full",

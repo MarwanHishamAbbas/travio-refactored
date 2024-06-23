@@ -18,6 +18,7 @@ const HeroSection: FC<HeroSectionProps> = async ({
   locale,
 }) => {
   const content = await getDictionary(locale)
+
   return (
     <MaxWidth className="hidden md:block space-y-8">
       <div className="md:grid md:grid-cols-3 md:gap-6 ">

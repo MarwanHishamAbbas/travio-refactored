@@ -2,12 +2,9 @@ import MaxWidth from "@/components/common/MaxWidth"
 import { FC } from "react"
 import { Locale } from "@/language/getLanguage"
 import { urlForImage } from "@/lib/sanity/sanity-image"
-import {
-  getPaymentPage,
-  getPromoCodes,
-  getTourPaymentPageSeo,
-} from "@/query/payment"
+import { getPaymentPage, getTourPaymentPageSeo } from "@/query/payment"
 import BookingStepper from "@/components/payment/BookingStepper"
+import { BookingStoreProvider } from "@/store/BookingProvider"
 
 export async function generateMetadata({ params }: PaymentPageProps) {
   const { tourSlug, lang } = params
@@ -43,12 +40,13 @@ interface PaymentPageProps {
 
 const PaymentPage: FC<PaymentPageProps> = async ({ params }) => {
   const data = await getPaymentPage(params.tourSlug)
-  const promocodes = await getPromoCodes()
-  console.log(data.payment)
+
   return (
-    <main className="mt-4">
+    <main className="my-8">
       <MaxWidth>
-        <BookingStepper />
+        <BookingStoreProvider>
+          <BookingStepper tourData={data} locale={params.lang} />
+        </BookingStoreProvider>
       </MaxWidth>
     </main>
   )

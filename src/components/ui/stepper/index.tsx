@@ -5,8 +5,9 @@ import * as React from "react"
 import { StepperProvider } from "./context"
 import { Step } from "./step"
 import type { StepItem, StepProps, StepperProps } from "./types"
-import { useMediaQuery } from "./use-media-query"
+
 import { useStepper } from "./use-stepper"
+import SideBar from "@/components/payment/SideBar"
 
 const VARIABLE_SIZES = {
   sm: "36px",
@@ -19,6 +20,7 @@ const Stepper = React.forwardRef<HTMLDivElement, StepperProps>(
   (props, ref: React.Ref<HTMLDivElement>) => {
     const {
       className,
+
       children,
       orientation: orientationProp,
       state,
@@ -56,17 +58,12 @@ const Stepper = React.forwardRef<HTMLDivElement, StepperProps>(
 
     const stepCount = items.length
 
-    const isMobile = useMediaQuery(
-      `(max-width: ${mobileBreakpoint || "768px"})`
-    )
-
     const clickable = !!onClickStep
 
     return (
       <StepperProvider
         value={{
           initialStep,
-
           state,
           size,
           responsive,
@@ -86,7 +83,6 @@ const Stepper = React.forwardRef<HTMLDivElement, StepperProps>(
         <div
           ref={ref}
           className={cn(
-            "stepper__main-container",
             "flex w-full flex-wrap",
             stepCount === 1 ? "justify-end" : "justify-between",
             "flex-row",
@@ -155,6 +151,7 @@ const VerticalContent = ({ children }: { children: React.ReactNode }) => {
 
 const HorizontalContent = ({ children }: { children: React.ReactNode }) => {
   const { activeStep } = useStepper()
+
   const childArr = React.Children.toArray(children)
 
   if (activeStep > childArr.length) {
@@ -167,7 +164,14 @@ const HorizontalContent = ({ children }: { children: React.ReactNode }) => {
         if (!React.isValidElement(node)) {
           return null
         }
-        return React.Children.map(node.props.children, (childNode) => childNode)
+        return React.Children.map(node.props.children, (childNode) => {
+          return (
+            <div className="lg:grid lg:grid-cols-3 gap-8 mt-10 relative">
+              <div className="lg:col-span-2">{childNode}</div>
+              <SideBar />
+            </div>
+          )
+        })
       })}
     </>
   )
