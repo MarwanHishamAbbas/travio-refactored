@@ -10,10 +10,12 @@ import { Button } from "../ui/button"
 interface SideBarProps {}
 
 const SideBar: FC<SideBarProps> = ({}) => {
-  const { tripData, adults, children } = useBookingStore((state) => state)
+  const { tripData, adults, children, totalCost } = useBookingStore(
+    (state) => state
+  )
   return (
-    <aside className=" hidden lg:flex flex-col h-fit sticky top-0 gap-8">
-      <Card className="bg-lightBlue w-full">
+    <aside className=" lg:flex flex-col h-fit sticky top-0 gap-8">
+      <Card className="bg-lightBlue w-full  hidden lg:block">
         <CardContent className="">
           <div className=" space-y-2 ">
             <h3 className="text-2xl font-semibold text-center">
@@ -53,7 +55,7 @@ const SideBar: FC<SideBarProps> = ({}) => {
           </div>
         </CardContent>
       </Card>
-      <Card className="bg-lightBlue ">
+      <Card className="bg-lightBlue hidden lg:block">
         <div className="flex items-center justify-between py-2 px-10 bg-primary text-white text-sm">
           <p>Trip Start</p>
           <p>Trip End</p>
@@ -70,7 +72,7 @@ const SideBar: FC<SideBarProps> = ({}) => {
           </p>
         </CardContent>
       </Card>
-      <Card className="bg-lightBlue ">
+      <Card className="bg-lightBlue mt-8 md:mt-0">
         <CardContent className="space-y-4">
           <div className="flex justify-between">
             <p>Passengers</p>
@@ -101,8 +103,9 @@ const SideBar: FC<SideBarProps> = ({}) => {
 
             <p>
               {tripData.currency}
-              {(adults + children) * tripData.initialPrice -
-                (adults + children) * tripData.discountedPrice}
+              {totalCost}
+              {/* {(adults + children) * tripData.initialPrice -
+                (adults + children) * tripData.discountedPrice} */}
             </p>
           </div>
           <div className="flex gap-2">

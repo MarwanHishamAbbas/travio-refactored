@@ -3,8 +3,8 @@ import { createStore } from "zustand/vanilla"
 export type BookingTourState = {
   adults: number
   children: number
-  hotel: "Basic" | "Deluxe" | "Super Deluxe"
-  room: "Single" | "Double" | "Triple"
+  hotel: string
+  room: string
   roomSharingName?: string
   optionalVisits: { cityName: string; visitName: string }[]
   primaryPassenger: {
@@ -53,6 +53,7 @@ export type BookingActions = {
   setTripData: (data: Pick<BookingTourState, "tripData">) => void
   setTripDetails: (newState: Partial<BookingTourState>) => void
   setPersonalDetails?: () => void
+  updateTotalCost: (newTotal: number) => void
 }
 
 export type BookingStore = BookingTourState & BookingActions
@@ -117,6 +118,15 @@ export const createBookingStore = (
           currency: tripData.currency,
         },
       })),
-    setTripDetails: (newState) => set((state) => ({ ...state, ...newState })),
+    setTripDetails: (newState) =>
+      set((state) => ({
+        ...state,
+        ...newState,
+      })),
+
+    updateTotalCost: (newTotalCost) =>
+      set((state) => ({
+        totalCost: newTotalCost,
+      })),
   }))
 }

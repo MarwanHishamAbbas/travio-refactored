@@ -20,7 +20,7 @@ interface BookingStepperProps {
 }
 
 const BookingStepper: FC<BookingStepperProps> = ({ tourData, locale }) => {
-  const { setTripData } = useBookingStore((state) => state)
+  const { setTripData, setTripDetails } = useBookingStore((state) => state)
   useEffect(() => {
     setTripData({
       tripData: {
@@ -36,9 +36,13 @@ const BookingStepper: FC<BookingStepperProps> = ({ tourData, locale }) => {
         currency: tourData.overview_card.price.currency_symbol[locale],
       },
     })
+    setTripDetails({
+      totalCost: tourData.overview_card.price.discounted_price[locale],
+    })
   }, [
     locale,
     setTripData,
+    setTripDetails,
     tourData.hero_section.image,
     tourData.hero_section.title,
     tourData.overview_card.cities,
