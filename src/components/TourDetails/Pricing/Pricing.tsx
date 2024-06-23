@@ -27,7 +27,7 @@ const Pricing: FC<PricingProps> = async ({ locale, prices, tourSlug }) => {
         <div className="flex flex-col md:flex-row justify-between md:items-center gap-6">
           <div>
             <h1 className="text-sm md:text-base text-grey mb-2">
-              {content.datesTn} {/* <span ></span>{" "} */}
+              {content.datesTn}
               <Link
                 className="text-primary"
                 href={`/${locale}/tailor_your_tour`}

@@ -33,7 +33,7 @@ const MobileHeroSection: FC<MobileHeroSectionProps> = async ({
             (image: { asset: string }, idx: number) => (
               <CarouselItem key={idx}>
                 <Image
-                  className="h-full rounded-2xl object-cover w-full"
+                  className="h-full object-cover w-full"
                   src={urlFor(image.asset)}
                   alt={hero_section.image.alt?.[locale]}
                   width={500}
@@ -43,7 +43,7 @@ const MobileHeroSection: FC<MobileHeroSectionProps> = async ({
             )
           )}
       </CarouselContent>
-      <div className=" bg-lightBlue rounded-2xl -translate-y-14 py-8 px-3">
+      <div className=" bg-lightBlue -translate-y-14 py-8 px-3">
         <MaxWidth className="space-y-8">
           <div className="text-center space-x-2">
             <CarouselPrevious />
