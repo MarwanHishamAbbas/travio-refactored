@@ -10,9 +10,10 @@ import { Button } from "../ui/button"
 interface SideBarProps {}
 
 const SideBar: FC<SideBarProps> = ({}) => {
-  const { tripData, adults, children, totalCost } = useBookingStore(
+  const { tripData, adults, children, totalCost, addOnes } = useBookingStore(
     (state) => state
   )
+
   return (
     <aside className=" lg:flex flex-col h-fit sticky top-0 gap-8">
       <Card className="bg-lightBlue w-full  hidden lg:block">
@@ -62,12 +63,12 @@ const SideBar: FC<SideBarProps> = ({}) => {
         </div>
         <CardContent className="flex items-center justify-between">
           <p className="text-center">
-            {new Date(tripData.startDate).toDateString()} <br />{" "}
+            {tripData.startDate} <br />{" "}
             <span className="text-sm text-grey">London, UK</span>
           </p>
           <div className="h-10 bg-orange w-0.5 "></div>
           <p className="text-center">
-            {new Date(tripData.endDate).toDateString()} <br />{" "}
+            {tripData.endDate} <br />{" "}
             <span className="text-sm text-grey">London, UK</span>
           </p>
         </CardContent>
@@ -86,26 +87,34 @@ const SideBar: FC<SideBarProps> = ({}) => {
 
             <p>
               {adults + children} x {tripData.currency}
-              {(adults + children) * tripData.initialPrice}
+              {tripData.initialPrice}
             </p>
           </div>
+          {addOnes > 0 && (
+            <div className="flex justify-between">
+              <p>Add Ones</p>
+
+              <p>
+                {tripData.currency}
+                {addOnes}
+              </p>
+            </div>
+          )}
           <div className="flex justify-between">
             <p>Discount</p>
 
             <p className="text-green-400">
               -{tripData.currency}
-              {(adults + children) * tripData.discountedPrice}
+              {(adults + children) * tripData.initialPrice -
+                (adults + children) * tripData.discountedPrice}
             </p>
           </div>
           <div className="h-0.5 bg-orange w-full mx-auto"></div>
           <div className="flex justify-between">
             <p>Total Price</p>
-
             <p>
               {tripData.currency}
-              {totalCost}
-              {/* {(adults + children) * tripData.initialPrice -
-                (adults + children) * tripData.discountedPrice} */}
+              {totalCost + addOnes}
             </p>
           </div>
           <div className="flex gap-2">

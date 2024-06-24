@@ -12,9 +12,7 @@ const PeopleCount: FC<PeopleCountProps> = ({}) => {
 
   useEffect(() => {
     setTripDetails({
-      totalCost:
-        (adults + children) * tripData.initialPrice -
-        (adults + children) * tripData.discountedPrice,
+      totalCost: (adults + children) * tripData.discountedPrice,
     })
   }, [
     adults,

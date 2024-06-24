@@ -13,6 +13,8 @@ import { Locale } from "@/language/getLanguage"
 import { useBookingStore } from "@/store/BookingProvider"
 import PeopleCount from "./TripDetails/PeopleCount"
 import HotelChoosing from "./TripDetails/HotelChoosing"
+import { useSearchParams } from "next/navigation"
+import { generatePriceList } from "@/lib/dates"
 
 interface BookingStepperProps {
   tourData: any
@@ -20,8 +22,37 @@ interface BookingStepperProps {
 }
 
 const BookingStepper: FC<BookingStepperProps> = ({ tourData, locale }) => {
+  const pricingData = tourData?.sections?.find(
+    (section: any) => section._type === "pricing_section"
+  )
+
+  const searchParams = useSearchParams()
+  const from = Number(searchParams?.get("from"))
+  const to = Number(searchParams?.get("to"))
+
+  const data = {
+    days: tourData?.timeline?.days,
+    disabled: tourData?.timeline?.disabled,
+    fixed_days: tourData?.timeline?.fixed_days,
+    price: tourData?.overview_card?.price,
+    price_overrides: tourData?.price_overrides,
+    title: tourData?.hero_section?.title,
+    weekly_schedule: tourData?.timeline?.timeline,
+  }
+  const prices = generatePriceList(data)
+
+  const actual_tour = prices.find((p) => {
+    return (
+      p.from.getTime() === new Date(from).getTime() &&
+      p.to.getTime() === new Date(to).getTime()
+    )
+  })
+
   const { setTripData, setTripDetails } = useBookingStore((state) => state)
   useEffect(() => {
+    const startDate = new Date(from)
+    const endDate = new Date(to)
+
     setTripData({
       tripData: {
         image: tourData.hero_section.image,
@@ -29,18 +60,21 @@ const BookingStepper: FC<BookingStepperProps> = ({ tourData, locale }) => {
         days: tourData.overview_card.duration[locale],
         countries: tourData.overview_card.countries,
         cities: tourData.overview_card.cities,
-        startDate: tourData.timeline.timeline.start_date,
-        endDate: tourData.timeline.timeline.end_date,
-        initialPrice: tourData.overview_card.price.initial_price[locale],
-        discountedPrice: tourData.overview_card.price.discounted_price[locale],
-        currency: tourData.overview_card.price.currency_symbol[locale],
+        startDate: startDate.toDateString(),
+        endDate: endDate.toDateString(),
+        initialPrice: actual_tour?.actualPrice[locale],
+        discountedPrice: actual_tour?.currentPrice[locale],
+        currency: pricingData.price.currency_symbol[locale],
       },
     })
     setTripDetails({
-      totalCost: tourData.overview_card.price.discounted_price[locale],
+      totalCost: actual_tour?.currentPrice[locale],
     })
   }, [
+    from,
+    to,
     locale,
+    pricingData,
     setTripData,
     setTripDetails,
     tourData.hero_section.image,
@@ -48,11 +82,8 @@ const BookingStepper: FC<BookingStepperProps> = ({ tourData, locale }) => {
     tourData.overview_card.cities,
     tourData.overview_card.countries,
     tourData.overview_card.duration,
-    tourData.overview_card.price.currency_symbol,
-    tourData.overview_card.price.discounted_price,
-    tourData.overview_card.price.initial_price,
-    tourData.timeline.timeline.end_date,
-    tourData.timeline.timeline.start_date,
+    actual_tour?.actualPrice,
+    actual_tour?.currentPrice,
   ])
   const steps = [
     {

@@ -46,6 +46,7 @@ export type BookingTourState = {
     discountedPrice: number
     currency: string
   }
+  addOnes: number
   totalCost: number
 }
 
@@ -53,7 +54,6 @@ export type BookingActions = {
   setTripData: (data: Pick<BookingTourState, "tripData">) => void
   setTripDetails: (newState: Partial<BookingTourState>) => void
   setPersonalDetails?: () => void
-  updateTotalCost: (newTotal: number) => void
 }
 
 export type BookingStore = BookingTourState & BookingActions
@@ -94,6 +94,7 @@ export const defaultInitState: BookingTourState = {
     discountedPrice: 0,
     currency: "$",
   },
+  addOnes: 0,
   totalCost: 0,
 }
 
@@ -122,11 +123,6 @@ export const createBookingStore = (
       set((state) => ({
         ...state,
         ...newState,
-      })),
-
-    updateTotalCost: (newTotalCost) =>
-      set((state) => ({
-        totalCost: newTotalCost,
       })),
   }))
 }
