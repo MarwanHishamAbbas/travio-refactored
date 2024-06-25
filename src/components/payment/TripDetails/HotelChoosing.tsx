@@ -11,12 +11,12 @@ interface HotelChoosingProps {
 }
 
 const HotelChoosing: FC<HotelChoosingProps> = ({ hotelTypes, locale }) => {
-  const { setTripDetails, addOnes } = useBookingStore((state) => state)
+  const { setTripDetails } = useBookingStore((state) => state)
 
   const handleHotelChange = (hotelName: string, hotelPrice: number) => {
     setTripDetails({
       hotel: hotelName,
-      addOnes: hotelPrice > 0 ? addOnes + Number(hotelPrice) : 0,
+      hotelCost: Number(hotelPrice),
     })
   }
 

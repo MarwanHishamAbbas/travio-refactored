@@ -7,12 +7,19 @@ import { Calendar, Globe2, MapPin } from "lucide-react"
 import { Card, CardContent } from "../ui/card"
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
+import RoomTypes from "./TripDetails/RoomTypes"
 interface SideBarProps {}
 
 const SideBar: FC<SideBarProps> = ({}) => {
-  const { tripData, adults, children, totalCost, addOnes } = useBookingStore(
-    (state) => state
-  )
+  const {
+    tripData,
+    adults,
+    children,
+    totalCost,
+    roomCost,
+    hotelCost,
+    addOnes,
+  } = useBookingStore((state) => state)
 
   return (
     <aside className=" lg:flex flex-col h-fit sticky top-0 gap-8">
@@ -90,6 +97,22 @@ const SideBar: FC<SideBarProps> = ({}) => {
               {tripData.initialPrice}
             </p>
           </div>
+          <div className="flex justify-between">
+            <p>Hotel Cost</p>
+
+            <p>
+              {tripData.currency}
+              {hotelCost}
+            </p>
+          </div>
+          <div className="flex justify-between">
+            <p>Room Cost</p>
+
+            <p>
+              {tripData.currency}
+              {roomCost}
+            </p>
+          </div>
           {addOnes > 0 && (
             <div className="flex justify-between">
               <p>Add Ones</p>
@@ -114,7 +137,7 @@ const SideBar: FC<SideBarProps> = ({}) => {
             <p>Total Price</p>
             <p>
               {tripData.currency}
-              {totalCost + addOnes}
+              {Number(totalCost + addOnes + roomCost + hotelCost)}
             </p>
           </div>
           <div className="flex gap-2">

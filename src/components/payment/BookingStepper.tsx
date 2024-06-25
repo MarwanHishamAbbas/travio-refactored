@@ -71,6 +71,8 @@ const BookingStepper: FC<BookingStepperProps> = ({ tourData, locale }) => {
     setTripDetails({
       totalCost: actual_tour?.currentPrice[locale],
       roomTypes: tourData.payment.hotel_types[0].rooms,
+      roomCost:
+        tourData.payment.hotel_types[0].rooms[0].price.discounted_price[locale],
     })
   }, [
     from,
@@ -98,7 +100,10 @@ const BookingStepper: FC<BookingStepperProps> = ({ tourData, locale }) => {
             hotelTypes={tourData.payment.hotel_types}
             locale={locale}
           />
-          <RoomTypes locale={locale} />
+          <RoomTypes
+            defaultRoomTypes={tourData.payment.hotel_types[0].rooms}
+            locale={locale}
+          />
         </div>
       ),
     },

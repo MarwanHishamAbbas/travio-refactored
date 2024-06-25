@@ -9,17 +9,20 @@ import { type FC } from "react"
 
 interface RoomTypesProps {
   locale: Locale
+  defaultRoomTypes: any
 }
 
-const RoomTypes: FC<RoomTypesProps> = ({ locale }) => {
-  const { roomTypes, tripData, setTripDetails, addOnes } = useBookingStore(
+const RoomTypes: FC<RoomTypesProps> = ({ locale, defaultRoomTypes }) => {
+  const { roomTypes, tripData, setTripDetails } = useBookingStore(
     (state) => state
   )
+
+  console.log(defaultRoomTypes[0])
 
   const handleRoomChange = (roomName: string, roomPrice: number) => {
     setTripDetails({
       room: roomName,
-      addOnes: roomPrice > 0 ? addOnes + Number(roomPrice) : addOnes,
+      roomCost: roomPrice,
     })
   }
 
@@ -30,12 +33,12 @@ const RoomTypes: FC<RoomTypesProps> = ({ locale }) => {
       </div>
       <CardContent>
         <RadioGroup
-          defaultValue={roomTypes[0]?.name[locale]}
+          defaultValue={defaultRoomTypes[0].name[locale]}
           onValueChange={(e) => {
             const selectedRoom = roomTypes.find(
               (hotel) => hotel.name[locale] === e
             )
-            setTripDetails({ hotel: e, room: selectedRoom?.name[locale] })
+            setTripDetails({ room: selectedRoom?.name[locale] })
 
             handleRoomChange(
               selectedRoom?.name[locale] ?? e,
