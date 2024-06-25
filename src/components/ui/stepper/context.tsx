@@ -34,7 +34,6 @@ const StepperContext = React.createContext<
   setStep: () => {},
 })
 
-
 const StepperProvider = ({ value, children }: StepperContextProviderProps) => {
   const isError = value.state === "error"
   const isLoading = value.state === "loading"
@@ -42,10 +41,12 @@ const StepperProvider = ({ value, children }: StepperContextProviderProps) => {
   const [activeStep, setActiveStep] = React.useState(value.initialStep)
 
   const nextStep = () => {
+    scrollTo(0, 0)
     setActiveStep((prev) => prev + 1)
   }
 
   const prevStep = () => {
+    scrollTo(0, 0)
     setActiveStep((prev) => prev - 1)
   }
 
@@ -54,6 +55,7 @@ const StepperProvider = ({ value, children }: StepperContextProviderProps) => {
   }
 
   const setStep = (step: number) => {
+    scrollTo(0, 0)
     setActiveStep(step)
   }
 

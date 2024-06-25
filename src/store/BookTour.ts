@@ -43,6 +43,7 @@ export type BookingTourState = {
       state: string
       country: string
     }
+    valid: boolean
   }
   guests: {
     prefix: "Mr" | "Ms" | "Dr"
@@ -114,6 +115,7 @@ export const defaultInitState: BookingTourState = {
       state: "",
       country: "",
     },
+    valid: false,
   },
   guests: [],
   tripData: {

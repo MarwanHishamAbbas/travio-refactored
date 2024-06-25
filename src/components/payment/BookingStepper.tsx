@@ -1,12 +1,6 @@
 "use client"
 
-import {
-  Step,
-  type StepItem,
-  Stepper,
-  useStepper,
-} from "@/components/ui/stepper"
-import { Button } from "@/components/ui/button"
+import { Step, type StepItem, Stepper } from "@/components/ui/stepper"
 
 import { useEffect, type FC } from "react"
 import { Locale } from "@/language/getLanguage"
@@ -18,6 +12,7 @@ import { generatePriceList } from "@/lib/dates"
 import RoomTypes from "./TripDetails/RoomTypes"
 import OptionalVisits from "./TripDetails/OptionalVisits"
 import { getPriceSymbol } from "@/lib/utils"
+import PersonalForm from "./PersonalDetails/PersonalForm"
 
 interface BookingStepperProps {
   tourData: any
@@ -110,7 +105,14 @@ const BookingStepper: FC<BookingStepperProps> = ({ tourData, locale }) => {
         </div>
       ),
     },
-    { label: "Your Details" },
+    {
+      label: "Your Details",
+      component: (
+        <div className="">
+          <PersonalForm />
+        </div>
+      ),
+    },
     { label: "Payment" },
   ] satisfies StepItem[]
 
@@ -124,62 +126,9 @@ const BookingStepper: FC<BookingStepperProps> = ({ tourData, locale }) => {
             </Step>
           )
         })}
-        <Footer />
       </Stepper>
     </div>
   )
 }
 
 export default BookingStepper
-const Footer = () => {
-  const {
-    nextStep,
-    prevStep,
-    resetSteps,
-    hasCompletedAllSteps,
-    isLastStep,
-    isOptionalStep,
-    isDisabledStep,
-  } = useStepper()
-  return (
-    <>
-      {hasCompletedAllSteps && (
-        <div className="h-40 flex items-center justify-center my-2 border bg-secondary text-primary rounded-md">
-          <h1 className="text-xl">Woohoo! All steps completed! 🎉</h1>
-        </div>
-      )}
-      <div className="w-full flex justify-end gap-2">
-        {/* Booking Button */}
-        {hasCompletedAllSteps ? (
-          <Button
-            onClick={resetSteps}
-            variant="outline"
-            className=" rounded-full"
-            size={"lg"}
-          >
-            Reset
-          </Button>
-        ) : (
-          <div className="flex items-center justify-center w-full gap-6 md:gap-10">
-            <Button
-              disabled={isDisabledStep}
-              onClick={prevStep}
-              variant="outline"
-              className="flex-1 rounded-full"
-              size={"lg"}
-            >
-              Back
-            </Button>
-            <Button
-              className="flex-1 rounded-full"
-              size={"lg"}
-              onClick={nextStep}
-            >
-              {isLastStep ? "Book" : isOptionalStep ? "Skip" : "Next"}
-            </Button>
-          </div>
-        )}
-      </div>
-    </>
-  )
-}
