@@ -7,7 +7,7 @@ import { Calendar, Globe2, MapPin } from "lucide-react"
 import { Card, CardContent } from "../ui/card"
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
-import RoomTypes from "./TripDetails/RoomTypes"
+
 interface SideBarProps {}
 
 const SideBar: FC<SideBarProps> = ({}) => {
@@ -116,7 +116,6 @@ const SideBar: FC<SideBarProps> = ({}) => {
           {addOnes > 0 && (
             <div className="flex justify-between">
               <p>Add Ones</p>
-
               <p>
                 {tripData.currency}
                 {addOnes}

@@ -1,12 +1,30 @@
 import { createStore } from "zustand/vanilla"
 
+type LocaleProps = { en: string; por: string; es: string }
+
 export type BookingTourState = {
   adults: number
   children: number
   hotel: string
   room: string
   roomSharingName?: string
-  optionalVisits: { cityName: string; visitName: string }[]
+  optionalVisits: {
+    city_name: LocaleProps
+    visits: {
+      image: {
+        alt: LocaleProps
+        asset: { _ref: string; _type: string }
+      }
+      description: LocaleProps
+      title: LocaleProps
+      price: {
+        discounted_price: LocaleProps
+      }
+      selected?: boolean
+    }[]
+
+    count: number
+  }[]
   primaryPassenger: {
     prefix: "Mr" | "Ms" | "Dr"
     firstName: string
@@ -48,22 +66,28 @@ export type BookingTourState = {
   }
   roomTypes: {
     image: { asset: { _ref: string; _type: string } }
-    name: { en: string; por: string; es: string }
-    description: { en: string; por: string; es: string }
+    name: LocaleProps
+    description: LocaleProps
     price: {
-      discounted_price: { en: string; por: string; es: string }
+      discounted_price: LocaleProps
     }
   }[]
   hotelCost: number
   roomCost: number
   addOnes: number
   totalCost: number
+  seletectedVisits: { cityName: string; visitName: string }[]
 }
 
 export type BookingActions = {
-  setTripData: (data: Pick<BookingTourState, "tripData">) => void
   setTripDetails: (newState: Partial<BookingTourState>) => void
   setPersonalDetails?: () => void
+  toggleOptionalVisit: (cityIndex: number, visitIndex: number) => void
+  calculateAddOnes: () => void
+  getSelectedVisits: () => {
+    city_name: LocaleProps
+    visit: { title: LocaleProps; description: LocaleProps; price: LocaleProps }
+  }[]
 }
 
 export type BookingStore = BookingTourState & BookingActions
@@ -105,6 +129,7 @@ export const defaultInitState: BookingTourState = {
     currency: "$",
   },
   roomTypes: [],
+  seletectedVisits: [],
   hotelCost: 0,
   roomCost: 0,
   addOnes: 0,
@@ -114,28 +139,60 @@ export const defaultInitState: BookingTourState = {
 export const createBookingStore = (
   initState: BookingTourState = defaultInitState
 ) => {
-  return createStore<BookingStore>()((set) => ({
+  return createStore<BookingStore>()((set, get) => ({
     ...initState,
 
-    setTripData: ({ tripData }) =>
-      set(() => ({
-        tripData: {
-          cities: tripData.cities,
-          countries: tripData.countries,
-          days: tripData.days,
-          endDate: tripData.endDate,
-          image: tripData.image,
-          startDate: tripData.startDate,
-          title: tripData.title,
-          initialPrice: tripData.initialPrice,
-          discountedPrice: tripData.discountedPrice,
-          currency: tripData.currency,
-        },
-      })),
     setTripDetails: (newState) =>
       set((state) => ({
         ...state,
         ...newState,
       })),
+    toggleOptionalVisit: (cityIndex: number, visitIndex: number) =>
+      set((state) => {
+        const newVisits = state.optionalVisits.map((city, cIndex) => {
+          if (cIndex === cityIndex) {
+            return {
+              ...city,
+              visits: city.visits.map((visit, vIndex) =>
+                vIndex === visitIndex
+                  ? { ...visit, selected: !visit.selected }
+                  : visit
+              ),
+            }
+          }
+          return city
+        })
+
+        return { optionalVisits: newVisits }
+      }),
+
+    calculateAddOnes: () =>
+      set((state) => {
+        const addOnes = state.optionalVisits.reduce((total, city) => {
+          const selectedVisits = city.visits.filter((visit) => visit.selected)
+          const cityTotal = selectedVisits.reduce(
+            (citySum, visit) =>
+              citySum + parseFloat(visit.price.discounted_price.en),
+            0
+          )
+          return total + cityTotal
+        }, 0)
+        return { addOnes }
+      }),
+    getSelectedVisits: () => {
+      const state = get()
+      return state.optionalVisits.flatMap((city) =>
+        city.visits
+          .filter((visit) => visit.selected)
+          .map((visit) => ({
+            city_name: city.city_name,
+            visit: {
+              title: visit.title,
+              description: visit.description,
+              price: visit.price.discounted_price,
+            },
+          }))
+      )
+    },
   }))
 }

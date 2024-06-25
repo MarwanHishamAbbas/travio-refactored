@@ -16,6 +16,8 @@ import HotelChoosing from "./TripDetails/HotelChoosing"
 import { useSearchParams } from "next/navigation"
 import { generatePriceList } from "@/lib/dates"
 import RoomTypes from "./TripDetails/RoomTypes"
+import OptionalVisits from "./TripDetails/OptionalVisits"
+import { getPriceSymbol } from "@/lib/utils"
 
 interface BookingStepperProps {
   tourData: any
@@ -42,6 +44,7 @@ const BookingStepper: FC<BookingStepperProps> = ({ tourData, locale }) => {
   }
   const prices = generatePriceList(data)
 
+  const { setTripDetails } = useBookingStore((state) => state)
   const actual_tour = prices.find((p) => {
     return (
       p.from.getTime() === new Date(from).getTime() &&
@@ -49,12 +52,17 @@ const BookingStepper: FC<BookingStepperProps> = ({ tourData, locale }) => {
     )
   })
 
-  const { setTripData, setTripDetails } = useBookingStore((state) => state)
   useEffect(() => {
     const startDate = new Date(from)
     const endDate = new Date(to)
 
-    setTripData({
+    setTripDetails({
+      totalCost: Number(actual_tour?.currentPrice[locale]),
+      roomTypes: tourData.payment.hotel_types[0].rooms,
+      roomCost: Number(
+        tourData.payment.hotel_types[0].rooms[0].price.discounted_price[locale]
+      ),
+      optionalVisits: tourData.payment.extras,
       tripData: {
         image: tourData.hero_section.image,
         title: tourData.hero_section.title[locale],
@@ -63,23 +71,16 @@ const BookingStepper: FC<BookingStepperProps> = ({ tourData, locale }) => {
         cities: tourData.overview_card.cities,
         startDate: startDate.toDateString(),
         endDate: endDate.toDateString(),
-        initialPrice: actual_tour?.actualPrice[locale],
-        discountedPrice: actual_tour?.currentPrice[locale],
-        currency: pricingData.price.currency_symbol[locale],
+        initialPrice: Number(actual_tour?.actualPrice[locale]),
+        discountedPrice: Number(actual_tour?.currentPrice[locale]),
+        currency: getPriceSymbol(locale),
       },
-    })
-    setTripDetails({
-      totalCost: actual_tour?.currentPrice[locale],
-      roomTypes: tourData.payment.hotel_types[0].rooms,
-      roomCost:
-        tourData.payment.hotel_types[0].rooms[0].price.discounted_price[locale],
     })
   }, [
     from,
     to,
     locale,
     pricingData,
-    setTripData,
     setTripDetails,
     tourData.hero_section.image,
     tourData.hero_section.title,
@@ -89,6 +90,7 @@ const BookingStepper: FC<BookingStepperProps> = ({ tourData, locale }) => {
     actual_tour?.actualPrice,
     actual_tour?.currentPrice,
     tourData.payment.hotel_types,
+    tourData.payment.extras,
   ])
   const steps = [
     {
@@ -104,6 +106,7 @@ const BookingStepper: FC<BookingStepperProps> = ({ tourData, locale }) => {
             defaultRoomTypes={tourData.payment.hotel_types[0].rooms}
             locale={locale}
           />
+          <OptionalVisits locale={locale} />
         </div>
       ),
     },

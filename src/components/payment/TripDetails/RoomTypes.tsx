@@ -1,4 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
 
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Locale } from "@/language/getLanguage"
@@ -16,8 +17,6 @@ const RoomTypes: FC<RoomTypesProps> = ({ locale, defaultRoomTypes }) => {
   const { roomTypes, tripData, setTripDetails } = useBookingStore(
     (state) => state
   )
-
-  console.log(defaultRoomTypes[0])
 
   const handleRoomChange = (roomName: string, roomPrice: number) => {
     setTripDetails({
@@ -84,6 +83,19 @@ const RoomTypes: FC<RoomTypesProps> = ({ locale, defaultRoomTypes }) => {
             </div>
           ))}
         </RadioGroup>
+        <br />
+        <div>
+          <p className="font-medium mb-2">
+            Sharing room with someone who is not part of this booking?
+          </p>
+          <Input
+            placeholder="Enter name"
+            className="w-fit"
+            onChange={(e) =>
+              setTripDetails({ roomSharingName: e.target.value })
+            }
+          />
+        </div>
       </CardContent>
     </Card>
   )
