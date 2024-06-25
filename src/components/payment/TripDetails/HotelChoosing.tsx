@@ -11,8 +11,7 @@ interface HotelChoosingProps {
 }
 
 const HotelChoosing: FC<HotelChoosingProps> = ({ hotelTypes, locale }) => {
-  const { setTripDetails, totalCost, tripData, children, adults, addOnes } =
-    useBookingStore((state) => state)
+  const { setTripDetails, addOnes } = useBookingStore((state) => state)
 
   const handleHotelChange = (hotelName: string, hotelPrice: number) => {
     setTripDetails({
@@ -20,6 +19,7 @@ const HotelChoosing: FC<HotelChoosingProps> = ({ hotelTypes, locale }) => {
       addOnes: hotelPrice > 0 ? addOnes + Number(hotelPrice) : 0,
     })
   }
+
   return (
     <Card className="bg-lightBlue">
       <div className="bg-primary px-6 py-4 text-center text-white text-lg md:text-2xl font-semibold">
@@ -29,10 +29,11 @@ const HotelChoosing: FC<HotelChoosingProps> = ({ hotelTypes, locale }) => {
         <RadioGroup
           defaultValue={hotelTypes[0].name[locale]}
           onValueChange={(e) => {
-            setTripDetails({ hotel: e })
             const selectedHotel = hotelTypes.find(
               (hotel) => hotel.name[locale] === e
             )
+            setTripDetails({ hotel: e, roomTypes: selectedHotel.rooms })
+
             handleHotelChange(
               selectedHotel.name[locale],
               selectedHotel.price.discounted_price
@@ -67,19 +68,6 @@ const HotelChoosing: FC<HotelChoosingProps> = ({ hotelTypes, locale }) => {
                 <RadioGroupItem
                   value={hotel.name[locale]}
                   id={hotel.name[locale]}
-                  onChange={() =>
-                    hotel.price.discounted_price
-                      ? setTripDetails({
-                          totalCost:
-                            totalCost +
-                            Number(hotel.price.discounted_price[locale]),
-                        })
-                      : setTripDetails({
-                          totalCost:
-                            (adults + children) * tripData.initialPrice -
-                            (adults + children) * tripData.discountedPrice,
-                        })
-                  }
                 />
                 {hotel.price.discounted_price ? (
                   <p>

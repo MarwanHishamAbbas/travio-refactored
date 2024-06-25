@@ -15,6 +15,7 @@ import PeopleCount from "./TripDetails/PeopleCount"
 import HotelChoosing from "./TripDetails/HotelChoosing"
 import { useSearchParams } from "next/navigation"
 import { generatePriceList } from "@/lib/dates"
+import RoomTypes from "./TripDetails/RoomTypes"
 
 interface BookingStepperProps {
   tourData: any
@@ -69,6 +70,7 @@ const BookingStepper: FC<BookingStepperProps> = ({ tourData, locale }) => {
     })
     setTripDetails({
       totalCost: actual_tour?.currentPrice[locale],
+      roomTypes: tourData.payment.hotel_types[0].rooms,
     })
   }, [
     from,
@@ -84,6 +86,7 @@ const BookingStepper: FC<BookingStepperProps> = ({ tourData, locale }) => {
     tourData.overview_card.duration,
     actual_tour?.actualPrice,
     actual_tour?.currentPrice,
+    tourData.payment.hotel_types,
   ])
   const steps = [
     {
@@ -95,6 +98,7 @@ const BookingStepper: FC<BookingStepperProps> = ({ tourData, locale }) => {
             hotelTypes={tourData.payment.hotel_types}
             locale={locale}
           />
+          <RoomTypes locale={locale} />
         </div>
       ),
     },

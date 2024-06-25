@@ -46,6 +46,14 @@ export type BookingTourState = {
     discountedPrice: number
     currency: string
   }
+  roomTypes: {
+    image: { asset: { _ref: string; _type: string } }
+    name: { en: string; por: string; es: string }
+    description: { en: string; por: string; es: string }
+    price: {
+      discounted_price: { en: string; por: string; es: string }
+    }
+  }[]
   addOnes: number
   totalCost: number
 }
@@ -94,6 +102,7 @@ export const defaultInitState: BookingTourState = {
     discountedPrice: 0,
     currency: "$",
   },
+  roomTypes: [],
   addOnes: 0,
   totalCost: 0,
 }
