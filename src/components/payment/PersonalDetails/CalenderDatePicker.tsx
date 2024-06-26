@@ -386,6 +386,7 @@ export const CalendarDatePicker = React.forwardRef<
           }
         })
       }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [highlightedPart, date])
 
     const formatWithTz = (date: Date, fmt: string) =>

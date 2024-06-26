@@ -1,7 +1,6 @@
 "use client"
 
 import { Step, type StepItem, Stepper } from "@/components/ui/stepper"
-
 import { useEffect, type FC } from "react"
 import { Locale } from "@/language/getLanguage"
 import { useBookingStore } from "@/store/BookingProvider"
@@ -13,6 +12,7 @@ import RoomTypes from "./TripDetails/RoomTypes"
 import OptionalVisits from "./TripDetails/OptionalVisits"
 import { getPriceSymbol } from "@/lib/utils"
 import PersonalForm from "./PersonalDetails/PersonalForm"
+import PayBooking from "./PayBooking/PayBooking"
 
 interface BookingStepperProps {
   tourData: any
@@ -39,7 +39,7 @@ const BookingStepper: FC<BookingStepperProps> = ({ tourData, locale }) => {
   }
   const prices = generatePriceList(data)
 
-  const { setTripDetails, primaryPassenger } = useBookingStore((state) => state)
+  const { setTripDetails } = useBookingStore((state) => state)
   const actual_tour = prices.find((p) => {
     return (
       p.from.getTime() === new Date(from).getTime() &&
@@ -107,21 +107,17 @@ const BookingStepper: FC<BookingStepperProps> = ({ tourData, locale }) => {
     },
     {
       label: "Your Details",
-      component: (
-        <div className="">
-          <PersonalForm />
-        </div>
-      ),
+      component: <PersonalForm />,
     },
     {
       label: "Payment",
-      component: <h1>{primaryPassenger.email}</h1>,
+      component: <PayBooking />,
     },
   ] satisfies StepItem[]
 
   return (
     <div className="flex w-full flex-col gap-4">
-      <Stepper className="md:w-3/4 mx-auto" initialStep={0} steps={steps}>
+      <Stepper className="md:w-3/4 mx-auto" initialStep={2} steps={steps}>
         {steps.map((stepProps, index) => {
           return (
             <Step key={index} {...stepProps}>

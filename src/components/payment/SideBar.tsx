@@ -22,8 +22,8 @@ const SideBar: FC<SideBarProps> = ({}) => {
   } = useBookingStore((state) => state)
 
   return (
-    <aside className=" lg:flex flex-col h-fit sticky top-0 gap-8">
-      <Card className="bg-lightBlue w-full  hidden lg:block">
+    <aside className=" lg:flex flex-col h-fit md:sticky top-0 gap-8 mt-10 md:mt-0">
+      <Card className="bg-lightBlue w-full">
         <CardContent className="">
           <div className=" space-y-2 ">
             <h3 className="text-2xl font-semibold text-center">
@@ -40,20 +40,20 @@ const SideBar: FC<SideBarProps> = ({}) => {
                   className=" h-64 object-cover "
                 />
               )}
-              <div className="p-6 space-y-4">
+              <div className="p-4 space-y-4">
                 <h3 className="text-base md:text-lg font-semibold">
                   {tripData.title}
                 </h3>
-                <div className="flex items-center justify-between xl:gap-2 text-grey">
-                  <div className="flex items-center text-sm ">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 text-grey">
+                  <div className="flex items-center md:text-sm ">
                     <Calendar className="size-5" />
                     <span>{tripData.days}</span>
                   </div>
-                  <div className="flex items-center text-sm ">
+                  <div className="flex items-center md:text-sm ">
                     <Globe2 className="size-5" />
                     <span>{tripData.countries} Countries</span>
                   </div>
-                  <div className="flex items-center text-sm ">
+                  <div className="flex items-center md:text-sm ">
                     <MapPin className="size-5" />
                     <span>{tripData.cities} Cities</span>
                   </div>
@@ -134,7 +134,7 @@ const SideBar: FC<SideBarProps> = ({}) => {
           <div className="h-0.5 bg-orange w-full mx-auto"></div>
           <div className="flex justify-between">
             <p>Total Price</p>
-            <p>
+            <p className="text-xl font-semibold">
               {tripData.currency}
               {Number(totalCost + addOnes + roomCost + hotelCost)}
             </p>
