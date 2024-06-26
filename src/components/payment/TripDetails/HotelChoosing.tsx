@@ -32,7 +32,13 @@ const HotelChoosing: FC<HotelChoosingProps> = ({ hotelTypes, locale }) => {
             const selectedHotel = hotelTypes.find(
               (hotel) => hotel.name[locale] === e
             )
-            setTripDetails({ hotel: e, roomTypes: selectedHotel.rooms })
+            setTripDetails({
+              hotel: e,
+              roomTypes: selectedHotel.rooms,
+              roomCost: Number(
+                selectedHotel.rooms[0].price.discounted_price[locale]
+              ),
+            })
 
             handleHotelChange(
               selectedHotel.name[locale],
