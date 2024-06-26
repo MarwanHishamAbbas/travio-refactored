@@ -4,12 +4,18 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { useStepper } from "@/components/ui/stepper"
 import { useBookingStore } from "@/store/BookingProvider"
 import Image from "next/image"
+
 import { type FC } from "react"
+import { loadStripe } from "@stripe/stripe-js"
 
 interface PayBookingProps {}
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
+)
 
 const PayBooking: FC<PayBookingProps> = ({}) => {
   const { prevStep } = useStepper()
+
   const {
     tripData: { currency, startDate },
     totalCost,
@@ -17,6 +23,20 @@ const PayBooking: FC<PayBookingProps> = ({}) => {
     roomCost,
     hotelCost,
   } = useBookingStore((state) => state)
+  const checkout = async () => {
+    const response = await fetch("/api/create-checkout-session", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        totalCost: Number(totalCost + addOnes + roomCost + hotelCost),
+      }),
+    })
+    const { sessionId } = await response.json()
+    const stripe = await stripePromise
+    await stripe?.redirectToCheckout({ sessionId })
+  }
   return (
     <Card>
       <CardHeader className="space-y-8">
@@ -85,7 +105,7 @@ const PayBooking: FC<PayBookingProps> = ({}) => {
           >
             Back
           </Button>
-          <Button className=" rounded-full" size={"lg"}>
+          <Button onClick={checkout} className=" rounded-full" size={"lg"}>
             Book Now
           </Button>
         </div>
