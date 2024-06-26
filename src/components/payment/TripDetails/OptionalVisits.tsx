@@ -14,19 +14,14 @@ interface OptionalVisitsProps {
 }
 
 const OptionalVisits: FC<OptionalVisitsProps> = ({ locale }) => {
-  const {
-    tripData,
-    optionalVisits,
-    toggleOptionalVisit,
-    calculateAddOnes,
-    getSelectedVisits,
-  } = useBookingStore((state) => state)
+  const { tripData, optionalVisits, toggleOptionalVisit, calculateAddOnes } =
+    useBookingStore((state) => state)
 
-  const { nextStep, prevStep } = useStepper()
+  const { nextStep } = useStepper()
 
   const handleVisitChnage = (cityIndex: number, visitIndex: number) => {
     toggleOptionalVisit(cityIndex, visitIndex)
-    console.log("Seletected", getSelectedVisits())
+
     calculateAddOnes()
   }
 

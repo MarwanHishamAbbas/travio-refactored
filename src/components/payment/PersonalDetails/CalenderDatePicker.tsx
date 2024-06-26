@@ -264,8 +264,6 @@ export const CalendarDatePicker = React.forwardRef<
       (_, i) => 1965 + i
     )
 
-    console.log(years)
-
     const dateRanges = [
       { label: "Today", start: today, end: today },
       { label: "Yesterday", start: subDays(today, 1), end: subDays(today, 1) },

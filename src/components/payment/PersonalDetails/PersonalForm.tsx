@@ -36,7 +36,6 @@ const PersonalForm: FC<PersonalFormProps> = ({}) => {
   const form = useForm<TPersonalSchema>({
     resolver: zodResolver(personlSchema),
     defaultValues: {
-      prefix: "Mr",
       firstName: "",
       middleName: "",
       lastName: "",
@@ -69,7 +68,7 @@ const PersonalForm: FC<PersonalFormProps> = ({}) => {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className=" md:w-3/4">
             {/* Names */}
-            <h1 className="font-medium mb-2">Full Name</h1>
+            <h1 className="font-medium my-2">Full Name</h1>
             <div className="grid grid-cols-4 gap-2 mb-4">
               <FormField
                 control={form.control}
@@ -135,12 +134,12 @@ const PersonalForm: FC<PersonalFormProps> = ({}) => {
                 )}
               />
             </div>
-            <h1 className="font-medium mb-2">Date Of Birth</h1>
+            <h1 className="font-medium my-2">Date Of Birth</h1>
             <FormField
               control={form.control}
               name="datePicker"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="mb-4">
                   <FormControl>
                     <CalendarDatePicker
                       date={field.value}
@@ -155,6 +154,97 @@ const PersonalForm: FC<PersonalFormProps> = ({}) => {
                 </FormItem>
               )}
             />
+            <h1 className="font-medium my-2">Nationality</h1>
+            <FormField
+              control={form.control}
+              name="nationality"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Select>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Nationality" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          {personlSchema.shape.nationality.options.map(
+                            (country: string, idx: number) => (
+                              <SelectItem {...field} key={idx} value={country}>
+                                {country}
+                              </SelectItem>
+                            )
+                          )}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <h1 className="font-medium my-2">Email</h1>
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      type="email"
+                      placeholder="Email Adderss"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <h1 className="font-medium my-2">Full Name</h1>
+            <div className="grid grid-cols-4 gap-2 mb-4">
+              <FormField
+                control={form.control}
+                name="mobile.code"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Select>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Code" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            {personlSchema.shape.mobile.shape.code.options.map(
+                              (code: string, idx: number) => (
+                                <SelectItem {...field} key={idx} value={code}>
+                                  {code}
+                                </SelectItem>
+                              )
+                            )}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="mobile.number"
+                render={({ field }) => (
+                  <FormItem className="col-span-3">
+                    <FormControl>
+                      <Input
+                        type="number"
+                        placeholder="Mobile Number"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
             <div className="gap-2 flex justify-end mt-8">
               <Button
                 className=" rounded-full"

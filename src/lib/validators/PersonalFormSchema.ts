@@ -1,7 +1,18 @@
 import { z } from "zod"
+import countries from "../countries.json"
+
+const countryNames = countries.map(
+  (country: { name: string }) => country.name as string
+)
+const countryCodes = countries.map(
+  (country: { dial_code: string }) => country.dial_code as string
+)
 
 const mobileSchema = z.object({
-  code: z.string(),
+  // @ts-expect-error
+  code: z.enum(countryCodes, {
+    required_error: "Must Select Code",
+  }),
   number: z.number(),
 })
 
@@ -13,7 +24,9 @@ const locationSchema = z.object({
 })
 
 export const personlSchema = z.object({
-  prefix: z.enum(["Mr", "Ms", "Dr"]),
+  prefix: z.enum(["Mr", "Ms", "Dr"], {
+    required_error: "Must Select a Prefix",
+  }),
   firstName: z.string().min(1),
   middleName: z.string().min(1),
   lastName: z.string().min(1),
@@ -21,10 +34,13 @@ export const personlSchema = z.object({
     from: z.date(),
     to: z.date(),
   }),
-  // nationality: z.string(),
-  // email: z.string().email(),
-  // mobile: mobileSchema,
-  // location: locationSchema,
+  // @ts-expect-error
+  nationality: z.enum(countryNames, {
+    required_error: "Must Select Nationality",
+  }),
+  email: z.string().email(),
+  mobile: mobileSchema,
+  location: locationSchema,
 })
 
 export type TPersonalSchema = z.infer<typeof personlSchema>
