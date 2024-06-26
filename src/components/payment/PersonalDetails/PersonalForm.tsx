@@ -7,7 +7,6 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
@@ -18,6 +17,16 @@ import {
   personlSchema,
 } from "@/lib/validators/PersonalFormSchema"
 import { useStepper } from "@/components/ui/stepper"
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { CalendarDatePicker } from "./CalenderDatePicker"
 
 interface PersonalFormProps {}
 
@@ -27,7 +36,14 @@ const PersonalForm: FC<PersonalFormProps> = ({}) => {
   const form = useForm<TPersonalSchema>({
     resolver: zodResolver(personlSchema),
     defaultValues: {
+      prefix: "Mr",
       firstName: "",
+      middleName: "",
+      lastName: "",
+      datePicker: {
+        from: new Date(),
+        to: new Date(),
+      },
     },
   })
 
@@ -41,36 +57,121 @@ const PersonalForm: FC<PersonalFormProps> = ({}) => {
   }
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="firstName"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Username</FormLabel>
-              <FormControl>
-                <Input placeholder="First Name" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <div className="gap-2 flex justify-end">
-          <Button
-            className=" rounded-full"
-            variant={"outline"}
-            size={"lg"}
-            onClick={prevStep}
-          >
-            Back
-          </Button>
-          <Button className=" rounded-full" size={"lg"} onClick={nextStep}>
-            Next
-          </Button>
-        </div>
-      </form>
-    </Form>
+    <Card>
+      <CardHeader>
+        <h2 className="text-xl font-semibold">1. Primary Passenger Details</h2>
+        <p className="text-sm text-grey">
+          Have you reviewed the details in the booking summary? If something
+          isn&apos;t correct, you can adjust your details in the previous steps.
+        </p>
+      </CardHeader>
+      <CardContent>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className=" md:w-3/4">
+            {/* Names */}
+            <h1 className="font-medium mb-2">Full Name</h1>
+            <div className="grid grid-cols-4 gap-2 mb-4">
+              <FormField
+                control={form.control}
+                name="prefix"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Select>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Prefix" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            {personlSchema.shape.prefix.options.map(
+                              (prefix: string, idx: number) => (
+                                <SelectItem {...field} key={idx} value={prefix}>
+                                  {prefix}
+                                </SelectItem>
+                              )
+                            )}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="firstName"
+                render={({ field }) => (
+                  <FormItem className="col-span-3">
+                    <FormControl>
+                      <Input placeholder="First Name" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="middleName"
+                render={({ field }) => (
+                  <FormItem className="col-span-2">
+                    <FormControl>
+                      <Input placeholder="Middle Name" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="lastName"
+                render={({ field }) => (
+                  <FormItem className="col-span-2">
+                    <FormControl>
+                      <Input placeholder="Last Name" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <h1 className="font-medium mb-2">Date Of Birth</h1>
+            <FormField
+              control={form.control}
+              name="datePicker"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <CalendarDatePicker
+                      date={field.value}
+                      onDateSelect={({ from, to }) => {
+                        form.setValue("datePicker", { from, to })
+                      }}
+                      variant="ghost"
+                      numberOfMonths={1}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <div className="gap-2 flex justify-end mt-8">
+              <Button
+                className=" rounded-full"
+                variant={"outline"}
+                size={"lg"}
+                onClick={prevStep}
+              >
+                Back
+              </Button>
+              <Button className=" rounded-full" size={"lg"}>
+                Next
+              </Button>
+            </div>
+          </form>
+        </Form>
+      </CardContent>
+    </Card>
   )
 }
 
