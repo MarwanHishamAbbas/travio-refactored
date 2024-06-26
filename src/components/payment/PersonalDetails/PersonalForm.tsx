@@ -7,6 +7,7 @@ import {
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
@@ -27,10 +28,13 @@ import {
 } from "@/components/ui/select"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { CalendarDatePicker } from "./CalenderDatePicker"
+import { useBookingStore } from "@/store/BookingProvider"
+import { DateFormat } from "@/lib/utils"
 
 interface PersonalFormProps {}
 
 const PersonalForm: FC<PersonalFormProps> = ({}) => {
+  const { setTripDetails } = useBookingStore((state) => state)
   const { nextStep, prevStep } = useStepper()
   // 1. Define your form.
   const form = useForm<TPersonalSchema>({
@@ -48,10 +52,31 @@ const PersonalForm: FC<PersonalFormProps> = ({}) => {
 
   // 2. Define a submit handler.
   function onSubmit(values: TPersonalSchema) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+    const {
+      datePicker,
+      email,
+      firstName,
+      lastName,
+      location,
+      middleName,
+      mobile,
+      nationality,
+      prefix,
+    } = values
+    setTripDetails({
+      primaryPassenger: {
+        prefix,
+        email,
+        firstName,
+        lastName,
+        middleName,
+        location,
+        mobile,
+        nationality,
+        birthDate: DateFormat(datePicker.from),
+      },
+    })
 
-    console.log(values)
     nextStep()
   }
 
@@ -76,7 +101,10 @@ const PersonalForm: FC<PersonalFormProps> = ({}) => {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Select>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
                         <SelectTrigger>
                           <SelectValue placeholder="Prefix" />
                         </SelectTrigger>
@@ -84,7 +112,7 @@ const PersonalForm: FC<PersonalFormProps> = ({}) => {
                           <SelectGroup>
                             {personlSchema.shape.prefix.options.map(
                               (prefix: string, idx: number) => (
-                                <SelectItem {...field} key={idx} value={prefix}>
+                                <SelectItem key={idx} value={prefix}>
                                   {prefix}
                                 </SelectItem>
                               )
@@ -161,7 +189,10 @@ const PersonalForm: FC<PersonalFormProps> = ({}) => {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Select>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
                       <SelectTrigger>
                         <SelectValue placeholder="Nationality" />
                       </SelectTrigger>
@@ -169,7 +200,7 @@ const PersonalForm: FC<PersonalFormProps> = ({}) => {
                         <SelectGroup>
                           {personlSchema.shape.nationality.options.map(
                             (country: string, idx: number) => (
-                              <SelectItem {...field} key={idx} value={country}>
+                              <SelectItem key={idx} value={country}>
                                 {country}
                               </SelectItem>
                             )
@@ -207,7 +238,10 @@ const PersonalForm: FC<PersonalFormProps> = ({}) => {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Select>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
                         <SelectTrigger>
                           <SelectValue placeholder="Code" />
                         </SelectTrigger>
@@ -215,7 +249,7 @@ const PersonalForm: FC<PersonalFormProps> = ({}) => {
                           <SelectGroup>
                             {personlSchema.shape.mobile.shape.code.options.map(
                               (code: string, idx: number) => (
-                                <SelectItem {...field} key={idx} value={code}>
+                                <SelectItem key={idx} value={code}>
                                   {code}
                                 </SelectItem>
                               )
@@ -245,6 +279,78 @@ const PersonalForm: FC<PersonalFormProps> = ({}) => {
                 )}
               />
             </div>
+            <h1 className="font-medium my-2">Address</h1>
+            <FormField
+              control={form.control}
+              name="location.address"
+              render={({ field }) => (
+                <FormItem className="col-span-3">
+                  <FormControl>
+                    <Input placeholder="Address" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <div className="mt-4 grid grid-cols-2 gap-2 mb-4">
+              <FormField
+                control={form.control}
+                name="location.town"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Town</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Town" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="location.state"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>State</FormLabel>
+                    <FormControl>
+                      <Input placeholder="State" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <FormField
+              control={form.control}
+              name="location.country"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Country</FormLabel>
+                  <FormControl>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Country" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          {personlSchema.shape.location.shape.country.options.map(
+                            (country: string, idx: number) => (
+                              <SelectItem key={idx} value={country}>
+                                {country}
+                              </SelectItem>
+                            )
+                          )}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <div className="gap-2 flex justify-end mt-8">
               <Button
                 className=" rounded-full"

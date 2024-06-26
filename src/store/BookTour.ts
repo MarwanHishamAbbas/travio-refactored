@@ -35,7 +35,7 @@ export type BookingTourState = {
     email: string
     mobile: {
       code: string
-      number: number
+      number: string
     }
     location: {
       address: string
@@ -43,7 +43,6 @@ export type BookingTourState = {
       state: string
       country: string
     }
-    valid: boolean
   }
   guests: {
     prefix: "Mr" | "Ms" | "Dr"
@@ -82,7 +81,6 @@ export type BookingTourState = {
 
 export type BookingActions = {
   setTripDetails: (newState: Partial<BookingTourState>) => void
-  setPersonalDetails?: () => void
   toggleOptionalVisit: (cityIndex: number, visitIndex: number) => void
   calculateAddOnes: () => void
   getSelectedVisits: () => {
@@ -108,14 +106,13 @@ export const defaultInitState: BookingTourState = {
     birthDate: "",
     nationality: "",
     email: "",
-    mobile: { code: "", number: 0 },
+    mobile: { code: "", number: "" },
     location: {
       address: "",
       town: "",
       state: "",
       country: "",
     },
-    valid: false,
   },
   guests: [],
   tripData: {

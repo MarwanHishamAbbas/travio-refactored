@@ -39,7 +39,7 @@ const BookingStepper: FC<BookingStepperProps> = ({ tourData, locale }) => {
   }
   const prices = generatePriceList(data)
 
-  const { setTripDetails } = useBookingStore((state) => state)
+  const { setTripDetails, primaryPassenger } = useBookingStore((state) => state)
   const actual_tour = prices.find((p) => {
     return (
       p.from.getTime() === new Date(from).getTime() &&
@@ -113,7 +113,10 @@ const BookingStepper: FC<BookingStepperProps> = ({ tourData, locale }) => {
         </div>
       ),
     },
-    { label: "Payment" },
+    {
+      label: "Payment",
+      component: <h1>{primaryPassenger.email}</h1>,
+    },
   ] satisfies StepItem[]
 
   return (
