@@ -47,12 +47,15 @@ export const bookingRouter = createTRPCRouter({
         mode: "payment",
         payment_intent_data: {
           capture_method: "manual",
+          metadata: {
+            booking_id: booking[0].id,
+          },
         },
 
         success_url: `${ctx.headers.get("origin")}/success?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${ctx.headers.get("origin")}`,
       })
-      console.log(session.metadata)
+
       return { sessionId: session.id }
     }),
 })

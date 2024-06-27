@@ -1,3 +1,5 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -8,7 +10,6 @@ import Image from "next/image"
 import { type FC } from "react"
 import { loadStripe } from "@stripe/stripe-js"
 import { api } from "@/trpc/TRPCProvider"
-import { string } from "zod"
 
 interface PayBookingProps {}
 const stripePromise = loadStripe(
@@ -31,9 +32,11 @@ const PayBooking: FC<PayBookingProps> = ({}) => {
       if (!sessionId) {
         return
       }
-      // console.log(sessionId)
-      // const stripe = await stripePromise
-      // await stripe?.redirectToCheckout({ sessionId })
+      await stripePromise
+        .then(async (data) => {
+          await data?.redirectToCheckout({ sessionId })
+        })
+        .catch((error) => console.log(error))
     },
     onError: (error) => {
       console.log(error.message)
