@@ -9,12 +9,13 @@ const t = initTRPC.context<typeof createContext>().create({
 
 export const createCallerFactory = t.createCallerFactory
 export const router = t.router
-export const publicProcedure = t.procedure
 
 export const createTRPCContext = async (opts: { headers: Headers }) => {
   return {
     ...opts,
   }
 }
+
+export const publicProcedure = t.procedure
 
 export const createTRPCRouter = t.router

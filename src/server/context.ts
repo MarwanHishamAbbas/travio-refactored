@@ -1,7 +1,9 @@
-export const createContext = async () => {
-  // const session = await auth()
+import { NextRequest } from "next/server"
 
+export const createContext = async (opts: { req: NextRequest }) => {
   return {
-    // session,
+    headers: opts.req.headers,
   }
 }
+
+export type Context = Awaited<ReturnType<typeof createContext>>

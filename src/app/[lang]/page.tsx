@@ -1,7 +1,6 @@
 import { Locale, getDictionary } from "@/language/getLanguage"
 import { urlFor } from "@/lib/sanity/sanity-image"
 import { getHomePage } from "@/query/layout"
-import { api } from "@/trpc/server"
 
 import Image from "next/image"
 
@@ -16,8 +15,6 @@ interface HomePageProps {
 const HomePage: FC<HomePageProps> = async ({ params }) => {
   const content = await getDictionary(params.lang)
   const data = await getHomePage()
-  const list = await api.booking.getList()
-  console.log(list)
 
   return (
     <div>

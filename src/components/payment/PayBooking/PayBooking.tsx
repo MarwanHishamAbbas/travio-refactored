@@ -7,6 +7,8 @@ import Image from "next/image"
 
 import { type FC } from "react"
 import { loadStripe } from "@stripe/stripe-js"
+import { api } from "@/trpc/TRPCProvider"
+import { string } from "zod"
 
 interface PayBookingProps {}
 const stripePromise = loadStripe(
@@ -23,19 +25,23 @@ const PayBooking: FC<PayBookingProps> = ({}) => {
     roomCost,
     hotelCost,
   } = useBookingStore((state) => state)
+
+  const { mutate } = api.booking.bookTrip.useMutation({
+    onSuccess: async ({ sessionId }) => {
+      if (!sessionId) {
+        return
+      }
+      // console.log(sessionId)
+      // const stripe = await stripePromise
+      // await stripe?.redirectToCheckout({ sessionId })
+    },
+    onError: (error) => {
+      console.log(error.message)
+    },
+  })
+
   const checkout = async () => {
-    const response = await fetch("/api/create-checkout-session", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        totalCost: Number(totalCost + addOnes + roomCost + hotelCost),
-      }),
-    })
-    const { sessionId } = await response.json()
-    const stripe = await stripePromise
-    await stripe?.redirectToCheckout({ sessionId })
+    mutate(Number(totalCost + addOnes + roomCost + hotelCost))
   }
   return (
     <Card>
