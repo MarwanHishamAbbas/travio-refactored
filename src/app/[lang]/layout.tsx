@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "../globals.css"
 import Navbar from "@/components/layout/Navbar"
+import { TRPCReactProvider } from "@/trpc/TRPCProvider"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -31,8 +32,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Navbar locale={params.lang} />
-        <div>{children}</div>
+        <TRPCReactProvider>
+          <Navbar locale={params.lang} />
+          <div>{children}</div>
+        </TRPCReactProvider>
       </body>
     </html>
   )
