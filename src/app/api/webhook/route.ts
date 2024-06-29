@@ -2,11 +2,11 @@ import { stripe } from "@/lib/stripe/stripe"
 import Stripe from "stripe"
 import { NextResponse, type NextRequest } from "next/server"
 import { createClient } from "@/lib/supabase/server"
-import { randomUUID } from "crypto"
 
 export async function POST(req: NextRequest) {
   const signature = req.headers.get("stripe-signature") ?? ""
   const supabase = createClient()
+
   try {
     let event: Stripe.Event
     event = stripe.webhooks.constructEvent(
@@ -22,20 +22,18 @@ export async function POST(req: NextRequest) {
         .from("bookings")
         .insert([
           {
-            tour_id: randomUUID(),
             user_email: "marwanhiisham@gmail.com",
             status: "pending",
             session_id: session.id,
           },
         ])
         .select()
-      console.log(session.id)
       if (error) {
         return { error: error.message }
       }
     }
 
-    return NextResponse.json({ status: 200, event: event })
+    return NextResponse.json({ status: 200, event: "event" })
   } catch (error) {
     console.log(error)
     return NextResponse.json({ status: "Failed" })

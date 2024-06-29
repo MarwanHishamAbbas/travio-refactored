@@ -11,7 +11,9 @@ const SuccessPage = () => {
     mutate: approveBooking,
     status,
   } = api.booking.approveBooking.useMutation({
-    onSuccess: async (data) => {},
+    onSuccess: async (data) => {
+      console.log(data.paymentIntent)
+    },
     onError: (error) => {
       console.log(error)
     },

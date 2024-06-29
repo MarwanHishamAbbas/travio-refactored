@@ -32,11 +32,9 @@ const PayBooking: FC<PayBookingProps> = ({}) => {
       if (!sessionId) {
         return
       }
-      await stripePromise
-        .then(async (data) => {
-          await data?.redirectToCheckout({ sessionId })
-        })
-        .catch((error) => console.log(error))
+      await stripePromise.then(async (data) => {
+        await data?.redirectToCheckout({ sessionId })
+      })
     },
     onError: (error) => {
       console.log(error.message)
