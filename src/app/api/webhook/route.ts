@@ -17,12 +17,26 @@ export async function POST(req: NextRequest) {
     const session = event.data.object as Stripe.Checkout.Session
 
     if (event.type === "payment_intent.amount_capturable_updated") {
-      // Create a new booking in Supabase with status 'pending'
+      const paymentIntent = event.data.object as Stripe.PaymentIntent
+      const {
+        primary_passenger,
+        selected_visits,
+        tour,
+        hotel_type,
+        room_type,
+        price,
+      } = JSON.parse(paymentIntent?.metadata?.tripData)
+
       const { error } = await supabase
-        .from("bookings")
+        .from("booking")
         .insert([
           {
-            user_email: "marwanhiisham@gmail.com",
+            primary_passenger,
+            selected_visits,
+            tour,
+            hotel_type,
+            room_type,
+            price,
             status: "pending",
             session_id: session.id,
           },
@@ -33,7 +47,7 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    return NextResponse.json({ status: 200, event: "event" })
+    return NextResponse.json({ status: 200, event: event })
   } catch (error) {
     console.log(error)
     return NextResponse.json({ status: "Failed" })

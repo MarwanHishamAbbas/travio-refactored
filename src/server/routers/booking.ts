@@ -4,7 +4,7 @@ import { createClient } from "@/lib/supabase/server"
 import { stripe } from "@/lib/stripe/stripe"
 export const bookingRouter = createTRPCRouter({
   bookTrip: publicProcedure
-    .input(z.object({ totalCost: z.number() }))
+    .input(z.object({ totalCost: z.number(), tripData: z.any() }))
     .mutation(async ({ input, ctx }) => {
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
@@ -26,6 +26,9 @@ export const bookingRouter = createTRPCRouter({
         mode: "payment",
         payment_intent_data: {
           capture_method: "manual",
+          metadata: {
+            tripData: JSON.stringify(input.tripData),
+          },
         },
 
         success_url: `${ctx.headers.get("origin")}/success`,
@@ -42,7 +45,7 @@ export const bookingRouter = createTRPCRouter({
         .capture(sessionID)
         .then(async (data) => {
           const { error } = await supabase
-            .from("bookings")
+            .from("booking")
             .update({ status: "approved" })
             .eq("session_id", data.id)
             .select()

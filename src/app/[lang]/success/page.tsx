@@ -20,7 +20,7 @@ const SuccessPage = () => {
   })
 
   const approveTourHandler = () => {
-    approveBooking("pi_3PWrNzJwEiD6HFAR0gylwX7v")
+    approveBooking("pi_3PWxVLJwEiD6HFAR0eSXlT1E")
   }
   return (
     <MaxWidth>

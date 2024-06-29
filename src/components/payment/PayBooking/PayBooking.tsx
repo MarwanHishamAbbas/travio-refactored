@@ -20,11 +20,15 @@ const PayBooking: FC<PayBookingProps> = ({}) => {
   const { prevStep } = useStepper()
 
   const {
-    tripData: { currency, startDate },
+    tripData,
+    hotel,
+    room,
+    seletectedVisits,
     totalCost,
     addOnes,
     roomCost,
     hotelCost,
+    primaryPassenger,
   } = useBookingStore((state) => state)
 
   const { mutate, isPending } = api.booking.bookTrip.useMutation({
@@ -44,6 +48,18 @@ const PayBooking: FC<PayBookingProps> = ({}) => {
   const checkout = async () => {
     mutate({
       totalCost: Number(totalCost + addOnes + roomCost + hotelCost),
+      tripData: {
+        primary_passenger: primaryPassenger,
+        selected_visits: seletectedVisits,
+        tour: {
+          title: tripData.title,
+          start_date: tripData.startDate,
+          end_date: tripData.endDate,
+        },
+        hotel_type: hotel,
+        room_type: room,
+        price: Number(totalCost + addOnes + roomCost + hotelCost),
+      },
     })
   }
   return (
@@ -63,7 +79,7 @@ const PayBooking: FC<PayBookingProps> = ({}) => {
         <div className="flex items-center gap-2 my-6">
           <Checkbox checked />
           <p className="md:text-lg font-medium">
-            Pay in full USD {currency}
+            Pay in full USD {tripData.currency}
             {Number(totalCost + addOnes + roomCost + hotelCost)}
           </p>
         </div>
@@ -93,7 +109,8 @@ const PayBooking: FC<PayBookingProps> = ({}) => {
                 Book now and change your mind if you have to
               </p>
               <span className="text-grey text-xs md:text-base">
-                Get a full refund before {startDate}, terms and conditions apply
+                Get a full refund before {tripData.startDate}, terms and
+                conditions apply
               </span>
             </div>
           </div>
