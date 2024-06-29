@@ -13,7 +13,7 @@ import Link from "next/link"
 import { useState, type FC } from "react"
 import { Card, CardContent, CardTitle } from "../ui/card"
 import { Button } from "../ui/button"
-import { getDictionary } from "@/language/getLanguage"
+
 import { ChevronDown } from "lucide-react"
 
 interface DestinationsMenuProps {

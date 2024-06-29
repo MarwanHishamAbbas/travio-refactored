@@ -3,7 +3,7 @@ import Stripe from "stripe"
 import { NextResponse, type NextRequest } from "next/server"
 import { createClient } from "@/lib/supabase/server"
 
-export async function POST(req: NextRequest) {
+const handler = async (req: NextRequest) => {
   const signature = req.headers.get("stripe-signature") ?? ""
   const supabase = createClient()
 
@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
         ])
         .select()
       if (error) {
-        return { error: error.message }
+        return NextResponse.json({ error: error.message })
       }
     }
 
@@ -53,3 +53,5 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ status: "Failed" })
   }
 }
+
+export { handler as POST }

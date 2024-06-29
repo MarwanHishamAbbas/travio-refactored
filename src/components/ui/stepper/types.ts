@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react"
-import { Component, ReactNode } from "react"
+import { ReactNode } from "react"
 
 type IconType = LucideIcon | React.ComponentType<any> | undefined
 

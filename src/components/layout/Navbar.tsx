@@ -1,6 +1,6 @@
 import { type FC } from "react"
 import MaxWidth from "../common/MaxWidth"
-import { AlignRight, ChevronDown } from "lucide-react"
+import { AlignRight } from "lucide-react"
 import { getBaseLayout } from "@/query/layout"
 import Image from "next/image"
 import { urlFor } from "@/lib/sanity/sanity-image"

@@ -1,4 +1,3 @@
-import LangSwitch from "@/components/layout/LangSwitch"
 import { type FC } from "react"
 
 interface TourPageProps {
