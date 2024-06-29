@@ -18,14 +18,23 @@ const handler = async (req: NextRequest) => {
 
     if (event.type === "payment_intent.amount_capturable_updated") {
       const paymentIntent = event.data.object as Stripe.PaymentIntent
-      const {
+      const { hotel_type, room_type, price } = paymentIntent?.metadata
+      const primary_passenger = JSON.parse(
+        paymentIntent?.metadata?.primary_passenger
+      )
+      const selected_visits = JSON.parse(
+        paymentIntent?.metadata?.selected_visits
+      )
+      const tour = JSON.parse(paymentIntent?.metadata?.tour)
+
+      console.log(
         primary_passenger,
         selected_visits,
         tour,
         hotel_type,
         room_type,
-        price,
-      } = JSON.parse(paymentIntent?.metadata?.tripData)
+        price
+      )
 
       const { error } = await supabase
         .from("booking")

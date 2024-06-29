@@ -27,7 +27,12 @@ export const bookingRouter = createTRPCRouter({
         payment_intent_data: {
           capture_method: "manual",
           metadata: {
-            tripData: JSON.stringify(input.tripData),
+            primary_passenger: JSON.stringify(input.tripData.primary_passenger),
+            selected_visits: JSON.stringify(input.tripData.selected_visits),
+            tour: JSON.stringify(input.tripData.tour),
+            hotel_type: input.tripData.hotel_type,
+            room_type: input.tripData.room_type,
+            price: input.tripData.price,
           },
         },
 
