@@ -27,7 +27,7 @@ const PayBooking: FC<PayBookingProps> = ({}) => {
     hotelCost,
   } = useBookingStore((state) => state)
 
-  const { mutate } = api.booking.bookTrip.useMutation({
+  const { mutate, isPending } = api.booking.bookTrip.useMutation({
     onSuccess: async ({ sessionId }) => {
       if (!sessionId) {
         return
@@ -114,8 +114,13 @@ const PayBooking: FC<PayBookingProps> = ({}) => {
           >
             Back
           </Button>
-          <Button onClick={checkout} className=" rounded-full" size={"lg"}>
-            Book Now
+          <Button
+            onClick={checkout}
+            className=" rounded-full"
+            size={"lg"}
+            disabled={isPending}
+          >
+            {isPending ? "Booking" : "Book Now"}
           </Button>
         </div>
       </CardContent>

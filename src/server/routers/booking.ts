@@ -3,7 +3,6 @@ import { z } from "zod"
 import { createClient } from "@/lib/supabase/server"
 import { randomUUID } from "crypto"
 import { stripe } from "@/lib/stripe/stripe"
-
 export const bookingRouter = createTRPCRouter({
   bookTrip: publicProcedure
     .input(z.number())
@@ -11,27 +10,8 @@ export const bookingRouter = createTRPCRouter({
       // Create Supabase Server Client
       const supabase = createClient()
 
-      // Create a new booking in Supabase with status 'pending'
-      const { data: booking, error } = await supabase
-        .from("bookings")
-        .insert([
-          {
-            tour_id: randomUUID(),
-            user_email: "abbbas@gmail.com",
-            status: "pending",
-          },
-        ])
-        .select()
-
-      if (error) {
-        return { error: error.message }
-      } else {
-      }
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
-        metadata: {
-          booking_id: booking[0].id,
-        },
         line_items: [
           {
             price_data: {
@@ -47,15 +27,50 @@ export const bookingRouter = createTRPCRouter({
         mode: "payment",
         payment_intent_data: {
           capture_method: "manual",
-          metadata: {
-            booking_id: booking[0].id,
-          },
         },
 
         success_url: `${ctx.headers.get("origin")}/success?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${ctx.headers.get("origin")}`,
       })
 
+      // Create a new booking in Supabase with status 'pending'
+      const { error } = await supabase
+        .from("bookings")
+        .insert([
+          {
+            tour_id: randomUUID(),
+            user_email: "abbbas@gmail.com",
+            status: "pending",
+            session_id: session.id,
+          },
+        ])
+        .select()
+
+      if (error) {
+        return { error: error.message }
+      }
+
       return { sessionId: session.id }
     }),
+  approveBooking: publicProcedure.mutation(async ({}) => {
+    const supabase = createClient()
+    // Update the booking status in Supabase
+    const { data: booking, error } = await supabase
+      .from("bookings")
+      .update({ status: "approved" })
+      .eq("id", 37)
+      .select()
+
+    if (error) {
+      console.log("Server", error)
+      return error
+    }
+    const session = await stripe.checkout.sessions.retrieve(
+      booking[0].session_id
+    )
+    const paymentIntentId = session.payment_intent as string
+
+    const paymentIntent = await stripe.paymentIntents.capture(paymentIntentId)
+    return { booking, paymentIntent }
+  }),
 })
