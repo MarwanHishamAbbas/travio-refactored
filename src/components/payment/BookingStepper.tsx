@@ -117,7 +117,7 @@ const BookingStepper: FC<BookingStepperProps> = ({ tourData, locale }) => {
 
   return (
     <div className="flex w-full flex-col gap-4">
-      <Stepper className="md:w-3/4 mx-auto" initialStep={2} steps={steps}>
+      <Stepper className="md:w-3/4 mx-auto" initialStep={0} steps={steps}>
         {steps.map((stepProps, index) => {
           return (
             <Step key={index} {...stepProps}>
