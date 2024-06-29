@@ -44,7 +44,9 @@ const PayBooking: FC<PayBookingProps> = ({}) => {
   })
 
   const checkout = async () => {
-    mutate(Number(totalCost + addOnes + roomCost + hotelCost))
+    mutate({
+      totalCost: Number(totalCost + addOnes + roomCost + hotelCost),
+    })
   }
   return (
     <Card>

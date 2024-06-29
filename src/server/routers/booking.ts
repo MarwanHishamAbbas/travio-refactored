@@ -4,10 +4,8 @@ import { createClient } from "@/lib/supabase/server"
 import { stripe } from "@/lib/stripe/stripe"
 export const bookingRouter = createTRPCRouter({
   bookTrip: publicProcedure
-    .input(z.number())
+    .input(z.object({ totalCost: z.number() }))
     .mutation(async ({ input, ctx }) => {
-      // Create Supabase Server Client
-
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
         line_items: [
@@ -15,9 +13,12 @@ export const bookingRouter = createTRPCRouter({
             price_data: {
               currency: "usd",
               product_data: {
+                images: [
+                  "https://images.unsplash.com/photo-1539768942893-daf53e448371?q=80&w=2942&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                ],
                 name: "Tour Booking",
               },
-              unit_amount: input * 100, // example amount in cents
+              unit_amount: input.totalCost * 100, // example amount in cents
             },
             quantity: 1,
           },
@@ -30,27 +31,29 @@ export const bookingRouter = createTRPCRouter({
         success_url: `${ctx.headers.get("origin")}/success`,
         cancel_url: `${ctx.headers.get("origin")}`,
       })
-      console.log(session)
 
       return { sessionId: session.id }
     }),
-  approveBooking: publicProcedure.mutation(async ({}) => {
-    const supabase = createClient()
-    // Update the booking status in Supabase
-    const { data: booking, error } = await supabase
-      .from("bookings")
-      .update({ status: "approved" })
-      .eq("id", 45)
-      .select()
-
-    if (error) {
-      console.log("Server", error)
-      return error
-    }
-
-    const paymentIntent = await stripe.paymentIntents.capture(
-      booking[0].session_id
-    )
-    return { booking, paymentIntent }
-  }),
+  approveBooking: publicProcedure
+    .input(z.string())
+    .mutation(async ({ input: sessionID }) => {
+      const supabase = createClient()
+      const paymentIntent = await stripe.paymentIntents
+        .capture(sessionID)
+        .then(async (data) => {
+          const { error } = await supabase
+            .from("bookings")
+            .update({ status: "approved" })
+            .eq("session_id", data.id)
+            .select()
+          if (error) {
+            console.log("Server", error)
+            return { error }
+          }
+        })
+        .catch((error) => {
+          console.log("Error while update supabase row", error)
+        })
+      return { paymentIntent }
+    }),
 })

@@ -11,16 +11,14 @@ const SuccessPage = () => {
     mutate: approveBooking,
     status,
   } = api.booking.approveBooking.useMutation({
-    onSuccess: async (data) => {
-      console.log(data)
-    },
+    onSuccess: async (data) => {},
     onError: (error) => {
       console.log(error)
     },
   })
 
   const approveTourHandler = () => {
-    approveBooking()
+    approveBooking("pi_3PWrNzJwEiD6HFAR0gylwX7v")
   }
   return (
     <MaxWidth>

@@ -23,16 +23,18 @@ export async function POST(req: NextRequest) {
         .insert([
           {
             tour_id: randomUUID(),
-            user_email: "abbbas@gmail.com",
+            user_email: "marwanhiisham@gmail.com",
             status: "pending",
             session_id: session.id,
           },
         ])
         .select()
+      console.log(session.id)
       if (error) {
         return { error: error.message }
       }
     }
+
     return NextResponse.json({ status: 200, event: event })
   } catch (error) {
     console.log(error)
