@@ -230,7 +230,7 @@ const PersonalForm: FC<PersonalFormProps> = ({}) => {
                 </FormItem>
               )}
             />
-            <h1 className="font-medium my-2">Full Name</h1>
+            <h1 className="font-medium my-2">Mobile</h1>
             <div className="grid grid-cols-4 gap-2 mb-4">
               <FormField
                 control={form.control}

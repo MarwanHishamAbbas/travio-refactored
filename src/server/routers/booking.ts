@@ -64,4 +64,12 @@ export const bookingRouter = createTRPCRouter({
         })
       return { paymentIntent }
     }),
+  getAllBookings: publicProcedure.query(async ({}) => {
+    const supabase = createClient()
+    const { error, data: bookings } = await supabase.from("booking").select()
+    if (error) {
+      console.log(error)
+    }
+    return { bookings }
+  }),
 })

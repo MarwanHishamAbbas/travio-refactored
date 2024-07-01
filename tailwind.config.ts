@@ -26,7 +26,7 @@ const config = {
         orange: "#FFBB0B",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
+        ring: "#3FA9F5",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {

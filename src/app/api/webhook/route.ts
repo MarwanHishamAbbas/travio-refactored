@@ -27,15 +27,6 @@ const handler = async (req: NextRequest) => {
       )
       const tour = JSON.parse(paymentIntent?.metadata?.tour)
 
-      console.log(
-        primary_passenger,
-        selected_visits,
-        tour,
-        hotel_type,
-        room_type,
-        price
-      )
-
       const { error } = await supabase
         .from("booking")
         .insert([
@@ -51,6 +42,7 @@ const handler = async (req: NextRequest) => {
           },
         ])
         .select()
+
       if (error) {
         return NextResponse.json({ error: error.message })
       }

@@ -36,12 +36,14 @@ const Navbar: FC<NavbarProps> = async ({ locale }) => {
       </div>
       <div className="h-16 flex items-center">
         <MaxWidth className="flex items-center justify-between w-full ">
-          <Image
-            src={urlFor(content.navbar.logo)}
-            alt="Image"
-            width={140}
-            height={70}
-          />
+          <Link href="/">
+            <Image
+              src={urlFor(content.navbar.logo)}
+              alt="Image"
+              width={140}
+              height={70}
+            />
+          </Link>
           <ul className="md:flex items-center gap-6 hidden text-sm">
             {content.navbar.links.map((link: NavLink, idx: number) => {
               if (link._type !== "link")
