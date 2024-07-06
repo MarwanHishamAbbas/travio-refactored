@@ -18,9 +18,18 @@ const config = {
       },
     },
     extend: {
+      fontFamily: {
+        // dmSans: ['var(--font-dm)'],
+        outfit: ["var(--font-outfit)"],
+        satoshi: ["var(--font-satoshi)"],
+        montserrat: ["var(--font-montserrat)"],
+        nova: ["var(--font-nova)"],
+        // plain: ['var(--font-plain)'],
+      },
       colors: {
         lightBlue: "#F2FAFF",
         darkBlue: "#140D31",
+        darkNavy: "#1A4767",
         grey: "#726E83",
         red: "#D10002",
         orange: "#FFBB0B",

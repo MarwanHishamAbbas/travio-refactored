@@ -81,3 +81,21 @@ export function DateFormat(date: Date, short: boolean = false) {
     months[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear()
   )
 }
+
+export const saveTn = {
+  en: "You Save",
+  es: "Ahorra",
+  por: "Poupa",
+}
+
+export const cardButtonTn = {
+  en: "View Trip",
+  es: "Ver viaje",
+  por: "Ver viagem",
+}
+
+export const tourPackagesTn = {
+  en: "Tour Package",
+  es: "Paquete turístico",
+  por: "Pacote turístico",
+}
