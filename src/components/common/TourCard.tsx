@@ -45,15 +45,15 @@ const TourCard = ({
             height={1000}
             src={urlFor(pic)}
             alt={`pic-${link}`}
-            className=" h-56 object-cover w-full"
+            className="h-44 md:h-56 object-cover w-full"
           />
           <CardContent>
             <h1 className="text-base md:text-xl text-darkBlue font-bold">
               {" "}
               {tourType}
             </h1>
-            <div className="flex flex-wrap md:items-center justify-between gap-2 text-grey my-2">
-              <div className="flex items-center md:text-sm ">
+            <div className="flex flex-wrap md:items-center justify-between gap-2 text-grey my-2 text-xs md:text-sm">
+              <div className="flex items-center  ">
                 <Calendar className="size-5" />
                 <span>{days}</span>
               </div>

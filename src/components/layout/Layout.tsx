@@ -1,7 +1,8 @@
 import { ReactNode } from "react"
 import { SanityGlobals } from "@/types/sanity"
 
-import Breadcrumbs, { Breadcrumb } from "./BreadCrumb"
+import Breadcrumbs, { Breadcrumb } from "@/components/common/BreadCrumb"
+import Footer from "./Footer/Footer"
 
 const Layout = ({
   children,
@@ -34,6 +35,7 @@ const Layout = ({
           <Breadcrumbs paths={breadcrumbs} locale={locale} />
           {children}
         </main>
+        <Footer footer={globals?.footer} language={locale} />
       </div>
     </div>
   )

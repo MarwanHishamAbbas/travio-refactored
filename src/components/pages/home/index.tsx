@@ -1,6 +1,6 @@
 "use client"
 
-import Layout from "@/components/common/Layout"
+import Layout from "@/components/layout/Layout"
 import Slicer from "@/components/sanity/Slicer"
 import { SectionMap } from "@/components/sections"
 

@@ -2,11 +2,11 @@ import { ComponentClass, FunctionComponent } from "react"
 import dynamic from "next/dynamic"
 
 import {
-  SanityBlogPageSectionNames,
-  SanityDestinationSectionNames,
+  // SanityBlogPageSectionNames,
+  // SanityDestinationSectionNames,
   SanitySectionNames,
   // SanityTourPageSectionNames,
-  SanityTourSectionNames,
+  // SanityTourSectionNames,
 } from "@/types/sanity"
 
 const HeroSection = dynamic(() => import("@/components/pages/home/Hero"))
@@ -17,6 +17,20 @@ const DestinationsSection = dynamic(
   () => import("@/components/pages/home/Destinations")
 )
 
+const Testimonials = dynamic(
+  () => import("@/components/pages/home/Testimonials")
+)
+
+const BlogSection = dynamic(() => import("@/components/common/Blogs"))
+const NewsletterSection = dynamic(
+  () => import("@/components/common/NewsLetter")
+)
+
+const FAQSection = dynamic(() => import("@/components/common/FAQ"))
+const PopularAttractions = dynamic(
+  () => import("@/components/pages/home/OtherTours")
+)
+
 // const FilterTourSection = dynamic(
 //   () => import("../pages/DynamicDestinations/FilterTour")
 // )
@@ -24,19 +38,10 @@ const DestinationsSection = dynamic(
 // const ContactSection = dynamic(
 //   () => import("../pages/DynamicDestinations/ContactSection")
 // )
-// const ReviewRatingSections = dynamic(
-//   () => import("@/components/sections/reviews/Reviews")
-// )
+
 // const BlogHeroSection = dynamic(() => import("./BlogHeroSection"))
-// const NewsletterSection = dynamic(() => import("./NewsletterSection"))
 // const InterestSection = dynamic(() => import("./InterestSection"))
 // const FeatureTopBlogSection = dynamic(() => import("./FeatureTopBlogSection"))
-// const BlogSection = dynamic(
-//   () => import("@/components/sections/blogs/BlogSection"),
-//   {
-//     loading: () => <p>Loading...</p>,
-//   }
-// )
 
 // const AllBlogsSection = dynamic(
 //   () => import("@/components/pages/AllBlogs-Page/FeatureBlogs"),
@@ -54,7 +59,7 @@ const DestinationsSection = dynamic(
 // // );
 
 // // const GetEarlyNews = dynamic(() => import("@/components/sections/form/Form"));
-// const FAQSection = dynamic(() => import("@/components/sections/faq"))
+
 // const GallerySection = dynamic(
 //   () => import("@/components/molecules/TourGallery")
 // )
@@ -68,7 +73,7 @@ const DestinationsSection = dynamic(
 // const DestinationsSection = dynamic(
 //   () => import("@/components/pages/HomePage/Destination")
 // )
-// const IndexSection = dynamic(() => import("../pages/HomePage/OtherTours"))
+
 // // import GetEarlyNews from "./form/Form";
 // const TopThingsToDo = dynamic(
 //   () => import("@/components/pages/DynamicDestinations/TopThings")
@@ -147,15 +152,14 @@ export const SectionMap: {
   deals_section: DealsSection,
   gallery_section: GallerySection,
   destinations_section: DestinationsSection,
-  //   show_new_letter_section: NewsletterSection,
-  //   faq_section: FAQSection,
+  testimonial_section: Testimonials,
+  featured_blogs_section: BlogSection,
+  show_new_letter_section: NewsletterSection,
+  faq_section: FAQSection,
+  index_section: PopularAttractions,
 
-  //   testimonial_section: Testimonials,
-  //   featured_blogs_section: BlogSection,
   //   content_section: SummarySection,
-  //   reviews_section: ReviewRatingSections,
   //   office_locations_section: OfficeLocations,
-  //   index_section: IndexSection,
   //   image_header_section: ImageHeaderSection,
 }
 

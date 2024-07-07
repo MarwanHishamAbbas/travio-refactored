@@ -5,6 +5,11 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+// truncate char
+export function truncateChar(str: string, n: number): string {
+  return str.length > n ? str.substring(0, n) + ".." : str
+}
+
 export const getLocalizedText = (
   localizedString: { [x: string]: any; en: any },
   language: string
@@ -98,4 +103,16 @@ export const tourPackagesTn = {
   en: "Tour Package",
   es: "Paquete turístico",
   por: "Pacote turístico",
+}
+
+export const tourFormTn = {
+  en: "Have any questions?",
+  es: "¿Tienes alguna pregunta?",
+  por: "Tem alguma pergunta?",
+}
+
+export const signUpTn = {
+  en: "Sign Up",
+  es: "Registrarse",
+  por: "Inscrever-se",
 }
