@@ -1,3 +1,5 @@
+"use client"
+
 import React from "react"
 import MaxWidth from "./MaxWidth"
 import SectionHeader from "./SectionHeader"

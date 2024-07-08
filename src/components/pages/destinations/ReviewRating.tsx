@@ -27,7 +27,9 @@ export function Pagination({
         onClick={() => currentPage > 0 && onChange(currentPage - 1)}
         className={
           " border-[1px] rounded-full px-6 py-2 " +
-          (currentPage > 0 ? "opacity-50" : "opacity-0 cursor-default")
+          (currentPage > 0
+            ? "bg-primary text-white"
+            : "opacity-0 cursor-default")
         }
         type="button"
       >
@@ -41,7 +43,7 @@ export function Pagination({
             onClick={() => onChange(i)}
             className={
               "md:w-12 md:h-12 h-10 w-10 flex items-center justify-center cursor-pointer " +
-              (i === currentPage ? "bg-primary" : "")
+              (i === currentPage ? "bg-lightBlue" : "")
             }
           >
             <div>{i + 1}</div>
@@ -55,7 +57,7 @@ export function Pagination({
             : null
         }
         className={
-          "bg-black text-white rounded-full h-[42px] px-6 py-2 " +
+          "bg-primary text-white rounded-full h-[42px] px-6 py-2 " +
           (currentPage < Math.ceil(total / pageSize) - 1
             ? ""
             : "opacity-0 cursor-default")
@@ -87,7 +89,7 @@ const Filter = ({
 
   return (
     <div
-      className="rounded-xl shadow shadow-[#f1f1f1] md:w-[300px] my-2"
+      className="rounded-xl shadow shadow-[#f1f1f1]  my-2"
       style={{
         boxShadow: "0px 4px 20px 0px rgba(0, 0, 0, 0.06)",
       }}
@@ -99,22 +101,27 @@ const Filter = ({
       </div>
       <div className="flex flex-col px-6 py-5 gap-y-5 md:gap-y-8">
         {reverseRatings?.map((rating, idx) => (
-          <div key={idx} className=" flex gap-x-2 justify-center items-center">
-            <input
-              onChange={(e) =>
-                e.target.checked
-                  ? addSelectedRating(rating.stars)
-                  : removeSelectedRating(rating.stars)
-              }
-              checked={selectedRating.includes(rating.stars)}
-              type="checkbox"
-              className="w-fit"
-            />
-            <span className="text-sm  opacity-60 font-medium">
-              {/* @ts-ignore */}
-              {rating.stars} {starTn?.[locale]}
-            </span>
-
+          <div key={idx} className=" flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2 flex-1">
+              <input
+                onChange={(e) =>
+                  e.target.checked
+                    ? addSelectedRating(rating.stars)
+                    : removeSelectedRating(rating.stars)
+                }
+                checked={selectedRating.includes(rating.stars)}
+                type="checkbox"
+              />
+              <span className="text-sm  opacity-60 font-medium">
+                {/* @ts-ignore */}
+                {rating.stars} {starTn?.[locale]}
+              </span>
+              <div className="flex gap-1">
+                {Array.from(Array(rating.stars).keys()).map((x, i) => (
+                  <Star className="fill-orange stroke-orange size-3" key={i} />
+                ))}
+              </div>
+            </div>
             <span className="text-sm opacity-60 font-medium">
               {rating.count}
             </span>
@@ -145,7 +152,7 @@ const RatingCard = ({
     >
       <div className="flex  text-xl">
         {Array.from(Array(star).keys()).map((x, i) => (
-          <Star key={i} />
+          <Star className="fill-orange stroke-orange size-5" key={i} />
         ))}
       </div>
 
@@ -174,7 +181,7 @@ const RatingCard = ({
           />
         </div>
         <div className="ml-2 md:ml-3 my-auto ">
-          <h6 className="text-xs md:text-sm font-bold font-satoshi text-darkblue leading-tight md:leading-snug">
+          <h6 className="text-xs md:text-sm font-bold font-satoshi text-darkBlue leading-tight md:leading-snug">
             {name}
           </h6>
 
@@ -220,10 +227,7 @@ const ReviewSection = (props: any) => {
 
   const pageSize = 3
   return (
-    <MaxWidth
-      id="reviews"
-      className="pb-[50px] md:pt-[80px] pt-[50px] md:py-[80px]  text-black "
-    >
+    <MaxWidth id="reviews" className="  text-black ">
       <SectionHeader
         title={tagline?.[locale]}
         subtitle={title?.[locale]}

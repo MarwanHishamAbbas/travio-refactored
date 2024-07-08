@@ -6,7 +6,7 @@ import {
   SanityDestinationSectionNames,
   SanitySectionNames,
   // SanityTourPageSectionNames,
-  // SanityTourSectionNames,
+  SanityTourSectionNames,
 } from "@/types/sanity"
 
 const HeroSection = dynamic(() => import("@/components/pages/home/Hero"))
@@ -58,6 +58,10 @@ const ContactSection = dynamic(
   () => import("../pages/destinations/ContactSection")
 )
 
+const SummarySection = dynamic(
+  () => import("@/components/pages/tour/SummarySection")
+)
+
 // const BlogHeroSection = dynamic(() => import("./BlogHeroSection"))
 // const InterestSection = dynamic(() => import("./InterestSection"))
 // const FeatureTopBlogSection = dynamic(() => import("./FeatureTopBlogSection"))
@@ -95,10 +99,6 @@ const ContactSection = dynamic(
 
 // const ItinerarySection = dynamic(
 //   () => import("@/components/pages/DynamicTourPage/ItinarySection")
-// )
-
-// const SummarySection = dynamic(
-//   () => import("@/components/pages/DynamicTourPage/SummarySection")
 // )
 
 // // const ExcludedInTour = dynamic(() => import("./ExcludedInTour"));
@@ -186,21 +186,21 @@ export const DestinationSectionsMap: {
   contact_agent_section: ContactSection,
 }
 
-// export const TourSectionsMap: {
-//   [name in SanityTourSectionNames]?:
-//     | FunctionComponent<any>
-//     | ComponentClass<any, any>
-// } = {
-//   itinerary_section: ItinerarySection,
-//   content_section: SummarySection,
-//   memorable_experiences_section: MemorableExperiencesSection,
-//   gallery_section: TourGallerySection,
-//   whats_included_section: WhatsIncludedSection,
-//   pricing_section: PriceList,
-//   accommodation_types_section: AccommdationTypesSection,
-//   feature_section: FlexibleThingsForTour,
-//   featured_tours_section: FeatureTourSection,
-//   travel_info_section: TravelInformation,
-//   reviews_section: ReviewRatingSections,
-//   faq_section: FAQSection,
-// }
+export const TourSectionsMap: {
+  [name in SanityTourSectionNames]?:
+    | FunctionComponent<any>
+    | ComponentClass<any, any>
+} = {
+  // itinerary_section: ItinerarySection,
+  content_section: SummarySection,
+  // memorable_experiences_section: MemorableExperiencesSection,
+  // gallery_section: TourGallerySection,
+  // whats_included_section: WhatsIncludedSection,
+  // pricing_section: PriceList,
+  // accommodation_types_section: AccommdationTypesSection,
+  // feature_section: FlexibleThingsForTour,
+  featured_tours_section: FeatureTourSection,
+  // travel_info_section: TravelInformation,
+  reviews_section: ReviewRatingSections,
+  faq_section: FAQSection,
+}
