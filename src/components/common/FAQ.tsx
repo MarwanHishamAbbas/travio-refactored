@@ -7,7 +7,7 @@ const FAQSection = ({ data, locale }: { data: any; locale: string }) => {
   const [open, setOpen] = React.useState(-1)
   return (
     <>
-      <MaxWidth className="bg-white flex flex-col items-center mt-16">
+      <MaxWidth className="bg-white flex flex-col mt-16 ">
         <SectionHeader
           title={data?.title?.[locale]}
           subtitle={data?.tagline?.[locale]}
@@ -26,7 +26,7 @@ const FAQSection = ({ data, locale }: { data: any; locale: string }) => {
                   } transition-all size-5 shrink-0`}
                 />
 
-                <strong className="font-medium font-satoshi text-[12px] text-darkblue md:text-xl leading-normal md:leading-[32px] md:tracking-[-0.6px]">
+                <strong className="font-medium font-satoshi text-[12px] text-darkBlue md:text-xl leading-normal md:leading-[32px] md:tracking-[-0.6px]">
                   {faq?.question[locale]}
                 </strong>
               </div>
@@ -34,7 +34,7 @@ const FAQSection = ({ data, locale }: { data: any; locale: string }) => {
               <div
                 className={`${
                   open === index ? "" : "hidden"
-                } ml-10 max-w-[90%] text-gray
+                } ml-10 max-w-[90%] text-grey
               text-[12px] leading-5 lg:text-base font-satoshi transition-all
               `}
               >

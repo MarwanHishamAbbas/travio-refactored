@@ -8,7 +8,7 @@ const OtherTours = (props: any) => {
     locale,
   } = props
   return (
-    <MaxWidth className=" font-satoshi my-16">
+    <MaxWidth className=" font-satoshi mt-16">
       <h2 className="font-[700] text-darkblue text-[24px] leading-8">
         Popular Attractions
       </h2>

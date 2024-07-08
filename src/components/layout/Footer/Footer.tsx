@@ -16,7 +16,7 @@ const Footer = ({ footer, language }: any) => {
   const mobileLogo = urlFor(footer?.logo?.mobile?.asset?._ref)
 
   return (
-    <div className="w-full bg-lightBlue">
+    <div className="w-full bg-lightBlue mt-16">
       <MaxWidth>
         <div className="flex max-lg:flex-wrap justify-between gap-5 lg:gap-[166px] py-5 lg:py-20">
           {/* Left side */}

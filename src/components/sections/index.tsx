@@ -3,7 +3,7 @@ import dynamic from "next/dynamic"
 
 import {
   // SanityBlogPageSectionNames,
-  // SanityDestinationSectionNames,
+  SanityDestinationSectionNames,
   SanitySectionNames,
   // SanityTourPageSectionNames,
   // SanityTourSectionNames,
@@ -31,13 +31,32 @@ const PopularAttractions = dynamic(
   () => import("@/components/pages/home/OtherTours")
 )
 
-// const FilterTourSection = dynamic(
-//   () => import("../pages/DynamicDestinations/FilterTour")
-// )
+const HeroSectionTours = dynamic(
+  () => import("@/components/pages/destinations/Hero")
+)
+const FeatureTourSection = dynamic(
+  () => import("@/components/pages/destinations/FeatureTours")
+)
 
-// const ContactSection = dynamic(
-//   () => import("../pages/DynamicDestinations/ContactSection")
-// )
+const FilterTourSection = dynamic(
+  () => import("@/components/pages/destinations/FilterTours")
+)
+const ReviewRatingSections = dynamic(
+  () => import("@/components/pages/destinations/ReviewRating")
+)
+
+const CountryFacts = dynamic(
+  () => import("@/components/pages/destinations/CountryFacts")
+)
+
+// import GetEarlyNews from "./form/Form";
+const TopThingsToDo = dynamic(
+  () => import("@/components/pages/destinations/ThingsToDo")
+)
+
+const ContactSection = dynamic(
+  () => import("../pages/destinations/ContactSection")
+)
 
 // const BlogHeroSection = dynamic(() => import("./BlogHeroSection"))
 // const InterestSection = dynamic(() => import("./InterestSection"))
@@ -48,10 +67,6 @@ const PopularAttractions = dynamic(
 //   {
 //     loading: () => <p>Loading...</p>,
 //   }
-// )
-
-// const HeroSectionTours = dynamic(
-//   () => import("@/components/pages/DynamicDestinations/HeroSection")
 // )
 
 // // const FlexibleThings = dynamic(
@@ -72,15 +87,6 @@ const PopularAttractions = dynamic(
 
 // const DestinationsSection = dynamic(
 //   () => import("@/components/pages/HomePage/Destination")
-// )
-
-// // import GetEarlyNews from "./form/Form";
-// const TopThingsToDo = dynamic(
-//   () => import("@/components/pages/DynamicDestinations/TopThings")
-// )
-
-// const CountryFacts = dynamic(
-//   () => import("@/components/pages/DynamicDestinations/CountryFacts")
 // )
 
 // const TravelInformation = dynamic(
@@ -163,22 +169,22 @@ export const SectionMap: {
   //   image_header_section: ImageHeaderSection,
 }
 
-// export const DestinationSectionsMap: {
-//   [name in SanityDestinationSectionNames]?:
-//     | FunctionComponent<any>
-//     | ComponentClass<any, any>
-// } = {
-//   image_header_section: HeroSectionTours,
-//   reviews_section: ReviewRatingSections,
-//   faq_section: FAQSection,
-//   all_blogs_section: BlogSection,
-//   featured_blogs_section: BlogSection,
-//   featured_tours_section: FeatureTourSection,
-//   at_glance_section: CountryFacts,
-//   tour_selection_section: FilterTourSection,
-//   top_things_section: TopThingsToDo,
-//   contact_agent_section: ContactSection,
-// }
+export const DestinationSectionsMap: {
+  [name in SanityDestinationSectionNames]?:
+    | FunctionComponent<any>
+    | ComponentClass<any, any>
+} = {
+  image_header_section: HeroSectionTours,
+  reviews_section: ReviewRatingSections,
+  faq_section: FAQSection,
+  all_blogs_section: BlogSection,
+  featured_blogs_section: BlogSection,
+  featured_tours_section: FeatureTourSection,
+  tour_selection_section: FilterTourSection,
+  at_glance_section: CountryFacts,
+  top_things_section: TopThingsToDo,
+  contact_agent_section: ContactSection,
+}
 
 // export const TourSectionsMap: {
 //   [name in SanityTourSectionNames]?:

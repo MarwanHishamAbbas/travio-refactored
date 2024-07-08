@@ -1,9 +1,11 @@
 import MaxWidth from "@/components/common/MaxWidth"
 import SectionHeader from "@/components/common/SectionHeader"
 import TourCard from "@/components/common/TourCard"
-import { Carousel, CarouselContent } from "@/components/ui/carousel"
-
-// const TourCard = dynamic(() => import("@/components/molecules/cards/Card"))
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel"
 
 const CardsSection = ({ data, locale }: { data: any; locale: string }) => {
   return (
@@ -16,22 +18,29 @@ const CardsSection = ({ data, locale }: { data: any; locale: string }) => {
         <Carousel className={"gap-6 pb-3"}>
           <CarouselContent>
             {data.deals.map((data: any, i: number) => (
-              <TourCard
+              <CarouselItem
                 key={i}
-                locale={locale}
-                link={data?.tour?.slug.current}
-                label={data?.label?.[locale]}
-                pic={data.tour.hero_section.image?.asset._ref}
-                mobilePic={data.tour.hero_section.image.mobile?.asset._ref}
-                tourType={data.tour.hero_section.title?.[locale]}
-                days={data.tour.overview_card?.duration?.[locale]}
-                cities={data.tour.overview_card.cities}
-                countries={data.tour.overview_card.countries}
-                old_price={
-                  data.tour.price_overrides[0].price.discounted_price[locale]
-                }
-                price={data.tour.price_overrides[0].price.initial_price[locale]}
-              />
+                className="basis-3/4 md:basis-1/3 xl:basis-1/4"
+              >
+                <TourCard
+                  key={i}
+                  locale={locale}
+                  link={data?.tour?.slug.current}
+                  label={data?.label?.[locale]}
+                  pic={data.tour.hero_section.image?.asset._ref}
+                  mobilePic={data.tour.hero_section.image.mobile?.asset._ref}
+                  tourType={data.tour.hero_section.title?.[locale]}
+                  days={data.tour.overview_card?.duration?.[locale]}
+                  cities={data.tour.overview_card.cities}
+                  countries={data.tour.overview_card.countries}
+                  old_price={
+                    data.tour.price_overrides[0].price.discounted_price[locale]
+                  }
+                  price={
+                    data.tour.price_overrides[0].price.initial_price[locale]
+                  }
+                />
+              </CarouselItem>
             ))}
           </CarouselContent>
         </Carousel>
