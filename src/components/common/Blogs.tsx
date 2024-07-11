@@ -25,7 +25,7 @@ const BlogCard = ({ blog, locale }: any) => {
                 height={460}
                 width={410}
                 quality={100}
-                className="w-[250px] h-[280px] lg:w-[410px] lg:h-[460px] object-cover"
+                className="w-[250px] md:w-full h-[280px] lg:w-[410px] lg:h-[460px] object-cover"
                 src={urlFor(blog?.cover_image)}
                 alt={`cover_image-${blog?.slug?.current}`}
               />

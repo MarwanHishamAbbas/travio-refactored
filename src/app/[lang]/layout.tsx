@@ -1,10 +1,10 @@
 import type { Metadata } from "next"
 
 import "../globals.css"
-// import Navbar from "@/components/layout/Navbar"
-// import { getBaseLayout } from "@/query/layout"
+import Navbar from "@/components/layout/Navbar"
 import { TRPCReactProvider } from "@/trpc/TRPCProvider"
 import localFont from "next/font/local"
+import { getBaseLayout } from "@/query/layout"
 const satoshiVariable = localFont({
   src: [
     {
@@ -118,14 +118,14 @@ export default async function RootLayout({
     lang: string
   }
 }>) {
-  // const content = await getBaseLayout()
+  const content = await getBaseLayout()
   return (
     <html lang="en">
       <body
         className={`${satoshiVariable.variable} ${montserratFont.variable} ${novo.variable} ${plain.variable}`}
       >
         <TRPCReactProvider>
-          {/* <Navbar content={content} locale={params.lang} /> */}
+          <Navbar content={content} locale={params.lang} />
           <div>{children}</div>
         </TRPCReactProvider>
       </body>

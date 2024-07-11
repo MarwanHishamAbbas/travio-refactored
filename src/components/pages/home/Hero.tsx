@@ -170,7 +170,7 @@ const HeroSection = ({ data, locale }: any) => {
                   <path
                     d="M1 74L1 0.999997"
                     stroke="#FFBB0B"
-                    stroke-width="0.689655"
+                    strokeWidth="0.689655"
                     strokeLinecap="round"
                   />
                 </svg>

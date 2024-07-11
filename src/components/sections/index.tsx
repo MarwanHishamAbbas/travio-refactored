@@ -151,7 +151,7 @@ export const SectionMap: {
   hero_section: HeroSection,
   feature_section: FeatureSection,
   deals_section: DealsSection,
-  gallery_section: GallerySection,
+  // gallery_section: GallerySection,
   destinations_section: DestinationsSection,
   testimonial_section: Testimonials,
   featured_blogs_section: BlogSection,
