@@ -12,7 +12,7 @@ import {
 const HeroSection = dynamic(() => import("@/components/pages/home/Hero"))
 const FeatureSection = dynamic(() => import("@/components/pages/home/Feature"))
 const DealsSection = dynamic(() => import("@/components/pages/home/HotDeals"))
-const GallerySection = dynamic(() => import("@/components/pages/home/Gallery"))
+// const GallerySection = dynamic(() => import("@/components/pages/home/Gallery"))
 const DestinationsSection = dynamic(
   () => import("@/components/pages/home/Destinations")
 )

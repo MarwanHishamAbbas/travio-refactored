@@ -1,3 +1,5 @@
+"use client"
+
 import useWindowSize from "@/hooks/useWindows"
 import { Button } from "../ui/button"
 import useSWR from "swr"

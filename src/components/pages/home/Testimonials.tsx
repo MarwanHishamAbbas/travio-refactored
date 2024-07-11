@@ -1,3 +1,5 @@
+"use client"
+
 import MaxWidth from "@/components/common/MaxWidth"
 import {
   Carousel,
