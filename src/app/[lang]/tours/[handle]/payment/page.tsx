@@ -7,9 +7,9 @@ import BookingStepper from "@/components/payment/BookingStepper"
 import { BookingStoreProvider } from "@/store/BookingProvider"
 
 export async function generateMetadata({ params }: PaymentPageProps) {
-  const { tourSlug, lang } = params
+  const { handle, lang } = params
 
-  const seo = await getTourPaymentPageSeo(tourSlug)
+  const seo = await getTourPaymentPageSeo(handle)
   const meta = seo?.meta_data || {}
   const metaTitle = meta?.meta_title[lang]
   const metaDescription = meta?.meta_description[lang]
@@ -33,13 +33,13 @@ export async function generateMetadata({ params }: PaymentPageProps) {
 }
 interface PaymentPageProps {
   params: {
-    tourSlug: string
+    handle: string
     lang: Locale
   }
 }
 
 const PaymentPage: FC<PaymentPageProps> = async ({ params }) => {
-  const data = await getPaymentPage(params.tourSlug)
+  const data = await getPaymentPage(params.handle)
 
   return (
     <main className="my-8">

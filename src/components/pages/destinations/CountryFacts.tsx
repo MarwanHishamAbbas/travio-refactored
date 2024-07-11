@@ -47,7 +47,7 @@ const CountryFacts = (props: any) => {
                     {item?.title?.[locale]}
                   </h3>
 
-                  <h3 className="text-xs md:text-sm text-gray font-satoshi  font-normal md:font-medium leading-tight md:leading-normal">
+                  <h3 className="text-xs md:text-sm text-grey font-satoshi  font-normal md:font-medium leading-tight md:leading-normal">
                     {item.subtitle?.[locale]}{" "}
                   </h3>
                 </div>

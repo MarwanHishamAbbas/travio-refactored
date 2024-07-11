@@ -44,7 +44,7 @@ const ToureTags: FC<Props> = ({ data, locale }) => {
           key={tag._id}
           id={tag._id}
           variant="outline"
-          className={`rounded-full text-gray text-xs max-md:text-[12px] font-medium max-md:h-7 
+          className={`rounded-full text-grey text-xs max-md:text-[12px] font-medium max-md:h-7 
                     ${isSelected(tag.slug?.current) ? " bg-[#3FA9F5] text-white" : "bg-white"}
                     `}
           onClick={() => handleTagClick(tag.slug?.current)}

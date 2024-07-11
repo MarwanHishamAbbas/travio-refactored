@@ -160,7 +160,7 @@ const RatingCard = ({
         {title?.substring(0, 33)}...
       </h3>
 
-      <h5 className="text-xs font-satoshi md:text-sm font-medium text-gray opacity-80 leading-[24px] md:leading-snug">
+      <h5 className="text-xs font-satoshi md:text-sm font-medium text-grey opacity-80 leading-[24px] md:leading-snug">
         {review}...
       </h5>
       <div className="flex font-satoshi gap-x-2 ">
@@ -185,7 +185,7 @@ const RatingCard = ({
             {name}
           </h6>
 
-          <h6 className="text-[10px] md:text-xs font-satoshi  font-medium  md:font-normal text-gray  leading-[20px]">
+          <h6 className="text-[10px] md:text-xs font-satoshi  font-medium  md:font-normal text-grey  leading-[20px]">
             {date}
           </h6>
         </div>
@@ -227,7 +227,7 @@ const ReviewSection = (props: any) => {
 
   const pageSize = 3
   return (
-    <MaxWidth id="reviews" className="  text-black ">
+    <MaxWidth id="reviews" className=" mt-16 text-black ">
       <SectionHeader
         title={tagline?.[locale]}
         subtitle={title?.[locale]}

@@ -92,6 +92,9 @@ dependencies:
   clsx:
     specifier: ^2.1.1
     version: 2.1.1
+  country-state-city:
+    specifier: ^3.2.1
+    version: 3.2.1
   date-fns:
     specifier: ^3.6.0
     version: 3.6.0
@@ -125,6 +128,9 @@ dependencies:
   react-hook-form:
     specifier: ^7.52.0
     version: 7.52.0(react@18.3.1)
+  react-photo-view:
+    specifier: ^1.2.6
+    version: 1.2.6(react-dom@18.3.1)(react@18.3.1)
   react-portable-text:
     specifier: ^0.6.0
     version: 0.6.0(react@18.3.1)
@@ -140,6 +146,9 @@ dependencies:
   superjson:
     specifier: ^2.2.1
     version: 2.2.1
+  swiper:
+    specifier: ^11.1.4
+    version: 11.1.4
   swr:
     specifier: ^2.2.5
     version: 2.2.5(react@18.3.1)
@@ -5486,6 +5495,10 @@ packages:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
     dev: false
 
+  /country-state-city@3.2.1:
+    resolution: {integrity: sha512-kxbanqMc6izjhc/EHkGPCTabSPZ2G6eG4/97akAYHJUN4stzzFEvQPZoF8oXDQ+10gM/O/yUmISCR1ZVxyb6EA==}
+    dev: false
+
   /crc-32@1.2.2:
     resolution: {integrity: sha512-ROmzCKrTnOwybPcJApAA6WBWij23HVfGVNKqqrZpuyZOHqK2CwHSvpGuyt/UNNvaIjEd8X5IFGp4Mh+Ie1IHJQ==}
     engines: {node: '>=0.8'}
@@ -8817,6 +8830,16 @@ packages:
     resolution: {integrity: sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==}
     dev: false
 
+  /react-photo-view@1.2.6(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-Fq17yxkMIv0oFp7HOJr39HgCZRP6A9K5T5rixJ4flSUYT2OO3V8vNxEExjhIKgIrfmTu+mDnHYEsI9RRWi1JHw==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+    dependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+    dev: false
+
   /react-portable-text@0.6.0(react@18.3.1):
     resolution: {integrity: sha512-IV8JArG06iWLQEtd+jDI7Q8xFSdmOcwkX0hvE4PEw2MaIJLWd3PQM0LbFGXDSBGlHmhclJUm64AwHj99dfePxA==}
     peerDependencies:
@@ -9812,6 +9835,11 @@ packages:
       react: '>=17.0'
     dependencies:
       react: 18.3.1
+    dev: false
+
+  /swiper@11.1.4:
+    resolution: {integrity: sha512-1n7kbYJB2dFEpUHRFszq7gys/ofIBrMNibwTiMvPHwneKND/t9kImnHt6CfGPScMHgI+dWMbGTycCKGMoOO1KA==}
+    engines: {node: '>= 4.7.0'}
     dev: false
 
   /swr@2.2.5(react@18.3.1):

@@ -4,7 +4,7 @@ import "../globals.css"
 import Navbar from "@/components/layout/Navbar"
 import { TRPCReactProvider } from "@/trpc/TRPCProvider"
 import localFont from "next/font/local"
-
+import { getBaseLayout } from "@/query/layout"
 const satoshiVariable = localFont({
   src: [
     {
@@ -109,7 +109,7 @@ export const metadata: Metadata = {
     "travel, tour, app, destination, trip, book, favorite, destination, travel and tour app, travel and tour, travel app, tour app, travel and tour app,",
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
   params,
 }: Readonly<{
@@ -118,13 +118,14 @@ export default function RootLayout({
     lang: string
   }
 }>) {
+  const content = await getBaseLayout()
   return (
     <html lang="en">
       <body
-        className={`${satoshiVariable.variable} ${montserratFont.variable} ${novo.variable} ${plain.variable} font-sans`}
+        className={`${satoshiVariable.variable} ${montserratFont.variable} ${novo.variable} ${plain.variable}`}
       >
         <TRPCReactProvider>
-          <Navbar locale={params.lang} />
+          <Navbar content={content} locale={params.lang} />
           <div>{children}</div>
         </TRPCReactProvider>
       </body>

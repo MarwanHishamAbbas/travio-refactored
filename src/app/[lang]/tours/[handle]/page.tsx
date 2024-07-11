@@ -9,9 +9,10 @@ import HeroSection from "@/components/TourDetails/HeroSection"
 import { TourSectionsMap } from "@/components/sections"
 
 import MobileHeroSection from "@/components/TourDetails/MobileHeroSection"
-import { generatePriceList } from "@/lib/dates"
-import Pricing from "@/components/TourDetails/Pricing/Pricing"
+
 import Layout from "@/components/layout/Layout"
+import { topbarTn } from "@/lib/utils"
+import AppTabs from "@/components/pages/tour/AppTabs"
 
 interface TourDetailsPageProps {
   params: {
@@ -77,7 +78,22 @@ const TourDetailsPage: FC<TourDetailsPageProps> = async ({ params }) => {
   const { data, layout } = await getTourPage(params.handle)
 
   const breadcrumbs = transformArray(data?.breadcrumb?.breadcrumb, params.lang)
-  console.log(data.layout)
+
+  const tabsData = [
+    { name: topbarTn?.[params.lang]?.Overview, href: "overview" },
+
+    { name: topbarTn?.[params.lang]?.TripHighlights, href: "price-list" },
+
+    { name: topbarTn?.[params.lang]?.Itinerary, href: "itinerary" },
+
+    { name: topbarTn?.[params.lang]?.Inclusions, href: "inclusions" },
+    {
+      name: topbarTn?.[params.lang]?.EssentialsTravelInformation,
+      href: "travel-info",
+    },
+
+    { name: topbarTn?.[params.lang]?.Reviews, href: "reviews" },
+  ]
 
   return (
     <Layout
@@ -97,6 +113,7 @@ const TourDetailsPage: FC<TourDetailsPageProps> = async ({ params }) => {
         locale={params.lang}
         overview_card={data.overview_card}
       />
+      <AppTabs tabs={tabsData} />
 
       {data?.sections?.map((section: any) => {
         const Component = TourSectionsMap[section?._type]
@@ -111,8 +128,6 @@ const TourDetailsPage: FC<TourDetailsPageProps> = async ({ params }) => {
           </React.Fragment>
         )
       })}
-
-      {/* <Pricing tourSlug={params.handle} locale={params.lang} prices={prices} /> */}
     </Layout>
   )
 }

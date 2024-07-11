@@ -1,7 +1,9 @@
+"use client"
+
 import { type FC } from "react"
 import MaxWidth from "../common/MaxWidth"
 import { AlignRight } from "lucide-react"
-import { getBaseLayout } from "@/query/layout"
+
 import Image from "next/image"
 import { urlFor } from "@/lib/sanity/sanity-image"
 import { NavLink } from "@/types/sanity"
@@ -9,19 +11,25 @@ import LangSwitch from "./LangSwitch"
 import Link from "next/link"
 import DestinationsMenu from "./DestinationsMenu"
 import { Sheet, SheetClose, SheetContent, SheetTrigger } from "../ui/sheet"
+import { usePathname } from "next/navigation"
 
 interface NavbarProps {
   locale: string
+  content: any
 }
 
-const Navbar: FC<NavbarProps> = async ({ locale }) => {
-  const content = await getBaseLayout()
+const Navbar: FC<NavbarProps> = ({ locale, content }) => {
+  const pathname = usePathname()
+  const isHome = pathname === `/${locale}`
 
   return (
     <header>
       <div className="bg-lightBlue justify-end h-8 hidden md:flex">
         <MaxWidth className=" flex items-center justify-end w-full">
-          <div className="flex gap-2 items-center">
+          <a
+            href={`whatsapp://${content.banner?.watts_banner?.contact_number}`}
+            className="flex gap-2 items-center"
+          >
             <Image
               src={"/icons/whatsapp_logo.svg"}
               width={25}
@@ -31,7 +39,7 @@ const Navbar: FC<NavbarProps> = async ({ locale }) => {
             <p className="text-xs md:text-sm">
               {content.banner.watts_banner.contact_number}
             </p>
-          </div>
+          </a>
         </MaxWidth>
       </div>
       <div className="h-16 flex items-center">
@@ -44,7 +52,7 @@ const Navbar: FC<NavbarProps> = async ({ locale }) => {
               height={70}
             />
           </Link>
-          <ul className="md:flex items-center gap-6 hidden text-sm">
+          <ul className="md:flex items-center gap-6 hidden ">
             {content.navbar.links.map((link: NavLink, idx: number) => {
               if (link._type !== "link")
                 return (
@@ -55,7 +63,17 @@ const Navbar: FC<NavbarProps> = async ({ locale }) => {
                   />
                 )
               return (
-                <Link href={`/${locale}/${link.url}`} key={idx} className="">
+                <Link
+                  href={`/${locale}/${link.url}`}
+                  key={idx}
+                  className={`text-base flex-none font-satoshi 
+                  ${
+                    (idx === 0 && isHome) ||
+                    (!isHome && pathname === `/${locale}${link.url}`)
+                      ? "text-[#3FA9F5] font-bold"
+                      : "font-medium text-darkBlue"
+                  }`}
+                >
                   {/* @ts-expect-error */}
                   {link.text[locale]}
                 </Link>

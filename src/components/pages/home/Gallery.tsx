@@ -1,9 +1,24 @@
-import MaxWidth from "@/components/common/MaxWidth"
-import { Carousel, CarouselContent } from "@/components/ui/carousel"
-import { urlFor } from "@/lib/sanity/sanity-image"
-import Image from "next/image"
-import Link from "next/link"
+"use client"
 
+import React from "react"
+import Image from "next/image"
+import { PhotoProvider, PhotoView } from "react-photo-view"
+
+// import { urlFor } from '@/sanity/client'
+
+// import { SanityGallerySection, SanityImage } from '../../sanity/types'
+
+import "react-photo-view/dist/react-photo-view.css"
+
+import "swiper/css"
+import "swiper/css/navigation"
+
+import "react-photo-view/dist/react-photo-view.css"
+import MaxWidth from "@/components/common/MaxWidth"
+import { urlFor } from "@/lib/sanity/sanity-image"
+import SwiperComponent from "@/components/swiper/SwiperComponent"
+
+// import useWindowSize from "@/hooks/useWindows";
 export type GallerySectionProps = {
   // data: SanityGallerySection
   data: any
@@ -12,28 +27,46 @@ export type GallerySectionProps = {
   forTourPage?: boolean
 }
 
-const Gallery = (props: GallerySectionProps) => {
+const TourGallery = (props: GallerySectionProps) => {
   const {
     data: { title, subtitle, images },
     locale,
     forTourPage,
   } = props
 
+  const imgs: any[][] = []
+  if (images) {
+    let single = true
+    for (let i = 0; i < images.length; i++) {
+      if (single) {
+        imgs.push([images[i]])
+      } else {
+        imgs.push(images.slice(i, i + 2))
+        i++
+      }
+      single = !single
+    }
+  }
+
   return (
-    <div className="mt-10 py-8 bg-lightBlue">
-      <MaxWidth className="mb-6">
+    <div
+      className={`${
+        forTourPage ? "bg-white" : "bg-[#F2FAFF]"
+      } pt-5 md:pt-10 min-h-[522px] md:min-h-[522px] mt-[84px] text-black`}
+    >
+      <MaxWidth>
         <h2
           id="triphighlights"
           className={`${
             forTourPage
-              ? "md:text-left text-center text-2xl"
-              : "text-center text-2xl md:text-4xl"
-          } font-satoshi text-darkblue font-bold`}
+              ? "md:text-left text-center text-[24px] md:leading-[32px] md:pl-[107px] px-5 leading-[34px]"
+              : "text-center text-[24px] px-5 md:text-[40px] leading-[32px] md:leading-[50px]"
+          } font-satoshi text-darkblue -tracking-[1.2px] font-bold`}
         >
           {title[locale]}
         </h2>
         {forTourPage && (
-          <div className="border-b-orange max-md:hidden mt-[10px] ml-[107px] w-[122px] border-b-[3px]" />
+          <div className="border-b-[#FFBB0B] max-md:hidden mt-[10px] ml-[107px] w-[122px] border-b-[3px]" />
         )}
 
         <p
@@ -41,100 +74,208 @@ const Gallery = (props: GallerySectionProps) => {
             forTourPage
               ? "md:pl-[107px] md:mt-3 px-5 max-md:text-center"
               : "text-center px-5"
-          } text-sm font-satoshi  md:text-lg text-grey `}
+          } text-sm font-satoshi  md:text-lg mt-[10px] md:mt-1.5 text-gray leading-[24px]`}
         >
           {subtitle[locale]?.substring(0, 5)[locale]}
-          <span className="text-primary font-satoshi font-medium opacity-100">
+          <span className="text-[#3FA9F5] font-satoshi font-medium opacity-100">
             {subtitle[locale]?.substring(5, 32)}
           </span>
           {subtitle[locale]?.substring(32)}
         </p>
-        {forTourPage ? null : (
-          <Image
-            quality={100}
-            priority
-            width={80}
-            height={40}
-            src={"/small-logo.svg"}
-            alt={"small logo"}
-            className={"mx-auto w-[80px] h-10"}
-          />
-        )}
+        <div
+          className={`${
+            forTourPage ? "mt-12" : "mt-[10px] md:mt-2 mb-[30px]"
+          } `}
+        >
+          {forTourPage ? null : (
+            <Image
+              quality={100}
+              priority
+              width={80}
+              height={40}
+              src={"/small-logo.svg"}
+              alt={"small logo"}
+              className={"mx-auto w-[80px] h-10"}
+            />
+          )}
+        </div>
       </MaxWidth>
-      <Carousel className="bg-white">
-        <CarouselContent className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 h-full">
-          <div className="col-span-2 sm:col-span-1 md:col-span-2 bg-gray-50 h-auto md:h-full flex flex-col">
-            <a
-              href=""
-              className="group relative flex flex-col overflow-hidden rounded-lg px-4 pb-4 pt-40 flex-grow"
-            >
-              <Image
-                src={urlFor(images[0])}
-                alt=""
-                width={1000}
-                height={1000}
-                className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out"
-              />
-            </a>
-          </div>
-          <div className="col-span-2 sm:col-span-1 md:col-span-2 bg-stone-50">
-            <a
-              href=""
-              className="group relative flex flex-col overflow-hidden rounded-lg px-4 pb-4 pt-40 mb-4"
-            >
-              <Image
-                src={urlFor(images[1])}
-                alt=""
-                width={1000}
-                height={1000}
-                className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out"
-              />
-            </a>
-            <div className="grid gap-4 grid-cols-2 sm:grid-cols-2 lg:grid-cols-2">
-              <Link
-                href=""
-                className="group relative flex flex-col overflow-hidden rounded-lg px-4 pb-4 pt-40"
+      <PhotoProvider maskOpacity={0.6}>
+        <SwiperComponent
+          className="gap-2 md:gap-2 lg:gap-2.5 !pb-0 !px-0 !pl-0"
+          scrollCount={4}
+          length={images?.length}
+        >
+          {imgs.slice(0, 3)?.map((image, i) =>
+            i % 2 == 0 ? (
+              <div
+                key={i}
+                className={
+                  "min-w-[303px] md:min-w-[350px] w-full md:max-w-[350px] h-[247px] md:h-[320px]  overflow-hidden rounded-xl"
+                }
               >
-                <Image
-                  src={urlFor(images[2])}
-                  alt=""
-                  width={1000}
-                  height={1000}
-                  className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out"
-                />
-              </Link>
-              <Link
-                href=""
-                className="group relative flex flex-col overflow-hidden rounded-lg px-4 pb-4 pt-40"
+                <PhotoView key={i} src={urlFor(image[0])}>
+                  <Image
+                    src={urlFor(image[0])}
+                    width={350}
+                    height={320}
+                    alt={"image"}
+                    className={"w-full h-full flex-shrink-0"}
+                    quality={100}
+                    priority
+                  />
+                </PhotoView>
+              </div>
+            ) : (
+              <div
+                key={i}
+                className={
+                  "w-full h-[247px] md:h-[320px] flex flex-col gap-2 lg:gap-2.5"
+                }
               >
+                <div
+                  className={
+                    "w-[122.2px] h-[118.3px] md:h-[160px] md:w-[160px] overflow-hidden rounded-xl "
+                  }
+                >
+                  <PhotoView key={i} src={urlFor(image[0])}>
+                    <Image
+                      src={urlFor(image[0])}
+                      width={160}
+                      height={160}
+                      alt={"image"}
+                      className={"object-cover w-full h-full"}
+                      quality={100}
+                      priority
+                    />
+                  </PhotoView>
+                </div>
+                {image[1] && (
+                  <div
+                    className={
+                      "w-[122.2px] h-[118.3px] md:h-[160px] md:w-[160px] overflow-hidden rounded-xl "
+                    }
+                  >
+                    <PhotoView key={i} src={urlFor(image[1])}>
+                      <Image
+                        src={urlFor(image[1])}
+                        width={160}
+                        height={160}
+                        alt={"image"}
+                        className={"object-cover w-full h-full"}
+                        quality={100}
+                        priority
+                      />
+                    </PhotoView>
+                    <PhotoView key={i} src={urlFor(image[1])}>
+                      <Image
+                        src={urlFor(image[1])}
+                        width={160}
+                        height={160}
+                        alt={"image"}
+                        className={"object-cover w-full h-full"}
+                        quality={100}
+                        priority
+                      />
+                    </PhotoView>
+                  </div>
+                )}
+              </div>
+            )
+          )}
+          <div
+            className={
+              "w-full  h-[247px]  md:h-[320px] flex flex-col gap-2 lg:gap-2.5 "
+            }
+          >
+            <div
+              className={
+                "w-[122.2px] md:w-[118.3px] h-full overflow-hidden rounded-xl "
+              }
+            >
+              <PhotoView src={urlFor(imgs[5][0])}>
                 <Image
-                  src={urlFor(images[3])}
-                  alt=""
-                  width={1000}
-                  height={1000}
-                  className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out"
+                  src={urlFor(imgs[5][0])}
+                  width={160}
+                  height={160}
+                  alt={"image"}
+                  className={"object-cover w-full h-full"}
+                  quality={100}
+                  priority
                 />
-              </Link>
+              </PhotoView>
             </div>
           </div>
-          <div className="col-span-2 sm:col-span-1 md:col-span-1 bg-sky-50 h-auto md:h-full flex flex-col">
-            <Link
-              href=""
-              className="group relative flex flex-col overflow-hidden rounded-lg px-4 pb-4 pt-40 flex-grow"
-            >
-              <Image
-                src={urlFor(images[4])}
-                alt=""
-                width={1000}
-                height={1000}
-                className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out"
-              />
-            </Link>
-          </div>
-        </CarouselContent>
-      </Carousel>
+          {imgs.slice(3, 6)?.map((image, i) =>
+            i % 2 == 1 ? (
+              <div
+                key={i}
+                className={
+                  "min-w-[303px] w-full h-[247px]  md:h-[320px]   md:min-w-[310px] md:max-w-[400px]  overflow-hidden rounded-xl"
+                }
+              >
+                <PhotoView key={i} src={urlFor(image[0])}>
+                  <Image
+                    src={urlFor(image[0])}
+                    width={320}
+                    height={320}
+                    quality={100}
+                    alt={"image"}
+                    className={"w-full h-full flex-shrink-0 object-cover "}
+                    priority
+                  />
+                </PhotoView>
+              </div>
+            ) : (
+              <div
+                key={i}
+                className={
+                  "w-full  h-[247px]  md:h-[320px] flex flex-col gap-2 lg:gap-2.5 "
+                }
+              >
+                <div
+                  className={
+                    "w-[122.2px] h-[118.3px] md:h-[160px] md:w-[160px] overflow-hidden rounded-xl "
+                  }
+                >
+                  <PhotoView key={i} src={urlFor(image[0])}>
+                    <Image
+                      src={urlFor(image[0])}
+                      width={160}
+                      height={160}
+                      quality={100}
+                      alt={"image"}
+                      className={"object-cover w-full h-full"}
+                      priority
+                    />
+                  </PhotoView>
+                </div>
+                {image[1] && (
+                  <div
+                    className={
+                      "w-[122.2px] h-[118.3px] md:h-[160px] md:w-[160px] overflow-hidden rounded-xl "
+                    }
+                  >
+                    <PhotoView key={i} src={urlFor(image[1])}>
+                      <Image
+                        src={urlFor(image[1])}
+                        width={160}
+                        height={160}
+                        quality={100}
+                        alt={"image"}
+                        className={"object-cover w-full h-full"}
+                        priority
+                      />
+                    </PhotoView>
+                  </div>
+                )}
+              </div>
+            )
+          )}
+        </SwiperComponent>
+      </PhotoProvider>
     </div>
   )
 }
 
-export default Gallery
+export default TourGallery

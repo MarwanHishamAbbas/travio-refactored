@@ -49,7 +49,7 @@ const Footer = ({ footer, language }: any) => {
                   </h1>
                 </div>
 
-                <p className="text-gray text-sm md:text-base font-medium md:font-normal leading-[24px] mt-5"></p>
+                <p className="text-grey text-sm md:text-base font-medium md:font-normal leading-[24px] mt-5"></p>
               </div>
               <div className="flex flex-wrap gap-5 md:gap-6 lg:mt-10 mt-0 w-full justify-center lg:justify-start">
                 {footer?.socials?.map((item: any, index: number) => {
@@ -82,7 +82,7 @@ const Footer = ({ footer, language }: any) => {
             </div>
           </div>
           {/* Right side */}
-          <div className="grow flex flex-col gap-4 text-darkblue">
+          <div className="grow flex flex-col gap-4 text-darkBlue">
             <div className="grid grid-cols-3 gap-3 justify-between">
               {footer?.link_groups?.map((item: any, index: number) => {
                 return (
@@ -95,7 +95,7 @@ const Footer = ({ footer, language }: any) => {
                 )
               })}
             </div>
-            <div className="hidden md:block border-gray opacity-20" />
+            <div className="hidden md:block border-grey opacity-20" />
             <h1 className="psb-2 font-bold text-base md:text-lg leading-[24px] pt-7">
               {footer?.locations?.title?.[language]}
             </h1>

@@ -9,7 +9,7 @@ import PricingList from "./PricingList"
 
 interface PricingProps {
   locale: Locale
-  tourSlug: string
+  handle: string
   prices: {
     from: Date
     to: Date
@@ -19,10 +19,10 @@ interface PricingProps {
   }[]
 }
 
-const Pricing: FC<PricingProps> = async ({ locale, prices, tourSlug }) => {
+const Pricing: FC<PricingProps> = async ({ locale, prices, handle }) => {
   const content = await getDictionary(locale)
   return (
-    <MaxWidth id="pricing">
+    <MaxWidth className="mt-16" id="pricing">
       <div className="bg-black/[0.03] p-4 rounded-2xl space-y-8">
         <div className="flex flex-col md:flex-row justify-between md:items-center gap-6">
           <div>
@@ -59,7 +59,7 @@ const Pricing: FC<PricingProps> = async ({ locale, prices, tourSlug }) => {
           content={content}
           prices={prices}
           locale={locale}
-          tourSlug={tourSlug}
+          handle={handle}
         />
       </div>
     </MaxWidth>

@@ -15,7 +15,7 @@ const Footer__links = ({
   locale: string
 }) => {
   return (
-    <div className="flex gap-2 flex-col text-darkblue font-satoshi">
+    <div className="flex gap-2 flex-col text-darkBlue font-satoshi">
       <h1 className="psb-2 font-bold text-base md:text-lg leading-[24px]">
         {heading}
       </h1>

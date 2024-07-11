@@ -62,6 +62,29 @@ const SummarySection = dynamic(
   () => import("@/components/pages/tour/SummarySection")
 )
 
+const MemorableExperiencesSection = dynamic(
+  () => import("@/components/pages/tour/MemoriableExperince")
+)
+
+const WhatsIncludedSection = dynamic(
+  () => import("@/components/pages/tour/WhatsIncludedSection")
+)
+const ItinerarySection = dynamic(
+  () => import("@/components/pages/tour/ItinarySection")
+)
+
+const AccommdationTypesSection = dynamic(
+  () => import("@/components/pages/tour/AccommdationTypesSection")
+)
+
+const TravelInformation = dynamic(
+  () => import("@/components/pages/tour/TravelInformation")
+)
+
+const PriceList = dynamic(() => import("@/components/pages/tour/PriceList"))
+const FlexibleThingsForTour = dynamic(
+  () => import("@/components/pages/tour/FlexibleThingsForTour")
+)
 // const BlogHeroSection = dynamic(() => import("./BlogHeroSection"))
 // const InterestSection = dynamic(() => import("./InterestSection"))
 // const FeatureTopBlogSection = dynamic(() => import("./FeatureTopBlogSection"))
@@ -93,35 +116,7 @@ const SummarySection = dynamic(
 //   () => import("@/components/pages/HomePage/Destination")
 // )
 
-// const TravelInformation = dynamic(
-//   () => import("@/components/pages/DynamicTourPage/TraveInformation")
-// )
-
-// const ItinerarySection = dynamic(
-//   () => import("@/components/pages/DynamicTourPage/ItinarySection")
-// )
-
 // // const ExcludedInTour = dynamic(() => import("./ExcludedInTour"));
-
-// const MemorableExperiencesSection = dynamic(
-//   () => import("@/components/pages/DynamicTourPage/MemoriableExperince")
-// )
-
-// const FlexibleThingsForTour = dynamic(
-//   () => import("@/components/sections/FlexibleThings/ForTourSection")
-// )
-
-// const PriceList = dynamic(
-//   () => import("@/components/pages/DynamicTourPage/PriceList")
-// )
-
-// const WhatsIncludedSection = dynamic(
-//   () => import("@/components/pages/DynamicTourPage/InccludedInTour")
-// )
-
-// const AccommdationTypesSection = dynamic(
-//   () => import("@/components/pages/DynamicTourPage/Accomdations")
-// )
 
 // const TourGallerySection = dynamic(
 //   () => import("../molecules/TourGallery/TourGallerySection")
@@ -191,16 +186,15 @@ export const TourSectionsMap: {
     | FunctionComponent<any>
     | ComponentClass<any, any>
 } = {
-  // itinerary_section: ItinerarySection,
+  itinerary_section: ItinerarySection,
   content_section: SummarySection,
-  // memorable_experiences_section: MemorableExperiencesSection,
-  // gallery_section: TourGallerySection,
-  // whats_included_section: WhatsIncludedSection,
-  // pricing_section: PriceList,
-  // accommodation_types_section: AccommdationTypesSection,
-  // feature_section: FlexibleThingsForTour,
+  memorable_experiences_section: MemorableExperiencesSection,
+  whats_included_section: WhatsIncludedSection,
+  pricing_section: PriceList,
+  accommodation_types_section: AccommdationTypesSection,
+  feature_section: FlexibleThingsForTour,
   featured_tours_section: FeatureTourSection,
-  // travel_info_section: TravelInformation,
+  travel_info_section: TravelInformation,
   reviews_section: ReviewRatingSections,
   faq_section: FAQSection,
 }

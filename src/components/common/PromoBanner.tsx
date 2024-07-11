@@ -11,7 +11,7 @@ function PromoBanner({ banner, locale }: { banner?: any; locale: string }) {
 
   return (
     <div
-      className={`max-md:min-h-[32px] font-satoshi min-h-[40px] flex flex-col items-center justify-center z-10 text-white bg-darkblue ${
+      className={`max-md:min-h-[32px] font-satoshi min-h-[40px] flex flex-col items-center justify-center z-10 text-white bg-darkBlue ${
         isHome &&
         "rounded-t-[24px] max-xl:rounded-none relative z-20 max-w-[1280px] w-full mx-auto"
       }`}

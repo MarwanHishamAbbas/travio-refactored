@@ -72,7 +72,7 @@ export async function getTourPageSeo(slug: string) {
 }
 
 // return slug of all the tours
-export async function getAllTourSlugs() {
+export async function getAllhandles() {
   const query = `*[_type == "tour_page"]{
       slug
     }`

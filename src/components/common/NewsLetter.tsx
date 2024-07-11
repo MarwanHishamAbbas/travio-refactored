@@ -1,10 +1,10 @@
 import useWindowSize from "@/hooks/useWindows"
 import { Button } from "../ui/button"
 import useSWR from "swr"
-import { getnewLetterSection } from "@/query/common"
 import { signUpTn, tourFormTn } from "@/lib/utils"
 
 import Image from "next/image"
+import { getnewLetterSection } from "@/query/common"
 import MaxWidth from "./MaxWidth"
 
 const NewsletterSection = ({ locale, data: pageSec }: any) => {
@@ -20,8 +20,8 @@ const NewsletterSection = ({ locale, data: pageSec }: any) => {
   if (!isShown) return null
 
   return (
-    <MaxWidth className=" flex justify-center items-center bg-white text-white mt-16">
-      <div className="md:p-16 p-5 w-full bg-primary rounded-3xl overflow-hidden relative">
+    <MaxWidth className="md:pb-[60px] pb-[50px] px-0 flex justify-center items-center bg-white text-white">
+      <div className="pt-[30px] md:pt-[55px] pb-[45px] px-[60px] h-[300px] md:h-full w-screen md:w-full bg-blue md:rounded-3xl overflow-hidden relative">
         <Image
           width={640}
           height={222}
@@ -36,19 +36,19 @@ const NewsletterSection = ({ locale, data: pageSec }: any) => {
             `}
           className={"absolute w-full h-full top-0 left-0 object-cover"}
         />
-        <div className="flex relative font-satoshi z-10 flex-col justify-center md:justify-start items-center md:items-start md:w-1/2">
+        <div className="flex relative font-satoshi z-10 flex-col justify-center md:justify-start items-center md:items-start ">
           <header>
-            <h2 className="text-center  md:text-start text-2xl md:text-4xl font-bold ">
+            <h2 className="text-center -tracking-[1.2px] max-w-3xl md:text-start text-[24px] md:text-[40px] font-bold leading-[32px] md:leading-[50px] w-[335px] md:w-full">
               {title?.[locale]}
             </h2>
 
-            <p className=" text-center max-w-[610px] -tracking-[0.6px] mt-2.5 mb-[30px] md:text-start text-[14px] md:text-[20px] font-[500] md:font-normal leading-[20px] md:leading-[32px]">
+            <p className="w-[335px] md:w-full  text-center max-w-[610px] -tracking-[0.6px] mt-2.5 mb-[30px] md:text-start text-[14px] md:text-[20px] font-[500] md:font-normal leading-[20px] md:leading-[32px]">
               {subtitle?.[locale]}
             </p>
           </header>
-          <div className="relative shadow-sm flex items-center w-full ">
+          <div className="relative shadow-sm flex items-center  ">
             <input
-              className=" text-black w-full h-10 md:h-12 rounded-full px-3 md:px-4 placeholder:text-gray text-xs   md:text-base leading-[22px] md:leading-normal "
+              className=" text-black w-[335px]  md:w-[420px] h-10 md:h-12 rounded-full px-3 md:px-4 placeholder:text-gray text-xs   md:text-base leading-[22px] md:leading-normal "
               type="text"
               placeholder={"Enter your email"}
             />
@@ -58,7 +58,7 @@ const NewsletterSection = ({ locale, data: pageSec }: any) => {
             </Button>
           </div>
 
-          <footer className="flex md:flex-col  items-center md:items-start gap-1.5 mt-2 md:mt-[30px]">
+          <footer className="flex md:flex-col w-[335px] items-center md:items-start gap-1.5 mt-2 md:mt-[30px]">
             <strong className="text-[12px] md:text-[20px] font-bold leading-[20px] md:leading-[32px] ">
               {/* @ts-ignore */}
 

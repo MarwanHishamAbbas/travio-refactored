@@ -102,7 +102,7 @@ const ContentSection = (props: PropsWithLocale<ContentSectionProps>) => {
       if (!props) return null
 
       return (
-        <div className="flex w-full font-satoshi text-darkblue max-md:flex-col  gap-4 md:gap-12">
+        <div className="flex w-full font-satoshi text-darkBlue max-md:flex-col  gap-4 md:gap-12">
           {props?.items[0]?.items?.map((item: any, index: number) => {
             return (
               <PortableText
@@ -144,7 +144,7 @@ const ContentSection = (props: PropsWithLocale<ContentSectionProps>) => {
               height={310}
               className="rounded-[18px] object-fill w-full h-auto max-md:max-w-full max-md:min-h-[260px] max-md:rounded-[12px]"
             />
-            <figcaption className="text-center mt-2 font-satoshi text-darkblue text-opacity-75 text-xs md:text-sm font-normal md:font-medium leading-tight md:leading-snug">
+            <figcaption className="text-center mt-2 font-satoshi text-darkBlue text-opacity-75 text-xs md:text-sm font-normal md:font-medium leading-tight md:leading-snug">
               {props?.items[0]?.alt}
             </figcaption>
           </figure>
@@ -156,14 +156,14 @@ const ContentSection = (props: PropsWithLocale<ContentSectionProps>) => {
   return (
     <>
       <BottomBar />
-      <MaxWidth id="overview" className=" font-satoshi text-darkBlue">
+      <MaxWidth id="overview" className=" font-satoshi text-darkBlue mt-16">
         <SectionHeader
           title={tagline?.[locale] as string}
           centerLine
           subtitle={title?.[locale] as string}
         />
 
-        <RootStyle className="text-sm md:text-base mt-[48px] text-darkblue  leading-[24px] font-normal">
+        <RootStyle className="text-sm md:text-base mt-[48px] text-darkBlue  leading-[24px] font-normal">
           {content?.[locale] && (
             <PortableText
               content={content?.[locale] ? content?.[locale] : ""}

@@ -70,7 +70,7 @@ export default function FilterSidebar({
                     }}
                   />
                   <label
-                    className="text-xs text-gray font-medium hover:cursor-pointer"
+                    className="text-xs text-grey font-medium hover:cursor-pointer"
                     htmlFor={country.slug.current}
                   >
                     {country?.name?.[locale]}
@@ -111,7 +111,7 @@ export default function FilterSidebar({
                     }}
                   />
                   <label
-                    className="text-xs text-gray font-medium whitespace-nowrap hover:cursor-pointer"
+                    className="text-xs text-grey font-medium whitespace-nowrap hover:cursor-pointer"
                     htmlFor={country.slug.current}
                   >
                     {country?.name?.[locale]}
@@ -152,7 +152,7 @@ export default function FilterSidebar({
                     }}
                   />
                   <label
-                    className="text-xs text-gray font-medium whitespace-nowrap hover:cursor-pointer"
+                    className="text-xs text-grey font-medium whitespace-nowrap hover:cursor-pointer"
                     htmlFor={country.slug.current}
                   >
                     {country?.name?.[locale]}

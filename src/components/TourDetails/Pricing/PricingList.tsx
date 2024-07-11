@@ -16,7 +16,7 @@ import Link from "next/link"
 interface PricingListProps {
   content: any
   locale: Locale
-  tourSlug: string
+  handle: string
   prices: {
     from: Date
     to: Date
@@ -30,7 +30,7 @@ const PricingList: FC<PricingListProps> = ({
   content,
   prices,
   locale,
-  tourSlug,
+  handle,
 }) => {
   const [slice, setSlice] = useState<number>(5)
   return (
@@ -83,7 +83,7 @@ const PricingList: FC<PricingListProps> = ({
                       {content.exactTn}
                     </span>
                   </p>
-                  <p className="md:text-sm font-satoshi font-normal text-darkblue text-[12px] leading-5">
+                  <p className="md:text-sm font-satoshi font-normal text-darkBlue text-[12px] leading-5">
                     <span className="text-[#3FA9F5] font-medium">
                       {content.tripTn}
                     </span>{" "}
@@ -96,7 +96,7 @@ const PricingList: FC<PricingListProps> = ({
                   asChild
                 >
                   <Link
-                    href={`/${locale}/tours/${tourSlug}/payment?from=${new Date(
+                    href={`/${locale}/tours/${handle}/payment?from=${new Date(
                       price.from
                     ).getTime()}&to=${new Date(price.to).getTime()}`}
                   >

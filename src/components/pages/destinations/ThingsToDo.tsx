@@ -45,10 +45,10 @@ const TopThingsToDo = (props: any) => {
                       />
                     </Link>
                     <div className="p-4 font-satoshi flex flex-col gap-2">
-                      <h2 className="my-1 text-xl text-darkblue max-w-[270px] font-bold max-md:text-base">
+                      <h2 className="my-1 text-xl text-darkBlue max-w-[270px] font-bold max-md:text-base">
                         {item?.title?.[locale]}
                       </h2>
-                      <h3 className="md:font-medium text-gray max-w-[270px] md:text-[14px] md:leading-[22px] leading-5 text-[12px] font-normal">
+                      <h3 className="md:font-medium text-grey max-w-[270px] md:text-[14px] md:leading-[22px] leading-5 text-[12px] font-normal">
                         {item?.description?.[locale]}
                       </h3>
 

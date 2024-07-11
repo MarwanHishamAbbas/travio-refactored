@@ -126,8 +126,7 @@ const Carousel = React.forwardRef<
           carouselRef,
           api: api,
           opts,
-          orientation:
-            orientation || (opts?.axis === "y" ? "vertical" : "horizontal"),
+          orientation: "horizontal",
           scrollPrev,
           scrollNext,
           canScrollPrev,
@@ -162,7 +161,7 @@ const CarouselContent = React.forwardRef<
         ref={ref}
         className={cn(
           "flex",
-          orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col",
+          orientation === "horizontal" ? "" : "-mt-4 flex-col",
           className
         )}
         {...props}
@@ -206,10 +205,10 @@ const CarouselPrevious = React.forwardRef<
       variant={variant}
       size={size}
       className={cn(
-        "  h-8 w-8 rounded-full",
+        "  size-10 rounded-full",
         orientation === "horizontal"
-          ? "-left-12 top-1/2"
-          : "-top-12 left-1/2 rotate-90",
+          ? " left-0 md:-left-0 top-1/2"
+          : "-top-12  rotate-90",
         className
       )}
       disabled={!canScrollPrev}
@@ -235,9 +234,9 @@ const CarouselNext = React.forwardRef<
       variant={variant}
       size={size}
       className={cn(
-        " h-8 w-8 rounded-full",
+        " size-10 rounded-full z-[999]",
         orientation === "horizontal"
-          ? "-right-12 top-1/2"
+          ? "md:-right-0 right-0 top-1/2"
           : "-bottom-12 left-1/2 rotate-90",
         className
       )}

@@ -18,8 +18,8 @@ const Testimonials = ({ locale }: { locale: string }) => {
   const { data, isLoading } = useSWR("getTestimonials", getTestimonials)
 
   return (
-    <div className=" bg-lightBlue py-14 mt-16">
-      <MaxWidth className="grid grid-cols-1 md:grid-cols-3 gap-10 relative">
+    <div className=" bg-lightBlue py-14 mt-16 font-satoshi">
+      <MaxWidth className="grid grid-cols-1 md:grid-cols-4 gap-10 relative">
         <div>
           <h2 className="text-xl md:text-4xl font-bold">
             <span className="text-primary md:text-black">
@@ -43,10 +43,10 @@ const Testimonials = ({ locale }: { locale: string }) => {
           )}
         </div>
 
-        <Carousel className="col-span-2 self-center">
+        <Carousel className="col-span-3 self-center">
           <CarouselContent>
             {data?.sections[0].testimonials?.map((item: any, index: any) => (
-              <CarouselItem key={index} className="md:basis-1/2 space-y-4">
+              <CarouselItem key={index} className="md:basis-1/3 space-y-4">
                 <div className="flex">
                   {[...Array(5)].map((_, idx) => {
                     return (

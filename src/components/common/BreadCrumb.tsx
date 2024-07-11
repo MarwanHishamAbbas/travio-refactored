@@ -46,7 +46,7 @@ const Breadcrumbs = ({
             className={
               i === lastIndex
                 ? "text-primary md:font-bold font-medium max-md:text-[12px] max-md:leading-5"
-                : "text-darkblue"
+                : "text-darkBlue"
             }
             href={`/${locale}${path.value}`}
           >

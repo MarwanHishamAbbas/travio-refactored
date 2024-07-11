@@ -1,14 +1,9 @@
 import React from "react"
 import Link from "next/link"
-
-import dynamic from "next/dynamic"
 import MaxWidth from "@/components/common/MaxWidth"
-import SectionHeader from "@/components/common/SectionHeader"
-const DestinationCard = dynamic(
-  () => import("@/components/common/DestinationCard")
-)
+import DestinationCard from "@/components/common/DestinationCard"
 
-const Destinations = ({ data, locale }: any) => {
+const DestinationsSection = ({ data, locale }: any) => {
   const validDestinations =
     data.destinations?.filter((destination: any) => destination.destination) ||
     []
@@ -23,25 +18,37 @@ const Destinations = ({ data, locale }: any) => {
   }
 
   return (
-    <MaxWidth className="mt-16">
-      <SectionHeader title="Destinations" subtitle="Where We Can Go" />
-      <div className="grid grid-flow-row grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-8 max-sm:justify-center">
-        {validDestinations.map((destination: any, idx: number) => (
-          <Link
-            key={idx}
-            href={`${locale}/destinations${destination.destination?.slug?.current}`}
-          >
-            <DestinationCard
-              key={destination._key + idx}
-              data={destination}
-              locale={locale}
-              tourCount={destination.destination?.count?.length}
-            />
-          </Link>
-        ))}
+    <MaxWidth className=" mt-16">
+      <div>
+        <header>
+          <p className="text-[#3FA9F5] font-satoshi text-[12px] md:text-base font-medium uppercase leading-5 md:leading-normal ">
+            {data.tagline[locale]}
+          </p>
+
+          <div className="text-2xl md:text-[40px] font-satoshi w-fit leading-tight my-3 font-bold -tracking-[1.2px] md:leading-[50px]">
+            <h2>{data.title[locale]}</h2>
+            <div className="w-[85px] md:w-1/3 mt-1 lg:mt-[9px] rounded-full border-b-[#FFBB0B] md:border-b-[3px] border-b-[2px]" />
+          </div>
+        </header>
+
+        <div className="grid grid-flow-row grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-7 mt-[30px] md:mt-12 max-sm:justify-center">
+          {validDestinations.map((destination: any, idx: number) => (
+            <Link
+              key={idx}
+              href={`${locale}/destinations${destination.destination?.slug?.current}`}
+            >
+              <DestinationCard
+                key={destination._key + idx}
+                data={destination}
+                locale={locale}
+                tourCount={destination.destination?.count?.length}
+              />
+            </Link>
+          ))}
+        </div>
       </div>
     </MaxWidth>
   )
 }
 
-export default Destinations
+export default DestinationsSection

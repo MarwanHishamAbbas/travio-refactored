@@ -34,13 +34,12 @@ export default function LangSwitch({ locale }: { locale: string }) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
-          size={"sm"}
           variant="secondary"
-          className="rounded-full flex items-center gap-1 "
+          className="rounded-full flex items-center gap-1 px-2"
         >
           {" "}
           {/* @ts-expect-error */}
-          <Image src={flags[locale]} width={22} height={22} alt="Flag" />
+          <Image src={flags[locale]} width={25} height={25} alt="Flag" />
           <ChevronDown className="size-4" />
         </Button>
       </DropdownMenuTrigger>
