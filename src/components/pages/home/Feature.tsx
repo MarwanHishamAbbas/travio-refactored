@@ -46,7 +46,7 @@ export default function FeatureSection({ data, locale }: any) {
       >
         {/* {data.title && ( */}
         <>
-          <div className=" text-darkblue w-fit -tracking-[1.2px] mx-auto text-[24px] md:text-[40px] font-bold leading-[32px] md:leading-[50px]  text-center ">
+          <div className=" text-darkBlue w-fit -tracking-[1.2px] mx-auto text-[24px] md:text-[40px] font-bold leading-[32px] md:leading-[50px]  text-center ">
             <h2 className="font-satoshi">{data.title[locale]}</h2>
             <div className="md:w-[117px] w-[85px] m-auto mt-1 lg:mt-[9px] border-[#FFBB0B] md:border-b-[3px] border-b-[2px] text-yellow rounded-full" />
           </div>
@@ -165,7 +165,7 @@ const SmallFeature = ({ data, locale }: FeatureProps) => {
         alt=""
         className={"h-12 w-12"}
       />
-      <h3 className="text-center max-md:max-w-[140px] text-darkblue font-satoshi font-medium md:text-start text-[12px] leading-5 md:text-base md:leading-[24px] md:ml-3">
+      <h3 className="text-center max-md:max-w-[140px] text-darkBlue font-satoshi font-medium md:text-start text-[12px] leading-5 md:text-base md:leading-[24px] md:ml-3">
         {data.title[locale]}
       </h3>
     </div>

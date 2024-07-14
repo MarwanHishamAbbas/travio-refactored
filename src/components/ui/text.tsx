@@ -9,7 +9,7 @@ const textVariants = cva("", {
     variant: {
       default: "text-primary",
       destructive: "text-destructive",
-      darkblue: "text-darkblue",
+      darkblue: "text-darkBlue",
       tertiary: "text-tertiary",
       gray: "text-gray",
       paragraph: "text-topic",

@@ -11,6 +11,9 @@ dependencies:
   '@hookform/resolvers':
     specifier: ^3.6.0
     version: 3.6.0(react-hook-form@7.52.0)
+  '@nadfri/react-scroll-progress-bar':
+    specifier: ^0.2.3
+    version: 0.2.3(react@18.3.1)
   '@radix-ui/react-accordion':
     specifier: ^1.2.0
     version: 1.2.0(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1)(react@18.3.1)
@@ -134,6 +137,9 @@ dependencies:
   react-portable-text:
     specifier: ^0.6.0
     version: 0.6.0(react@18.3.1)
+  react-share-kit:
+    specifier: ^1.1.0
+    version: 1.1.0(react@18.3.1)
   sanity:
     specifier: ^3.37.1
     version: 3.46.1(@types/node@20.14.2)(@types/react@18.3.3)(react-dom@18.3.1)(react@18.3.1)(styled-components@6.1.11)
@@ -2355,6 +2361,15 @@ packages:
     resolution: {integrity: sha512-CHsKq8DMKBf9b3yXPDIU4DbH+ZJd/sJdYOW2llbW/HudP5u0VS6Bfq1hLYfgU7uAYGFIyGGQIsSOXGPEErZiJw==}
     dependencies:
       '@lezer/common': 1.2.1
+    dev: false
+
+  /@nadfri/react-scroll-progress-bar@0.2.3(react@18.3.1):
+    resolution: {integrity: sha512-qzvFZehBjyWaI2iquuN2eVkL/QICXWtPjvSvHVl1Rh4AEyLFlUzMmkOrtbFMDoJfI4TuySYps0rjUxB+cvfPhA==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: '>=16'
+    dependencies:
+      react: 18.3.1
     dev: false
 
   /@next/env@14.2.4:
@@ -7661,6 +7676,14 @@ packages:
     hasBin: true
     dev: false
 
+  /jsonp@0.2.1:
+    resolution: {integrity: sha512-pfog5gdDxPdV4eP7Kg87M8/bHgshlZ5pybl+yKxAnCZ5O7lCIn7Ixydj03wOlnDQesky2BPyA91SQ+5Y/mNwzw==}
+    dependencies:
+      debug: 2.6.9
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
   /jsx-ast-utils@3.3.5:
     resolution: {integrity: sha512-ZZow9HBI5O6EPgSJLUb8n2NKgmVWTwCvHGwFuJlMjvLFqlGG6pjirPhtdsseaLZjSibD8eegzmYpUZwoIlj2cQ==}
     engines: {node: '>=4.0'}
@@ -8929,6 +8952,17 @@ packages:
       react: 18.3.1
       rxjs: 7.8.1
       use-sync-external-store: 1.2.2(react@18.3.1)
+    dev: false
+
+  /react-share-kit@1.1.0(react@18.3.1):
+    resolution: {integrity: sha512-aOOQr1wy7Qw74CDdajLj2Hv1+dzvuO4DGJwLX3YtvKEFrIK0cnt6bkzFzjDpvs2qQ9PMOPkMTqog2Apx947a6A==}
+    peerDependencies:
+      react: ^18.2.0
+    dependencies:
+      jsonp: 0.2.1
+      react: 18.3.1
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /react-style-proptype@3.2.2:

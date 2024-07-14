@@ -11,6 +11,7 @@
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.5.4",
     "@hookform/resolvers": "^3.6.0",
+    "@nadfri/react-scroll-progress-bar": "^0.2.3",
     "@radix-ui/react-accordion": "^1.2.0",
     "@radix-ui/react-checkbox": "^1.1.0",
     "@radix-ui/react-dialog": "^1.0.5",
@@ -52,6 +53,7 @@
     "react-hook-form": "^7.52.0",
     "react-photo-view": "^1.2.6",
     "react-portable-text": "^0.6.0",
+    "react-share-kit": "^1.1.0",
     "sanity": "^3.37.1",
     "stripe": "^16.0.0",
     "styled-components": "^6.1",

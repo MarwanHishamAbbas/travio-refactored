@@ -1,13 +1,14 @@
-import MaxWidth from "@/components/common/MaxWidth"
-import SectionHeader from "@/components/common/SectionHeader"
-import TourCard from "@/components/common/TourCard"
-import SwiperComponent from "@/components/swiper/SwiperComponent"
-import { SanityFeaturedToursSection } from "@/types/sanity"
 import React from "react"
 // import Image from "next/image";
 // import Link from "next/link";
 
 // import { urlFor } from "../../../../sanity/lib/client";
+
+import FeatureCard from "./FeatureCard"
+import { SanityFeaturedToursSection } from "@/types/sanity"
+import MaxWidth from "@/components/common/MaxWidth"
+import SectionHeader from "@/components/common/SectionHeader"
+import SwiperComponent from "@/components/swiper/SwiperComponent"
 
 export type FeaturedTour = {
   data: SanityFeaturedToursSection
@@ -26,14 +27,14 @@ const FeatureTourSection = (FeaturedTour: any) => {
       {FeaturedTour?.data.tour_cards && (
         <div className="h-fit relative md:mt-12 mt-[30px]">
           <SwiperComponent
-            className={"gap-6 pb-3 "}
+            className={"gap-6 pb-3"}
             length={FeaturedTour?.data?.tour_cards.length ?? 0}
             scrollCount={4}
           >
             {Array.isArray(FeaturedTour?.data?.tour_cards) &&
               FeaturedTour?.data?.tour_cards.length > 0 &&
               FeaturedTour?.data?.tour_cards?.map((item: any, i: number) => (
-                <TourCard
+                <FeatureCard
                   key={i}
                   locale={locale}
                   link={item?.content?.slug?.current}

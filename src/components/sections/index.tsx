@@ -2,7 +2,7 @@ import { ComponentClass, FunctionComponent } from "react"
 import dynamic from "next/dynamic"
 
 import {
-  // SanityBlogPageSectionNames,
+  SanityBlogPageSectionNames,
   SanityDestinationSectionNames,
   SanitySectionNames,
   // SanityTourPageSectionNames,
@@ -85,16 +85,22 @@ const PriceList = dynamic(() => import("@/components/pages/tour/PriceList"))
 const FlexibleThingsForTour = dynamic(
   () => import("@/components/pages/tour/FlexibleThingsForTour")
 )
-// const BlogHeroSection = dynamic(() => import("./BlogHeroSection"))
-// const InterestSection = dynamic(() => import("./InterestSection"))
-// const FeatureTopBlogSection = dynamic(() => import("./FeatureTopBlogSection"))
+const BlogHeroSection = dynamic(
+  () => import("@/components/pages/blog/HeroSection")
+)
+const InterestSection = dynamic(
+  () => import("@/components/pages/blog/InterestSection")
+)
+const FeatureTopBlogSection = dynamic(
+  () => import("@/components/pages/blog//FeatureTopBlog")
+)
 
-// const AllBlogsSection = dynamic(
-//   () => import("@/components/pages/AllBlogs-Page/FeatureBlogs"),
-//   {
-//     loading: () => <p>Loading...</p>,
-//   }
-// )
+const AllBlogsSection = dynamic(
+  () => import("@/components/pages/blog/AllBlogs"),
+  {
+    loading: () => <p>Loading...</p>,
+  }
+)
 
 // // const FlexibleThings = dynamic(
 // //   () => import("@/components/sections/FlexibleThings/FlexibleThings")
@@ -130,18 +136,18 @@ const FlexibleThingsForTour = dynamic(
 //   () => import("../pages/About-Us/OfficeLocation")
 // )
 
-// export const BlogPageSectionsMap: {
-//   [name in SanityBlogPageSectionNames]?:
-//     | FunctionComponent<any>
-//     | ComponentClass<any, any>
-// } = {
-//   image_header_section: BlogHeroSection,
-//   show_new_letter_section: NewsletterSection,
-//   interests_section: InterestSection,
-//   featured_place_blogs_section: FeatureTopBlogSection,
-//   featured_blogs_section: BlogSection,
-//   all_blogs_section: AllBlogsSection,
-// }
+export const BlogPageSectionsMap: {
+  [name in SanityBlogPageSectionNames]?:
+    | FunctionComponent<any>
+    | ComponentClass<any, any>
+} = {
+  image_header_section: BlogHeroSection,
+  show_new_letter_section: NewsletterSection,
+  interests_section: InterestSection,
+  featured_place_blogs_section: FeatureTopBlogSection,
+  featured_blogs_section: BlogSection,
+  all_blogs_section: AllBlogsSection,
+}
 
 export const SectionMap: {
   [name in SanitySectionNames]?:

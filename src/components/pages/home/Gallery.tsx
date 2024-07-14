@@ -61,7 +61,7 @@ const TourGallery = (props: GallerySectionProps) => {
             forTourPage
               ? "md:text-left text-center text-[24px] md:leading-[32px] md:pl-[107px] px-5 leading-[34px]"
               : "text-center text-[24px] px-5 md:text-[40px] leading-[32px] md:leading-[50px]"
-          } font-satoshi text-darkblue -tracking-[1.2px] font-bold`}
+          } font-satoshi text-darkBlue -tracking-[1.2px] font-bold`}
         >
           {title[locale]}
         </h2>

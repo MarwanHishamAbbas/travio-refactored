@@ -38,9 +38,9 @@ const Footer = ({ footer, language }: any) => {
                       href={`/${language}`}
                       className="flex gap-1 items-center text-[14px] leading-[22px] md:text-base md:font-normal font-medium text-blue"
                     >
-                      {footer?.title?.[language].substring(0, 13)}
+                      {footer?.title?.[language]?.substring(0, 13)}
                       <h1 className="md:font-bold font-medium">
-                        {footer?.title?.[language].substring(13, 30)}
+                        {footer?.title?.[language]?.substring(13, 30)}
                       </h1>
                     </Link>
                   </h1>

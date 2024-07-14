@@ -11,7 +11,7 @@ export type FeatureSectionProps = {
 }
 const TourFeature = ({ data, locale }: any) => {
   return (
-    <MaxWidth className="font-satoshi mx-auto max-w-[1312px] mb-[69px] my-20 max-md:mb-[50px] max-md:my-10  text-darkblue">
+    <MaxWidth className="font-satoshi mx-auto max-w-[1312px] mb-[69px] my-20 max-md:mb-[50px] max-md:my-10  text-darkBlue">
       {data.title?.en && (
         <div className="md:mb-12 mb-[30px]">
           <p className="text-[20px] md:text-[24px] font-[700] leading-[30px] md:leading-[34px]">
