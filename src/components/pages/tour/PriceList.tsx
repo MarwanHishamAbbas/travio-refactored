@@ -92,7 +92,7 @@ function PriceList({
   return (
     <MaxWidth
       className=" bg-[rgba(20,13,49,0.02)]  lg:bg-transparent mt-16"
-      id="price-list"
+      id="pricing"
     >
       <div
         className={` transition-all font-semibold rounded-2xl lg:bg-[rgba(20,13,49,0.02)] bg-transparent bg-opacity-60 w-full  py-3 lg:px-5 px-0`}

@@ -1,11 +1,11 @@
 "use client"
 
+/* eslint-disable @next/next/no-img-element */
 import React from "react"
 
 import { usePathname } from "next/navigation"
 import { urlFor } from "@/lib/sanity/sanity-image"
-import Image from "next/image"
-import MaxWidth from "@/components/common/MaxWidth"
+import { Text } from "@/components/ui/text"
 
 const HeroSection = ({ data, locale }: { data: any; locale: string }) => {
   const pathname = usePathname()
@@ -21,21 +21,17 @@ const HeroSection = ({ data, locale }: { data: any; locale: string }) => {
     <>
       <div
         style={{ boxShadow: linearGradient }}
-        className="w-full relative mb-10"
+        className="w-full relative mb-10 "
       >
-        <Image
-          width={1000}
-          height={1000}
-          className={`w-full max-md:hidden object-cover md:rounded-[24px] rounded-none ${
+        <img
+          className={`lg:w-full max-md:hidden object-cover max-w-[1440px] mx-auto md:rounded-[24px] rounded-none ${
             hideContent ? " min-h-[420px] " : " h-[420px] "
           }`}
           src={urlFor(data.image.asset._ref)}
           loading="lazy"
           alt={data?.alt?.[locale]}
         />
-        <Image
-          width={1000}
-          height={1000}
+        <img
           className="w-full md:hidden min-h-[200px]"
           src={urlFor(data.image.mobile.asset._ref)}
           loading="lazy"
@@ -48,12 +44,15 @@ const HeroSection = ({ data, locale }: { data: any; locale: string }) => {
           {data.header?.[locale]}
         </h1>
       </div>
-
-      <MaxWidth>
-        <h3 className="md:text-base leading-6 text-[14px]">
+      <div className="md:px-20 px-5 mt-12 items-center flex flex-col">
+        <Text
+          variant={"darkblue"}
+          fontWeight={"default"}
+          className="md:text-base leading-6 text-[14px]"
+        >
           {data.content?.[locale]}
-        </h3>
-      </MaxWidth>
+        </Text>
+      </div>
     </>
   )
 }

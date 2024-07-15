@@ -55,7 +55,7 @@ const ArticleHeroSection = ({
             {/* @ts-ignore */}
             {title?.[locale]}
           </h1>
-          <h2 className="my-[18px] md:font-bold font-normal mb-7 md:text-darkBlue text-gray md:text-[14px] md:leading-[22px] text-[12px] leading-5">
+          <h2 className="my-[18px] md:font-bold font-normal mb-7 md:text-darkBlue text-grey md:text-[14px] md:leading-[22px] text-[12px] leading-5">
             By {author} On{" "}
             <span className="text-[#FFBB0B] md:text-[14px] md:leading-[22px] md:font-bold font-medium text-[12px] leading-5">
               {/* @ts-ignore */}

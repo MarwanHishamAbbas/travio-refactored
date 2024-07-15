@@ -48,7 +48,7 @@ function BlogSidebar({ data, locale }: any) {
             <Search />
           </div>
         </div>
-        <hr className="my-5 opacity-40 text-gray" /> */}
+        <hr className="my-5 opacity-40 text-grey" /> */}
 
         {/* Latest Articles */}
         <h4 className="font-semibold text-xl">{data[0]?.title?.[locale]}</h4>
@@ -78,7 +78,7 @@ function BlogSidebar({ data, locale }: any) {
           })}
         </div>
 
-        <hr className="my-5 opacity-40 text-gray" />
+        <hr className="my-5 opacity-40 text-grey" />
 
         {/* Related Tours */}
         <h4 className="font-semibold text-xl">{data[1]?.title?.[locale]}</h4>
@@ -132,7 +132,7 @@ function BlogSidebar({ data, locale }: any) {
                     </div>
 
                     <div className="flex justify-between">
-                      <p className="line-through font-bold text-gray md:text-[12px] text-[10px] leading-5">
+                      <p className="line-through font-bold text-grey md:text-[12px] text-[10px] leading-5">
                         $
                         {tour.price_overrides[0].price.discounted_price[locale]}
                       </p>
@@ -152,7 +152,7 @@ function BlogSidebar({ data, locale }: any) {
           })}
         </div>
 
-        <hr className="my-5 opacity-40 text-gray" />
+        <hr className="my-5 opacity-40 text-grey" />
 
         {/* Own tour */}
         {/* @ts-ignore */}
@@ -160,13 +160,13 @@ function BlogSidebar({ data, locale }: any) {
         <h4 className="font-semibold text-xl">{wantToTn?.[locale]}</h4>
         <div className="border md:border-b-[3px] w-[66px] border-b-2 rounded-full my-1 border-[#FFBB0B]" />
         <Link href={`/${locale}/tailor_your_tour`}>
-          <Button className="my-5 py-3 w-full">
+          <Button className="my-5 py-3 w-full rounded-full">
             {/* @ts-ignore */}
             {tailTourTn?.[locale]}
           </Button>
         </Link>
 
-        <hr className="my-5 opacity-40 text-gray" />
+        <hr className="my-5 opacity-40 text-grey" />
 
         {/* Tagd */}
         {/* <h4 className="font-semibold text-xl">Tags</h4>
@@ -176,21 +176,21 @@ function BlogSidebar({ data, locale }: any) {
             return (
               <div
                 key={index}
-                className="rounded-md border border-darkblue border-opacity-10 bg-white p-2 text-gray font-medium"
+                className="rounded-md border border-darkBlue border-opacity-10 bg-white p-2 text-grey font-medium"
               >
                 {tag}
               </div>
             );
           })}
         </div>
-        <hr className="my-5 opacity-40 text-gray" />  */}
+        <hr className="my-5 opacity-40 text-grey" />  */}
         <div className="flex flex-col items-center gap-6">
           <img
             src="/Traviio.png"
             className="max-w-[138px] min-h-[30px]"
             alt="logo"
           />
-          <p className="md:text-darkBlue text-gray text-[12px] leading-5 md:text-[16px] md:leading-7 text-center">
+          <p className="md:text-darkBlue text-grey text-[12px] leading-5 md:text-[16px] md:leading-7 text-center">
             {/* @ts-ignore */}
             {sidebarFooterTn?.[locale]}
           </p>

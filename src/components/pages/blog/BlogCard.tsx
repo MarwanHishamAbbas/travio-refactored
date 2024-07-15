@@ -44,14 +44,14 @@ function BlogDetailCard(props: {
           </h3>
         </div>
         <div className="min-h-[66px]">
-          <span className="text-[14px] leading-[22px] text-gray font-medium">
+          <span className="text-[14px] leading-[22px] text-grey font-medium">
             {getChars(excerpt, 120)}
           </span>
           <Link href={link} className="underline text-primary ml-1">
             {linkText}
           </Link>
         </div>
-        <p className="text-gray text-xs">
+        <p className="text-grey text-xs">
           By {author} On {date}
         </p>
       </div>

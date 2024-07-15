@@ -216,7 +216,7 @@ function BannerSection({
               {/* @ts-ignore */}
               {description?.[locale]}
             </p>
-            <Button className="bg-white text-primary md:text-[14px] md:leading-[22px] md:font-bold text-[8px] leading-3 font-medium md:mt-[26px] mt-[11px] max-md:h-5 max-md:max-w-[66px]">
+            <Button className="bg-white text-primary md:text-[14px] md:leading-[22px] md:font-bold text-[8px] leading-3 font-medium md:mt-[26px] mt-[11px] max-md:h-5 max-md:max-w-[66px] rounded-full">
               View tours
             </Button>
           </div>

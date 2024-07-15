@@ -1,9 +1,10 @@
 import MaxWidth from "@/components/common/MaxWidth"
 import SectionHeader from "@/components/common/SectionHeader"
-import TourCard from "@/components/common/TourCard"
+
 import SwiperComponent from "@/components/swiper/SwiperComponent"
 import { SanityFeaturedToursSection } from "@/types/sanity"
 import React from "react"
+import FeatureCard from "../blog-page/FeatureCard"
 // import Image from "next/image";
 // import Link from "next/link";
 
@@ -33,7 +34,7 @@ const FeatureTourSection = (FeaturedTour: any) => {
             {Array.isArray(FeaturedTour?.data?.tour_cards) &&
               FeaturedTour?.data?.tour_cards.length > 0 &&
               FeaturedTour?.data?.tour_cards?.map((item: any, i: number) => (
-                <TourCard
+                <FeatureCard
                   key={i}
                   locale={locale}
                   link={item?.content?.slug?.current}

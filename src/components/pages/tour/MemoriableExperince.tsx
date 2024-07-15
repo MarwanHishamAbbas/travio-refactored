@@ -62,7 +62,7 @@ const Card = ({ data, locale }: { data: any; locale: string }) => {
           <p className="font-bold md:text-xl max-md:{text-base} font-satoshi text-darkBlue">
             {data.title?.[locale]}
           </p>
-          <p className="md:font-medium md:text-[14px] md:leading-[22px] font-normal text-[12px] leading-5 font-satoshi text-gray">
+          <p className="md:font-medium md:text-[14px] md:leading-[22px] font-normal text-[12px] leading-5 font-satoshi text-grey">
             {data.description?.[locale]}
           </p>
         </div>

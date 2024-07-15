@@ -72,7 +72,7 @@ function AppTabs({ tabs }: TabsProp) {
                   className={cNames(
                     currentTab === index
                       ? "border-orange text-darkBlue"
-                      : "border-transparent text-gray-500 hover:border-gray-200 text-gray hover:text-gray-700",
+                      : "border-transparent text-grey-500 hover:border-gray-200 text-grey hover:text-grey-700",
                     "whitespace-nowrap md:border-b-4 border-b-[3px] font-satoshi border-orange md:py-4 md:px-4 px-2 py-[13px] lg:text-base text-xs font-medium"
                   )}
                   aria-current={currentTab ? "page" : undefined}

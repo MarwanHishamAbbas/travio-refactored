@@ -22,7 +22,7 @@ const Layout = ({
   maxWidth?: boolean
 }) => {
   return (
-    <div className="bg-white">
+    <div className="bg-white font-satoshi">
       <div
         className="overflow-x-hidden text-black min-h-screen  flex flex-col"
         style={{

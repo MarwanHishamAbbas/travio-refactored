@@ -102,40 +102,6 @@ const AllBlogsSection = dynamic(
   }
 )
 
-// // const FlexibleThings = dynamic(
-// //   () => import("@/components/sections/FlexibleThings/FlexibleThings")
-// // );
-
-// // const GetEarlyNews = dynamic(() => import("@/components/sections/form/Form"));
-
-// const GallerySection = dynamic(
-//   () => import("@/components/molecules/TourGallery")
-// )
-
-// // const FlexibleThings = dynamic(() => import("./FlexibleThings/FlexibleThings"));
-
-// const Testimonials = dynamic(
-//   () => import("@/components/sections/HappyTravelers")
-// )
-
-// const DestinationsSection = dynamic(
-//   () => import("@/components/pages/HomePage/Destination")
-// )
-
-// // const ExcludedInTour = dynamic(() => import("./ExcludedInTour"));
-
-// const TourGallerySection = dynamic(
-//   () => import("../molecules/TourGallery/TourGallerySection")
-// )
-
-// const ImageHeaderSection = dynamic(
-//   () => import("@/components/sections/hero/HeroSection")
-// )
-
-// const OfficeLocations = dynamic(
-//   () => import("../pages/About-Us/OfficeLocation")
-// )
-
 export const BlogPageSectionsMap: {
   [name in SanityBlogPageSectionNames]?:
     | FunctionComponent<any>

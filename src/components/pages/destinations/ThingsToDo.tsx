@@ -33,7 +33,7 @@ const TopThingsToDo = (props: any) => {
               if (!item) return null
               return (
                 <CarouselItem key={index}>
-                  <div className="rounded-[16px] md:max-w-[302px] max-w-[270px] shadow-[0px_4px_20px_0px_rgba(0,0,0,0.06)] bg-white relative h-min">
+                  <div className="rounded-[16px] md:max-w-[302px] max-w-[270px] shadow-[0px_4px_20px_0px_rgba(0,0,0,0.06)] bg-white relative h-min font-satoshi">
                     <Link href={item?.link?.en} className="">
                       <Image
                         loading="lazy"
@@ -53,7 +53,7 @@ const TopThingsToDo = (props: any) => {
                       </h3>
 
                       <Link href={item?.link?.en} className="">
-                        <Button className="md:h-[42px] h-10 mt-[10px] font-bold w-full">
+                        <Button className="md:h-[42px] h-10 mt-[10px] font-bold w-full rounded-full">
                           Read More
                         </Button>
                       </Link>

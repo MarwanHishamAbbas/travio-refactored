@@ -50,7 +50,7 @@ const NewsletterSection = ({ locale, data: pageSec }: any) => {
           </header>
           <div className="relative shadow-sm flex items-center  ">
             <input
-              className=" text-black w-[335px]  md:w-[420px] h-10 md:h-12 rounded-full px-3 md:px-4 placeholder:text-gray text-xs   md:text-base leading-[22px] md:leading-normal "
+              className=" text-black w-[335px]  md:w-[420px] h-10 md:h-12 rounded-full px-3 md:px-4 placeholder:text-grey text-xs   md:text-base leading-[22px] md:leading-normal "
               type="text"
               placeholder={"Enter your email"}
             />

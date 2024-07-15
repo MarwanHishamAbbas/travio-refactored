@@ -11,7 +11,7 @@ const textVariants = cva("", {
       destructive: "text-destructive",
       darkblue: "text-darkBlue",
       tertiary: "text-tertiary",
-      gray: "text-gray",
+      gray: "text-grey",
       paragraph: "text-topic",
     },
 

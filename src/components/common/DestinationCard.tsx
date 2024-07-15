@@ -29,7 +29,7 @@ const DestinationCard = ({ data, tourCount, locale }: any) => {
         {data.destination?.name[locale]}
       </h3>
       {tourCount && (
-        <p className="text-gray font-medium mt-0 md:mt-[2px] text-[12px] leading-5">
+        <p className="text-grey font-medium mt-0 md:mt-[2px] text-[12px] leading-5">
           {/* @ts-ignore */}
           {displayNumber(tourCount, tourPackagesTn?.[locale])}
         </p>

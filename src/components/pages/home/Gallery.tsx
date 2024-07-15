@@ -74,7 +74,7 @@ const TourGallery = (props: GallerySectionProps) => {
             forTourPage
               ? "md:pl-[107px] md:mt-3 px-5 max-md:text-center"
               : "text-center px-5"
-          } text-sm font-satoshi  md:text-lg mt-[10px] md:mt-1.5 text-gray leading-[24px]`}
+          } text-sm font-satoshi  md:text-lg mt-[10px] md:mt-1.5 text-grey leading-[24px]`}
         >
           {subtitle[locale]?.substring(0, 5)[locale]}
           <span className="text-[#3FA9F5] font-satoshi font-medium opacity-100">

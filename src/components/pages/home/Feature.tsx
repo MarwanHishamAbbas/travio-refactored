@@ -147,7 +147,7 @@ const Feature = ({ data, locale }: FeatureProps) => {
           {data.title[locale]}
         </h3>
 
-        <p className="mt-1.5 lg:mt-2.5 lg:px-3.5 opacity-60 text-xs md:text-base  text-gray leading-tight md:leading-normal">
+        <p className="mt-1.5 lg:mt-2.5 lg:px-3.5 opacity-60 text-xs md:text-base  text-grey leading-tight md:leading-normal">
           {data.description[locale]}
         </p>
       </div>

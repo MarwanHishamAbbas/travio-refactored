@@ -19,7 +19,7 @@ const InThisPost = ({ data, locale }: any) => {
 
   return (
     <div className="lg:pl-20 px-5 ">
-      <p className="mt-5 font-[500] text-gray md:text-base max-md:text-[14px]">
+      <p className="mt-5 font-[500] text-grey md:text-base max-md:text-[14px]">
         Here are some of the most remarkable spots to explore:
       </p>
       <div className="px-5 mt-5 rounded-2xl  pb-5 py-1  bg-lightBlue text-center">

@@ -83,7 +83,7 @@ function BlogButton(props: BlogButtonProps) {
       })}
       <p
         className={`md:text-[14px] md:leading-[18px] text-[12px] leading-5 md:font-medium font-normal whitespace-nowrap ${
-          selected ? "text-white" : "text-gray"
+          selected ? "text-white" : "text-grey"
         }`}
       >
         {title}

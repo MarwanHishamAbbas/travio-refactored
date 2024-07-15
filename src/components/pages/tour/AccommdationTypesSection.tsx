@@ -43,7 +43,7 @@ export default function AccommdationTypesSection({
           <div className="md:w-[117px] w-[89px] md:mt-1 border-[#FFBB0B] text-yellow rounded-full md:rounded-[3px] border-b-[3px]" />
         </div>
         <div className=" pl-5 mt-2 md:pl-0 md:font-normal font-medium">
-          <span className="text-gray font-satoshi text-base mt-3 lg:text-lg">
+          <span className="text-grey font-satoshi text-base mt-3 lg:text-lg">
             {data.subtitle?.[locale]?.substring(0, 18)}
           </span>
           <span className="text-[#3FA9F5] font-satoshi text-base mt-3 lg:text-lg">
