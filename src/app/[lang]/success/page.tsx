@@ -15,7 +15,7 @@ const SuccessPage = async () => {
         <div className="flex flex-col gap-5 items-center">
           <Image src={"/Traviio.png"} alt="traviio" height={47} width={203} />
           <p className="text-center font-satoshi text-darkBlue text-2xl font-semibold ">
-            Payment is successfull
+            Payment is successful
           </p>
           <CircleCheckBig className="size-14 stroke-green-400" />
         </div>
