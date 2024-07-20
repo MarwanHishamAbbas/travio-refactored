@@ -8,6 +8,8 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
 } from "@/components/ui/carousel"
 import { urlFor } from "@/lib/sanity/sanity-image"
 
@@ -36,6 +38,11 @@ export default function MemorableExperiencesSection({
                 </CarouselItem>
               ))}
             </CarouselContent>
+
+            <div className="text-end space-x-4 mt-6">
+              <CarouselPrevious className="lg:absolute" />
+              <CarouselNext className="lg:absolute" />
+            </div>
           </Carousel>
         </MaxWidth>
       </div>

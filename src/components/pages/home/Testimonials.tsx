@@ -21,13 +21,13 @@ const Testimonials = ({ locale }: { locale: string }) => {
 
   return (
     <div className=" bg-lightBlue py-14 mt-16 font-satoshi">
-      <MaxWidth className="grid grid-cols-1 md:grid-cols-4 gap-10 relative">
-        <div>
-          <h2 className="text-xl md:text-4xl font-bold">
-            <span className="text-primary md:text-black">
+      <MaxWidth className="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
+        <div className="text-center">
+          <h2 className="text-xl md:text-[40px] leading-[30px] md:leading-tight -tracking-[1.2px] font-bold">
+            <span className="text-[#3FA9F5] md:text-black">
               {data?.sections[0].title[locale]?.substring(0, 16)}
             </span>
-            <span className="text-primary">
+            <span className="text-[#3FA9F5]">
               {data?.sections[0].title[locale]?.substring(16)}
             </span>
           </h2>
@@ -45,7 +45,7 @@ const Testimonials = ({ locale }: { locale: string }) => {
           )}
         </div>
 
-        <Carousel className="col-span-3 self-center">
+        <Carousel className="md:col-span-3 self-center">
           <CarouselContent>
             {data?.sections[0].testimonials?.map((item: any, index: any) => (
               <CarouselItem key={index} className="md:basis-1/3 space-y-4">
@@ -83,7 +83,7 @@ const Testimonials = ({ locale }: { locale: string }) => {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <div className="text-center md:text-end space-x-4 mt-6">
+          <div className="text-end space-x-4 mt-6">
             <CarouselPrevious />
             <CarouselNext />
           </div>

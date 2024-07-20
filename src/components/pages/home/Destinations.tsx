@@ -18,7 +18,7 @@ const DestinationsSection = ({ data, locale }: any) => {
   }
 
   return (
-    <MaxWidth className=" mt-16">
+    <MaxWidth className=" pt-8">
       <div>
         <header>
           <p className="text-[#3FA9F5] font-satoshi text-[12px] md:text-base font-medium uppercase leading-5 md:leading-normal ">

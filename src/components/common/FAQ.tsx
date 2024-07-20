@@ -9,7 +9,7 @@ const FAQSection = ({ data, locale }: { data: any; locale: string }) => {
   const [open, setOpen] = React.useState(-1)
   return (
     <>
-      <MaxWidth className="bg-white flex flex-col mt-16 w-full">
+      <MaxWidth className="bg-white flex flex-col w-full">
         <SectionHeader
           title={data?.title?.[locale]}
           subtitle={data?.tagline?.[locale]}

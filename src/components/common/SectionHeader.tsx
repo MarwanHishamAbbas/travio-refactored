@@ -16,7 +16,7 @@ const SectionHeader: FC<SectionHeaderProps> = ({
   return (
     <div
       id="section-header"
-      className={`flex flex-col mb-8
+      className={`flex flex-col
       ${centerLine ? "items-center text-center" : ""}
       `}
     >

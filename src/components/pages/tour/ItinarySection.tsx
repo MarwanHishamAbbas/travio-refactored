@@ -35,24 +35,19 @@ export default function ItinerarySection({
   locale: string
 }) {
   return (
-    <MaxWidth
-      id="itinerary"
-      className="flex flex-col  md:gap-10 gap-7 mt-16 relative"
-    >
+    <MaxWidth id="itinerary" className="flex flex-col md:gap-10 gap-7">
       <SectionHeader
         title={data?.tagline?.[locale]}
         subtitle={data?.title?.[locale]}
         centerLine
       />
 
-      <div className="flex lg:gap-7 gap-[30px] max-lg:flex-col-reverse">
+      <div className="flex lg:gap-7 gap-[30px] max-lg:flex-col-reverse relative ">
         {/* Travel Schedule */}
         <TravelSchedule data={data?.itinerary_day_cards} locale={locale} />
         {/* Enquire Tab */}
 
-        {/* <div className="sticky min-w-full"> */}
         <EnquireTab locale={locale} />
-        {/* </div> */}
       </div>
     </MaxWidth>
   )
@@ -69,7 +64,7 @@ const TravelSchedule = ({ data, locale }: { data?: any; locale: string }) => {
   }, [])
 
   return (
-    <div className="w-full flex flex-1 flex-col gap-5">
+    <div className="w-full flex flex-1 flex-col gap-5 h-full">
       <div className="flex justify-end w-full">
         <button
           className="text-[#3FA9F5] font-satoshi text-[16px] flex gap-2 font-bold lg:mr-8"
@@ -123,12 +118,11 @@ const EnquireTab = ({ locale }: any) => {
   }
 
   return (
-    <div className="w-[282px] max-lg:hidden max-lg:min-w-full h-fit font-satoshi rounded-2xl border text-white overflow-hidden bg-lightBlue lg:mt-12 sticky top-0">
+    <div className="w-[282px] max-lg:hidden max-lg:min-w-full font-satoshi rounded-2xl border text-white overflow-hidden bg-lightBlue lg:mt-12 sticky top-32 h-fit">
       <div className="py-2 px-5 bg-[#1A4767]">
         <div className="flex justify-between">
           <div className="">
             {/* @ts-ignore */}
-
             <p className="font-bold text-xl">{enqTn?.[locale]}</p>
             <div className="lg:w-1/2 w-1/3 my-2  md:mt-[10px] mt-1 border-[#FFBB0B] text-yellow rounded-full md:rounded-[3px] md:border-b-[3px] border-b-[1px]" />
           </div>
@@ -396,7 +390,7 @@ const Expandable = ({
   return (
     <div>
       <button
-        className={`flex flex-nowrap items-start justify-between transition-all w-[100%] ${
+        className={`flex flex-nowrap items-start justify-between transition-all w-full h-full ${
           isOpen
             ? "bg-[#3FA9F5] text-white"
             : "bg-darkBlue/[0.02] text-darkBlue"

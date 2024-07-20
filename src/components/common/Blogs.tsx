@@ -87,7 +87,7 @@ const BlogSection = (props: any) => {
           ))}
         </SwiperComponent>
 
-        <div className=" absolute hidden md:block w-40 top-0 p-3 h-full z-[300] bg-gradient-to-r from-transparent  via-[rgba(255,255,255,0.2)] to-white right-0" />
+        <div className=" absolute hidden md:block w-40 top-0 p-3 h-full z-10 bg-gradient-to-r from-transparent  via-[rgba(255,255,255,0.2)] to-white right-0" />
       </div>
     </MaxWidth>
   )

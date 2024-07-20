@@ -13,6 +13,7 @@ import MobileHeroSection from "@/components/TourDetails/MobileHeroSection"
 import Layout from "@/components/layout/Layout"
 import { topbarTn } from "@/lib/utils"
 import AppTabs from "@/components/pages/tour/AppTabs"
+import OverViewCard from "@/components/pages/tour/OverViewCard"
 
 interface TourDetailsPageProps {
   params: {
@@ -104,30 +105,33 @@ const TourDetailsPage: FC<TourDetailsPageProps> = async ({ params }) => {
     >
       <HeroSection
         overview_card={data.overview_card}
-        hero_section={data.hero_section}
+        hero_section={data?.hero_section}
         locale={params.lang}
       />
-
       <MobileHeroSection
         hero_section={data.hero_section}
         locale={params.lang}
         overview_card={data.overview_card}
       />
+      <OverViewCard data={data.overview_card} locale={params.lang} />
+
       <AppTabs tabs={tabsData} />
 
-      {data?.sections?.map((section: any) => {
-        const Component = TourSectionsMap[section?._type]
-        return (
-          <React.Fragment key={section._key}>
-            {Component &&
-              React.createElement(Component, {
-                data: section,
-                slug: data.slug,
-                locale: params.lang,
-              })}
-          </React.Fragment>
-        )
-      })}
+      <div>
+        {data?.sections?.map((section: any) => {
+          const Component = TourSectionsMap[section?._type]
+          return (
+            <React.Fragment key={section._key}>
+              {Component &&
+                React.createElement(Component, {
+                  data: section,
+                  slug: data.slug,
+                  locale: params.lang,
+                })}
+            </React.Fragment>
+          )
+        })}
+      </div>
     </Layout>
   )
 }

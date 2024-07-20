@@ -34,7 +34,7 @@ const Slicer: React.FC<Props> = ({ sections, components, locale, tags }) => {
   }, [sections, scrollPosition])
 
   return (
-    <div>
+    <div className="space-y-8 md:space-y-12">
       {sections.slice(0, visibleSections).map((section) => (
         <React.Fragment key={section._key}>
           {components[section._type] &&

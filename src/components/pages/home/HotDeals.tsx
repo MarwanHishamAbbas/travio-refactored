@@ -39,7 +39,7 @@ const CardsSection: FC<any> = ({ data, locale }, props) => {
             />
           ))}
         </SwiperComponent>
-        <div className=" absolute hidden md:block w-[50px] top-0 p-3 h-full z-[100] bg-gradient-to-r from-transparent  via-[rgba(255,255,255,0.5)] to-white right-0" />
+        <div className=" absolute hidden md:block w-[50px] top-0 p-3 h-full   bg-gradient-to-r from-transparent  via-[rgba(255,255,255,0.5)] to-white right-0" />
       </div>
     </MaxWidth>
   )

@@ -271,21 +271,21 @@ function PriceList({
                             MAPPINGS[price.availability || "Available"].color
                           } font-bold whitespace-nowrap text-destructive ${
                             collapsed
-                              ? "text-base"
+                              ? "text-2xl"
                               : " text-[40px] leading-[50px] "
                           }`}
                         >
-                          $ {price.currentPrice?.[locale]}
+                          ${price.currentPrice?.[locale]}
                         </p>
                         {price.actualPrice && (
                           <h1
                             className={`text-grey line-through md:text-[24px] leading-9 font-bold whitespace-nowrap ${
                               collapsed
-                                ? "md:text-[24px] text-[12px] leading-9"
+                                ? "md:text-[24px] text-sm leading-9"
                                 : "text-2xl"
                             }`}
                           >
-                            {getPriceSymbol(locale)}{" "}
+                            {getPriceSymbol(locale)}
                             {price.actualPrice?.[locale]}
                           </h1>
                         )}
@@ -300,7 +300,7 @@ function PriceList({
                           >
                             <Button
                               variant={"destructive"}
-                              className="!bg-red font-satoshi flex items-center h-[28px] justify-center gap-1 md:px-3 px-[16px] !py-[5px] md:!py-3 !my-auto text-[12px] leading-[18px]"
+                              className="!bg-red font-satoshi flex items-center justify-center gap-1 text-sm leading-[18px] font-semibold"
                             >
                               {/* @ts-ignore */}
 
