@@ -48,6 +48,11 @@ const getDates = (startDate: Date, endDate: Date, duration: any, data: any) => {
   return dates
 }
 
+// Seperate time from Date for comparrison
+export const stripTime = (date: Date): Date => {
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate())
+}
+
 export function generatePriceList(data: any) {
   const duration = 3
   const price = data?.price ?? {}
@@ -137,4 +142,151 @@ export function generatePriceList(data: any) {
   )
 
   return finalList
+}
+
+// export function generateNewPriceList(data: any) {
+//   const duration = 3
+//   const price = data.price ?? {}
+//   const fixedDays = data.fixed_days ?? []
+//   const priceOverrides = data.price_overrides ?? []
+//   const startDate = data.weekly_schedule?.start_date
+//   const endDate = data.weekly_schedule?.end_date
+
+//   const dates = getDates(new Date(startDate), new Date(endDate), duration, data)
+
+//   const priceList: PriceList[] = dates.map((date) => {
+//     const override = priceOverrides.find((item: any) =>
+//       areIntervalsOverlapping(
+//         {
+//           start: new Date(item.timeline.start_date),
+//           end: new Date(item.timeline.end_date),
+//         },
+//         {
+//           start: date.from,
+//           end: date.to,
+//         },
+//         { inclusive: true }
+//       )
+//     )
+
+//     return {
+//       from: date.from,
+//       to: date.to,
+//       actualPrice: override
+//         ? override.price.initial_price
+//         : price.initial_price,
+//       currentPrice: override
+//         ? override.price.discounted_price
+//         : price.discounted_price,
+//     }
+//   })
+
+//   const myList = priceList.filter(
+//     (item) =>
+//       !fixedDays.some((day: any) =>
+//         areIntervalsOverlapping(
+//           {
+//             start: item.from,
+//             end: item.to,
+//           },
+//           {
+//             start: new Date(day.from),
+//             end: new Date(day.to),
+//           },
+//           { inclusive: true }
+//         )
+//       )
+//   )
+
+//   fixedDays.forEach((item: any) => {
+//     myList.push({
+//       from: new Date(item.from),
+//       to: new Date(item.to),
+//       actualPrice: item.price.initial_price,
+//       currentPrice: item.price.discounted_price,
+//     })
+//   })
+
+//   return myList.sort(
+//     (a, b) => Number(new Date(a.from)) - Number(new Date(b.from))
+//   )
+// }
+
+const dayNames = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"]
+
+const isMatchingDay = (date: Date, days: string[]): boolean => {
+  const dayName = dayNames[date.getDay()]
+  return days.includes(dayName)
+}
+
+export function generateNewPriceList(data: any, duration?: number) {
+  const price = data.price ?? {}
+  const fixedDays = data.fixed_days ?? []
+  const priceOverrides = data.price_overrides ?? []
+  const startDate = data.weekly_schedule?.start_date
+  const endDate = data.weekly_schedule?.end_date
+  const days = data.days ?? []
+
+  const dates = getDates(new Date(startDate), new Date(endDate), duration, data)
+
+  const priceList = dates.map((date) => {
+    const override = priceOverrides.find((item: any) =>
+      areIntervalsOverlapping(
+        {
+          start: new Date(item.timeline.start_date),
+          end: new Date(item.timeline.end_date),
+        },
+        {
+          start: date.from,
+          end: date.to,
+        },
+        { inclusive: true }
+      )
+    )
+
+    return {
+      from: date.from,
+      to: date.to,
+      actualPrice: override
+        ? override.price.initial_price
+        : price.initial_price,
+      currentPrice: override
+        ? override.price.discounted_price
+        : price.discounted_price,
+    }
+  })
+
+  const filteredPriceList = priceList.filter((item) =>
+    isMatchingDay(item.from, days)
+  )
+
+  const myList = filteredPriceList.filter(
+    (item) =>
+      !fixedDays.some((day: any) =>
+        areIntervalsOverlapping(
+          {
+            start: item.from,
+            end: item.to,
+          },
+          {
+            start: new Date(day.from),
+            end: new Date(day.to),
+          },
+          { inclusive: true }
+        )
+      )
+  )
+
+  fixedDays.forEach((item: any) => {
+    myList.push({
+      from: new Date(item.from),
+      to: new Date(item.to),
+      actualPrice: item.price.initial_price,
+      currentPrice: item.price.discounted_price,
+    })
+  })
+
+  return myList.sort(
+    (a, b) => Number(new Date(a.from)) - Number(new Date(b.from))
+  )
 }

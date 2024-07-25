@@ -124,6 +124,9 @@ const TourDetailsPage: FC<TourDetailsPageProps> = async ({ params }) => {
             <React.Fragment key={section._key}>
               {Component &&
                 React.createElement(Component, {
+                  duration: Number(
+                    data.overview_card.duration[params.lang].split(" ")[0]
+                  ),
                   data: section,
                   slug: data.slug,
                   locale: params.lang,

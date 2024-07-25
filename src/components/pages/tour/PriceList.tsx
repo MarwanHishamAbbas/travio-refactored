@@ -24,7 +24,7 @@ import {
   viewLessBtn,
   viewMoreTn,
 } from "@/lib/utils"
-import { generatePriceList } from "@/lib/dates"
+import { generateNewPriceList, stripTime } from "@/lib/dates"
 import MaxWidth from "@/components/common/MaxWidth"
 import { ChevronDown } from "lucide-react"
 
@@ -67,27 +67,28 @@ function PriceList({
   data,
   slug,
   locale,
+  duration,
 }: {
   data: any
   slug: any
   locale: string
+  duration?: number
 }) {
   const [selected, setSelected] = React.useState(-1)
   const [collapsed, setCollapsed] = React.useState(false)
-  const [show, setShow] = React.useState(4)
-  const [startMonth, setStartMonth] = React.useState(new Date().getMonth())
-  let prices: SinglePrice[] = generatePriceList(data)
+  const [show, setShow] = React.useState(10)
+  const [startMonth, setStartMonth] = React.useState(new Date())
+
+  let prices: SinglePrice[] = generateNewPriceList(data, duration).filter(
+    (tour) => stripTime(tour.from).getTime() >= stripTime(startMonth).getTime()
+  )
+
   React.useEffect(() => {
     setCollapsed(window.innerWidth < 768)
     window.addEventListener("resize", () => {
       setCollapsed(window.innerWidth < 768)
     })
   }, [])
-
-  React.useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    prices = generatePriceList(data)
-  }, [startMonth])
 
   return (
     <MaxWidth
@@ -133,7 +134,7 @@ function PriceList({
                 placeholder="Select a date"
                 id=""
                 onChange={(e) => {
-                  setStartMonth(new Date(e.target.value).getMonth())
+                  setStartMonth(new Date(e.target.value))
                 }}
               />
             </div>
