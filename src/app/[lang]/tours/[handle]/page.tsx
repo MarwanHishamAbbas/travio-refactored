@@ -14,6 +14,7 @@ import Layout from "@/components/layout/Layout"
 import { topbarTn } from "@/lib/utils"
 import AppTabs from "@/components/pages/tour/AppTabs"
 import OverViewCard from "@/components/pages/tour/OverViewCard"
+import { BookingStoreProvider } from "@/store/BookingProvider"
 
 interface TourDetailsPageProps {
   params: {
@@ -121,17 +122,19 @@ const TourDetailsPage: FC<TourDetailsPageProps> = async ({ params }) => {
         {data?.sections?.map((section: any) => {
           const Component = TourSectionsMap[section?._type]
           return (
-            <React.Fragment key={section._key}>
-              {Component &&
-                React.createElement(Component, {
-                  duration: Number(
-                    data.overview_card.duration[params.lang].split(" ")[0]
-                  ),
-                  data: section,
-                  slug: data.slug,
-                  locale: params.lang,
-                })}
-            </React.Fragment>
+            <BookingStoreProvider key={section._key}>
+              <React.Fragment>
+                {Component &&
+                  React.createElement(Component, {
+                    duration: Number(
+                      data.overview_card.duration[params.lang].split(" ")[0]
+                    ),
+                    data: section,
+                    slug: data.slug,
+                    locale: params.lang,
+                  })}
+              </React.Fragment>
+            </BookingStoreProvider>
           )
         })}
       </div>

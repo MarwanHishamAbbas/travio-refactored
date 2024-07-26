@@ -7,7 +7,7 @@ import { useBookingStore } from "@/store/BookingProvider"
 import PeopleCount from "./TripDetails/PeopleCount"
 import HotelChoosing from "./TripDetails/HotelChoosing"
 import { useSearchParams } from "next/navigation"
-import { generatePriceList } from "@/lib/dates"
+
 import RoomTypes from "./TripDetails/RoomTypes"
 import OptionalVisits from "./TripDetails/OptionalVisits"
 import { getPriceSymbol } from "@/lib/utils"
@@ -28,31 +28,16 @@ const BookingStepper: FC<BookingStepperProps> = ({ tourData, locale }) => {
   const from = Number(searchParams?.get("from"))
   const to = Number(searchParams?.get("to"))
 
-  const data = {
-    days: tourData?.timeline?.days,
-    disabled: tourData?.timeline?.disabled,
-    fixed_days: tourData?.timeline?.fixed_days,
-    price: tourData?.overview_card?.price,
-    price_overrides: tourData?.price_overrides,
-    title: tourData?.hero_section?.title,
-    weekly_schedule: tourData?.timeline?.timeline,
-  }
-  const prices = generatePriceList(data)
+  const { setTripDetails, selectedTrip } = useBookingStore((state) => state)
 
-  const { setTripDetails } = useBookingStore((state) => state)
-  const actual_tour = prices.find((p) => {
-    return (
-      p.from.getTime() === new Date(from).getTime() &&
-      p.to.getTime() === new Date(to).getTime()
-    )
-  })
+  console.log(selectedTrip)
 
   useEffect(() => {
-    const startDate = new Date(from)
-    const endDate = new Date(to)
+    const startDate = new Date(selectedTrip.from)
+    const endDate = new Date(selectedTrip.to)
 
     setTripDetails({
-      totalCost: Number(actual_tour?.currentPrice[locale]),
+      totalCost: selectedTrip.price,
       roomTypes: tourData.payment.hotel_types[0].rooms,
       roomCost: Number(
         tourData.payment.hotel_types[0].rooms[0].price.discounted_price[locale]
@@ -66,8 +51,8 @@ const BookingStepper: FC<BookingStepperProps> = ({ tourData, locale }) => {
         cities: tourData.overview_card.cities,
         startDate: startDate.toDateString(),
         endDate: endDate.toDateString(),
-        initialPrice: Number(actual_tour?.actualPrice[locale]),
-        discountedPrice: Number(actual_tour?.currentPrice[locale]),
+        initialPrice: selectedTrip.initialPrice,
+        discountedPrice: selectedTrip.price,
         currency: getPriceSymbol(locale),
       },
     })
@@ -82,10 +67,10 @@ const BookingStepper: FC<BookingStepperProps> = ({ tourData, locale }) => {
     tourData.overview_card.cities,
     tourData.overview_card.countries,
     tourData.overview_card.duration,
-    actual_tour?.actualPrice,
-    actual_tour?.currentPrice,
+
     tourData.payment.hotel_types,
     tourData.payment.extras,
+    selectedTrip,
   ])
   const steps = [
     {

@@ -70,12 +70,12 @@ const SideBar: FC<SideBarProps> = ({}) => {
         </div>
         <CardContent className="flex items-center justify-between">
           <p className="text-center">
-            {tripData.startDate} <br />{" "}
+            {tripData.startDate.toString()} <br />
             <span className="text-sm text-grey">London, UK</span>
           </p>
           <div className="h-10 bg-orange w-0.5 "></div>
           <p className="text-center">
-            {tripData.endDate} <br />{" "}
+            {tripData.endDate.toString()} <br />
             <span className="text-sm text-grey">London, UK</span>
           </p>
         </CardContent>

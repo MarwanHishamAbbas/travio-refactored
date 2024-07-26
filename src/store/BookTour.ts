@@ -1,8 +1,14 @@
 import { createStore } from "zustand/vanilla"
-
+import { createJSONStorage, persist } from "zustand/middleware"
 type LocaleProps = { en: string; por: string; es: string }
 
 export type BookingTourState = {
+  selectedTrip: {
+    price: number
+    from: Date
+    to: Date
+    initialPrice: number
+  }
   adults: number
   children: number
   hotel: string
@@ -81,6 +87,12 @@ export type BookingTourState = {
 
 export type BookingActions = {
   setTripDetails: (newState: Partial<BookingTourState>) => void
+  setSelectedTrip: (newState: {
+    price: number
+    from: Date
+    to: Date
+    initialPrice: number
+  }) => void
   toggleOptionalVisit: (cityIndex: number, visitIndex: number) => void
   calculateAddOnes: () => void
   getSelectedVisits: () => {
@@ -92,6 +104,12 @@ export type BookingActions = {
 export type BookingStore = BookingTourState & BookingActions
 
 export const defaultInitState: BookingTourState = {
+  selectedTrip: {
+    from: new Date(),
+    to: new Date(),
+    price: 0,
+    initialPrice: 0,
+  },
   adults: 1,
   children: 0,
   hotel: "Basic",
@@ -138,60 +156,73 @@ export const defaultInitState: BookingTourState = {
 export const createBookingStore = (
   initState: BookingTourState = defaultInitState
 ) => {
-  return createStore<BookingStore>()((set, get) => ({
-    ...initState,
+  return createStore<BookingStore>()(
+    persist(
+      (set, get) => ({
+        ...initState,
+        setSelectedTrip: (newState) => {
+          set({ selectedTrip: newState })
+        },
+        setTripDetails: (newState) =>
+          set((state) => ({
+            ...state,
+            ...newState,
+          })),
+        toggleOptionalVisit: (cityIndex: number, visitIndex: number) =>
+          set((state) => {
+            const newVisits = state.optionalVisits.map((city, cIndex) => {
+              if (cIndex === cityIndex) {
+                return {
+                  ...city,
+                  visits: city.visits.map((visit, vIndex) =>
+                    vIndex === visitIndex
+                      ? { ...visit, selected: !visit.selected }
+                      : visit
+                  ),
+                }
+              }
+              return city
+            })
 
-    setTripDetails: (newState) =>
-      set((state) => ({
-        ...state,
-        ...newState,
-      })),
-    toggleOptionalVisit: (cityIndex: number, visitIndex: number) =>
-      set((state) => {
-        const newVisits = state.optionalVisits.map((city, cIndex) => {
-          if (cIndex === cityIndex) {
-            return {
-              ...city,
-              visits: city.visits.map((visit, vIndex) =>
-                vIndex === visitIndex
-                  ? { ...visit, selected: !visit.selected }
-                  : visit
-              ),
-            }
-          }
-          return city
-        })
+            return { optionalVisits: newVisits }
+          }),
 
-        return { optionalVisits: newVisits }
-      }),
-
-    calculateAddOnes: () =>
-      set((state) => {
-        const addOnes = state.optionalVisits.reduce((total, city) => {
-          const selectedVisits = city.visits.filter((visit) => visit.selected)
-          const cityTotal = selectedVisits.reduce(
-            (citySum, visit) =>
-              citySum + parseFloat(visit.price.discounted_price.en),
-            0
+        calculateAddOnes: () =>
+          set((state) => {
+            const addOnes = state.optionalVisits.reduce((total, city) => {
+              const selectedVisits = city.visits.filter(
+                (visit) => visit.selected
+              )
+              const cityTotal = selectedVisits.reduce(
+                (citySum, visit) =>
+                  citySum + parseFloat(visit.price.discounted_price.en),
+                0
+              )
+              return total + cityTotal
+            }, 0)
+            return { addOnes }
+          }),
+        getSelectedVisits: () => {
+          const state = get()
+          return state.optionalVisits.flatMap((city) =>
+            city.visits
+              .filter((visit) => visit.selected)
+              .map((visit) => ({
+                city_name: city.city_name,
+                visit: {
+                  title: visit.title,
+                  description: visit.description,
+                  price: visit.price.discounted_price,
+                },
+              }))
           )
-          return total + cityTotal
-        }, 0)
-        return { addOnes }
+        },
       }),
-    getSelectedVisits: () => {
-      const state = get()
-      return state.optionalVisits.flatMap((city) =>
-        city.visits
-          .filter((visit) => visit.selected)
-          .map((visit) => ({
-            city_name: city.city_name,
-            visit: {
-              title: visit.title,
-              description: visit.description,
-              price: visit.price.discounted_price,
-            },
-          }))
-      )
-    },
-  }))
+      {
+        name: "booking-storage",
+
+        storage: createJSONStorage(() => localStorage),
+      }
+    )
+  )
 }

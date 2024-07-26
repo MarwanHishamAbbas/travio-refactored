@@ -27,6 +27,7 @@ import {
 import { generateNewPriceList, stripTime } from "@/lib/dates"
 import MaxWidth from "@/components/common/MaxWidth"
 import { ChevronDown } from "lucide-react"
+import { useBookingStore } from "@/store/BookingProvider"
 
 interface SinglePrice {
   from: Date
@@ -78,6 +79,7 @@ function PriceList({
   const [collapsed, setCollapsed] = React.useState(false)
   const [show, setShow] = React.useState(10)
   const [startMonth, setStartMonth] = React.useState(new Date())
+  const setSelectedTrip = useBookingStore((state) => state.setSelectedTrip)
 
   let prices: SinglePrice[] = generateNewPriceList(data, duration).filter(
     (tour) => stripTime(tour.from).getTime() >= stripTime(startMonth).getTime()
@@ -292,12 +294,16 @@ function PriceList({
                         )}
                         {collapsed && (
                           <Link
-                            href={`/${locale}/tours/${
-                              slug?.current
-                            }/payment?from=${new Date(
-                              price.from
-                            ).getTime()}&to=${new Date(price.to).getTime()}`}
-                            className={`flex items-center ml-auto`}
+                            onClick={() => {
+                              setSelectedTrip({
+                                from: price.from,
+                                to: price.to,
+                                price: Number(price.currentPrice[locale]),
+                                initialPrice: Number(price.actualPrice[locale]),
+                              })
+                            }}
+                            href={`/${locale}/tours/${slug?.current}/payment`}
+                            className={`flex items-center`}
                           >
                             <Button
                               variant={"destructive"}
@@ -337,11 +343,15 @@ function PriceList({
                     </div>
                     {!collapsed && (
                       <Link
-                        href={`/${locale}/tours/${
-                          slug?.current
-                        }/payment?from=${new Date(
-                          price.from
-                        ).getTime()}&to=${new Date(price.to).getTime()}`}
+                        onClick={() => {
+                          setSelectedTrip({
+                            from: price.from,
+                            to: price.to,
+                            price: Number(price.currentPrice[locale]),
+                            initialPrice: Number(price.actualPrice[locale]),
+                          })
+                        }}
+                        href={`/${locale}/tours/${slug?.current}/payment`}
                         className={`flex items-center`}
                       >
                         <Button
