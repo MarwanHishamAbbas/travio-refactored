@@ -16,6 +16,7 @@ import link_button from "./schemas/atoms/LinkButton"
 import locale_number from "./schemas/atoms/locale/LocaleNumber"
 import { locale_rich_text } from "./schemas/atoms/locale/LocaleRichtext"
 import locale_string from "./schemas/atoms/locale/LocaleString"
+import locale_days from "./schemas/atoms/locale/LocaleDays"
 import locale_text from "./schemas/atoms/locale/LocaleText"
 import meta_data from "./schemas/atoms/MetaData"
 import photo from "./schemas/atoms/Photo"
@@ -72,6 +73,7 @@ export const schemaTypes = [
   // atoms
   blockContent,
   locale_string,
+  locale_days,
   locale_number,
   locale_text,
   locale_rich_text,

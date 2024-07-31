@@ -24,7 +24,11 @@ import {
   viewLessBtn,
   viewMoreTn,
 } from "@/lib/utils"
-import { generateNewPriceList, stripTime } from "@/lib/dates"
+import {
+  formatDateToYYYYMMDD,
+  generateNewPriceList,
+  stripTime,
+} from "@/lib/dates"
 import MaxWidth from "@/components/common/MaxWidth"
 import { ChevronDown } from "lucide-react"
 import { useBookingStore } from "@/store/BookingProvider"
@@ -81,7 +85,11 @@ function PriceList({
   const [startMonth, setStartMonth] = React.useState(new Date())
   const setSelectedTrip = useBookingStore((state) => state.setSelectedTrip)
 
-  let prices: SinglePrice[] = generateNewPriceList(data, duration).filter(
+  let prices: SinglePrice[] = generateNewPriceList(
+    data,
+    locale,
+    duration
+  ).filter(
     (tour) => stripTime(tour.from).getTime() >= stripTime(startMonth).getTime()
   )
 
@@ -132,6 +140,7 @@ function PriceList({
             <div className="md:w-max w-max">
               <Input
                 type="date"
+                min={formatDateToYYYYMMDD(new Date())}
                 name="startMonth"
                 placeholder="Select a date"
                 id=""

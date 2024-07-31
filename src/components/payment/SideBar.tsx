@@ -22,7 +22,7 @@ const SideBar: FC<SideBarProps> = ({}) => {
   } = useBookingStore((state) => state)
 
   return (
-    <aside className=" lg:flex flex-col h-fit md:sticky top-10 gap-8 mt-10 md:mt-0">
+    <aside className=" lg:flex flex-col h-fit md:sticky top-6 gap-8 mt-10 md:mt-0">
       <Card className="bg-lightBlue w-full">
         <CardContent className="">
           <div className=" space-y-2 ">

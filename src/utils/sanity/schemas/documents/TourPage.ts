@@ -145,29 +145,12 @@ export default defineType({
           description: "Timeline for the tour",
           type: "timeline",
         }),
+        // Loacle
         defineField({
           name: "days",
           title: "Date generation Days",
           description: "Date generation Days",
-          type: "array",
-          of: [
-            defineArrayMember({
-              name: "day",
-              title: "Day",
-              type: "string",
-              options: {
-                list: [
-                  { title: "Monday", value: "mon" },
-                  { title: "Tuesday", value: "tue" },
-                  { title: "Wednesday", value: "wed" },
-                  { title: "Thursday", value: "thu" },
-                  { title: "Friday", value: "fri" },
-                  { title: "Saturday", value: "sat" },
-                  { title: "Sunday", value: "sun" },
-                ],
-              },
-            }),
-          ],
+          type: "locale_days",
         }),
         // fixed days
         defineField({
