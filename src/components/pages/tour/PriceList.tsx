@@ -307,8 +307,8 @@ function PriceList({
                               setSelectedTrip({
                                 from: price.from,
                                 to: price.to,
-                                price: Number(price.currentPrice[locale]),
-                                initialPrice: Number(price.actualPrice[locale]),
+                                price: price.currentPrice,
+                                initialPrice: price.actualPrice,
                               })
                             }}
                             href={`/${locale}/tours/${slug?.current}/payment`}
@@ -356,8 +356,8 @@ function PriceList({
                           setSelectedTrip({
                             from: price.from,
                             to: price.to,
-                            price: Number(price.currentPrice[locale]),
-                            initialPrice: Number(price.actualPrice[locale]),
+                            price: price.currentPrice,
+                            initialPrice: price.actualPrice,
                           })
                         }}
                         href={`/${locale}/tours/${slug?.current}/payment`}

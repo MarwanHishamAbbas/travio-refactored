@@ -6,7 +6,6 @@ import { Locale } from "@/language/getLanguage"
 import { useBookingStore } from "@/store/BookingProvider"
 import PeopleCount from "./TripDetails/PeopleCount"
 import HotelChoosing from "./TripDetails/HotelChoosing"
-import { useSearchParams } from "next/navigation"
 
 import RoomTypes from "./TripDetails/RoomTypes"
 import OptionalVisits from "./TripDetails/OptionalVisits"
@@ -24,20 +23,14 @@ const BookingStepper: FC<BookingStepperProps> = ({ tourData, locale }) => {
     (section: any) => section._type === "pricing_section"
   )
 
-  const searchParams = useSearchParams()
-  const from = Number(searchParams?.get("from"))
-  const to = Number(searchParams?.get("to"))
-
   const { setTripDetails, selectedTrip } = useBookingStore((state) => state)
-
-  console.log(selectedTrip)
 
   useEffect(() => {
     const startDate = new Date(selectedTrip.from)
     const endDate = new Date(selectedTrip.to)
 
     setTripDetails({
-      totalCost: selectedTrip.price,
+      totalCost: Number(selectedTrip.price[locale]),
       roomTypes: tourData.payment.hotel_types[0].rooms,
       roomCost: Number(
         tourData.payment.hotel_types[0].rooms[0].price.discounted_price[locale]
@@ -51,14 +44,12 @@ const BookingStepper: FC<BookingStepperProps> = ({ tourData, locale }) => {
         cities: tourData.overview_card.cities,
         startDate: startDate.toDateString(),
         endDate: endDate.toDateString(),
-        initialPrice: selectedTrip.initialPrice,
-        discountedPrice: selectedTrip.price,
+        initialPrice: Number(selectedTrip.initialPrice[locale]),
+        discountedPrice: Number(selectedTrip.price[locale]),
         currency: getPriceSymbol(locale),
       },
     })
   }, [
-    from,
-    to,
     locale,
     pricingData,
     setTripDetails,

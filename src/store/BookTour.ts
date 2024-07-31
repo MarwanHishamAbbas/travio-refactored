@@ -4,10 +4,10 @@ type LocaleProps = { en: string; por: string; es: string }
 
 export type BookingTourState = {
   selectedTrip: {
-    price: number
+    price: { en: string; por: string; es: string }
     from: Date
     to: Date
-    initialPrice: number
+    initialPrice: { en: string; por: string; es: string }
   }
   adults: number
   children: number
@@ -88,10 +88,10 @@ export type BookingTourState = {
 export type BookingActions = {
   setTripDetails: (newState: Partial<BookingTourState>) => void
   setSelectedTrip: (newState: {
-    price: number
+    price: { en: string; por: string; es: string }
     from: Date
     to: Date
-    initialPrice: number
+    initialPrice: { en: string; por: string; es: string }
   }) => void
   toggleOptionalVisit: (cityIndex: number, visitIndex: number) => void
   calculateAddOnes: () => void
@@ -107,8 +107,8 @@ export const defaultInitState: BookingTourState = {
   selectedTrip: {
     from: new Date(),
     to: new Date(),
-    price: 0,
-    initialPrice: 0,
+    price: { en: "0", por: "0", es: "0" },
+    initialPrice: { en: "0", por: "0", es: "0" },
   },
   adults: 1,
   children: 0,
