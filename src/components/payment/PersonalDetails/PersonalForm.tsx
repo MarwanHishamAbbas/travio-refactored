@@ -91,7 +91,7 @@ const PersonalForm: FC<PersonalFormProps> = ({}) => {
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className=" md:w-3/4">
+          <form onSubmit={form.handleSubmit(onSubmit)} className=" ">
             {/* Names */}
             <h1 className="font-medium my-2">Full Name</h1>
             <div className="grid grid-cols-4 gap-2 mb-4">
@@ -353,14 +353,14 @@ const PersonalForm: FC<PersonalFormProps> = ({}) => {
             />
             <div className="gap-2 flex justify-end mt-8">
               <Button
-                className=" rounded-full"
+                className=" rounded-full w-full"
                 variant={"outline"}
                 size={"lg"}
                 onClick={prevStep}
               >
                 Back
               </Button>
-              <Button className=" rounded-full" size={"lg"}>
+              <Button className=" rounded-full w-full" size={"lg"}>
                 Next
               </Button>
             </div>

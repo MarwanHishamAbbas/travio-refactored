@@ -42,7 +42,7 @@ const PaymentPage: FC<PaymentPageProps> = async ({ params }) => {
   const data = await getPaymentPage(params.handle)
 
   return (
-    <main className="my-8">
+    <main className="my-8 font-satoshi">
       <MaxWidth>
         <BookingStoreProvider>
           <BookingStepper tourData={data} locale={params.lang} />

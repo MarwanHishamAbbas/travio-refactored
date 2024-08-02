@@ -54,13 +54,23 @@ const OptionalVisits: FC<OptionalVisitsProps> = ({ locale }) => {
                   >
                     <div className="gap-2 md:gap-4 flex flex-col">
                       <div className="flex items-end justify-between">
-                        <Image
-                          src={urlFor(visit?.image.asset._ref)}
-                          alt={visit.image.alt[locale]}
-                          width={1000}
-                          height={1000}
-                          className=" size-20 md:w-36 md:h-24 bg-grey object-cover rounded-2xl"
-                        />
+                        <div className="flex md:items-center gap-2 flex-col md:flex-row">
+                          <Image
+                            src={urlFor(visit?.image.asset._ref)}
+                            alt={visit.image.alt[locale]}
+                            width={1000}
+                            height={1000}
+                            className=" size-20 md:w-36 md:h-24 bg-grey object-cover rounded-2xl"
+                          />
+                          <div>
+                            <h3 className="text-xl font-medium">
+                              {visit?.title[locale]}
+                            </h3>
+                            <p className="text-xs md:text-sm text-grey md:w-3/4">
+                              {visit?.description[locale]}
+                            </p>
+                          </div>
+                        </div>
                         <div className="text-right text-primary md:text-lg font-medium">
                           <Checkbox
                             checked={visit.selected || false}
@@ -71,7 +81,7 @@ const OptionalVisits: FC<OptionalVisitsProps> = ({ locale }) => {
                               !visit.selected && selectedCount >= maxCount
                             }
                           />
-                          <p>
+                          <p className="whitespace-nowrap">
                             {tripData.currency}
                             {Number(
                               visit?.price.discounted_price?.[locale] ?? 0
@@ -79,14 +89,6 @@ const OptionalVisits: FC<OptionalVisitsProps> = ({ locale }) => {
                             Extra
                           </p>
                         </div>
-                      </div>
-                      <div>
-                        <h3 className="text-2xl font-medium">
-                          {visit?.title[locale]}
-                        </h3>
-                        <p className="text-sm md:text-base text-grey md:w-3/4">
-                          {visit?.description[locale]}
-                        </p>
                       </div>
                     </div>
                   </div>
@@ -96,8 +98,23 @@ const OptionalVisits: FC<OptionalVisitsProps> = ({ locale }) => {
           })}
         </CardContent>
       </Card>
+      <div className="flex flex-col gap-6 p-10 rounded-2xl border border-darkBlue/10">
+        <h3 className="md:text-2xl text-base font-bold text-darkBlue">
+          Would you like help with extras?
+        </h3>
+        <div className="md:text-base text-xs leading-5 font-medium text-grey flex flex-col gap-5">
+          <p>
+            We can help you book transfers, accommodation, insurance and flights
+            (note: flights and insurance are only available in some regions).
+          </p>
+          <p>
+            Contact our adventure consultants via phone or live chat to discuss
+            your options.
+          </p>
+        </div>
+      </div>
       <div className="text-right">
-        <Button className=" rounded-full" size={"lg"} onClick={nextStep}>
+        <Button className=" rounded-full w-2/5" size={"lg"} onClick={nextStep}>
           Next
         </Button>
       </div>

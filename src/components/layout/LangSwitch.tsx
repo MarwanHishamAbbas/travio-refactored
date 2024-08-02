@@ -32,7 +32,7 @@ export default function LangSwitch({ locale }: { locale: string }) {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
+      <DropdownMenuTrigger asChild disabled={pathname.includes("payment")}>
         <Button
           variant="secondary"
           className="rounded-full flex items-center gap-1 px-2"
