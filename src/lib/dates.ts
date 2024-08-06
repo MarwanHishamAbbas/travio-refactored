@@ -82,8 +82,6 @@ export function generateNewPriceList(
     locale
   )
 
-  console.log(dates[32])
-
   const priceList = dates.map((date) => {
     const override = priceOverrides.find((item: any) =>
       areIntervalsOverlapping(

@@ -75,11 +75,12 @@ export default function SwiperComponent({
 
       <button
         className={
-          "rounded-full bg-[#3FA9F5] h-7 w-7 md:h-10 md:flex items-center justify-center md:w-10 hidden md:absolute top-1/2 left-0 cursor-pointer "
+          "rounded-full bg-[#3FA9F5] h-7 w-7 md:h-10 md:flex items-center justify-center md:w-10 hidden md:absolute top-1/2 -left-5 xl:-left-8 cursor-pointer "
         }
         onClick={onPrev}
         style={{
           cursor: !showPrev ? "not-allowed" : "pointer",
+          visibility: !showPrev ? "hidden" : "visible",
         }}
       >
         <svg
@@ -99,11 +100,12 @@ export default function SwiperComponent({
 
       <button
         className={
-          "rounded-full bg-[#3FA9F5] h-7 w-7  md:h-10 z-[600] md:flex items-center justify-center md:w-10 hidden md:absolute  right-0 top-1/2 cursor-pointer "
+          "rounded-full bg-[#3FA9F5] h-7 w-7  md:h-10 z-[600] md:flex items-center justify-center md:w-10 hidden md:absolute  -right-5 xl:-right-10 top-1/2 cursor-pointer "
         }
         onClick={onNext}
         style={{
           cursor: !showNext ? "not-allowed" : "pointer",
+          visibility: !showNext ? "hidden" : "visible",
         }}
       >
         <svg
@@ -128,6 +130,7 @@ export default function SwiperComponent({
           onClick={onPrev}
           style={{
             cursor: !showPrev ? "not-allowed" : "pointer",
+            visibility: !showPrev ? "hidden" : "visible",
           }}
         >
           <svg
@@ -152,6 +155,7 @@ export default function SwiperComponent({
           onClick={onNext}
           style={{
             cursor: !showNext ? "not-allowed" : "pointer",
+            visibility: !showNext ? "hidden" : "visible",
           }}
         >
           <svg
