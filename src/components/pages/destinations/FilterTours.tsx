@@ -21,6 +21,7 @@ const FilterTourSection = ({ data, locale, tags }: any) => {
   const searchParams = useSearchParams()
   const urlTags = searchParams?.getAll("tag")
   const articalTags = urlTags && urlTags.length > 0 ? urlTags : tags
+  console.log(data)
 
   const {
     data: tagsToures,

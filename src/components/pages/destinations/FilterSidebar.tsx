@@ -24,16 +24,23 @@ export default function FilterSidebar({
   const handleTagClick = (item: string) => {
     const existingTags = searchParams?.getAll("tag")
     const newTags = Array.isArray(existingTags) ? existingTags : []
-    const tag = item
+    const tag = item.trim().toLowerCase()
+
     if (newTags.includes(tag)) {
       newTags.splice(newTags.indexOf(tag), 1)
     } else {
       newTags.push(tag)
     }
+
+    const uniqueTags = Array.from(new Set(newTags)) // Ensure no duplicates
+
     if (pathname) {
-      router.push(`${pathname}?${newTags.map((t) => `tag=${t}`).join("&")}`, {
-        scroll: false,
-      })
+      router.push(
+        `${pathname}?${uniqueTags.map((t) => `tag=${encodeURIComponent(t)}`).join("&")}`,
+        {
+          scroll: false,
+        }
+      )
     }
   }
 
