@@ -68,7 +68,7 @@ export default function FilterSidebar({
                   className="flex gap-2 px-6 items-center pt-2.5"
                 >
                   <input
-                    type="radio"
+                    type="checkbox"
                     className="w-3.5 h-3.5 hover:cursor-pointer"
                     id={country.slug.current}
                     onClick={() => {
