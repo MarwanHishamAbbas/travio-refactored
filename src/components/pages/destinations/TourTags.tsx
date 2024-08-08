@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button"
-import { FC } from "react"
+import { FC, useCallback } from "react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
 interface tagProps {
@@ -19,23 +19,21 @@ const ToureTags: FC<Props> = ({ data, locale }) => {
   const pathname = usePathname()
 
   const isSelected = (item: string) =>
-    searchParams?.getAll("tag").includes(item?.toLowerCase())
+    searchParams?.getAll("tags").includes(item?.toLowerCase())
 
-  const handleTagClick = (item: string) => {
-    const existingTags = searchParams?.getAll("tag")
-    const newTags = Array.isArray(existingTags) ? existingTags : []
-    const tag = item.toLowerCase()
-    if (newTags.includes(tag)) {
-      newTags.splice(newTags.indexOf(tag), 1)
-    } else {
-      newTags.push(tag)
-    }
-    if (pathname) {
-      router.push(`${pathname}?${newTags.map((t) => `tag=${t}`).join("&")}`, {
-        scroll: false,
-      })
-    }
-  }
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString())
+      if (params.has(name, value)) {
+        params.delete(name, value)
+      } else {
+        params.append(name, value)
+      }
+
+      return params.toString()
+    },
+    [searchParams]
+  )
 
   return (
     <div className="mt-4 flex gap-2.5 max-w-full overflow-x-auto">
@@ -44,10 +42,15 @@ const ToureTags: FC<Props> = ({ data, locale }) => {
           key={tag._id}
           id={tag._id}
           variant="outline"
-          className={`rounded-full text-grey text-xs max-md:text-[12px] font-medium max-md:h-7 
+          className={`rounded-full text-grey text-xs max-md:text-[12px] font-medium max-md:h-7
                     ${isSelected(tag.slug?.current) ? " bg-[#3FA9F5] text-white" : "bg-white"}
                     `}
-          onClick={() => handleTagClick(tag.slug?.current)}
+          onClick={() =>
+            router.push(
+              pathname + "?" + createQueryString("tags", tag.slug.current),
+              { scroll: false }
+            )
+          }
           aria-label={`Toggle tag ${tag.name?.[locale]}`}
           aria-pressed={isSelected(tag.slug?.current) ? "true" : "false"}
           tabIndex={0}

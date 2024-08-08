@@ -7,6 +7,9 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { Label } from "@/components/ui/label"
+import { useCallback } from "react"
 
 export default function FilterSidebar({
   locale,
@@ -43,6 +46,16 @@ export default function FilterSidebar({
       )
     }
   }
+
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString())
+      params.set(name, value)
+
+      return params.toString()
+    },
+    [searchParams]
+  )
 
   return (
     <div className="max-md:pb-3 shadow-[0px_4px_20px_0px_rgba(0,0,0,0.06)] flex flex-col rounded-t-[16px] gap-3">
@@ -97,39 +110,33 @@ export default function FilterSidebar({
         {priceItems.map((item: any, index: number) => (
           <AccordionItem key={index} value={item.name}>
             <AccordionTrigger
-              className={`text-darkBlue md:text-lg font-medium md:p-[18px] p-3 bg-lightBlue max-md:rounded-[8px\]`}
+              className={`text-darkBlue md:text-lg font-medium md:p-[18px] p-3 bg-lightBlue max-md:rounded-[8px]`}
             >
               {item.name?.[locale]}
             </AccordionTrigger>
             <AccordionContent className="grid grid-cols-2 gap-y-2.5 justify-between items-center">
-              {priceTags?.map((country: any, index: number) => (
-                <div
-                  key={index}
-                  className="flex gap-2 px-6 items-center pt-2.5"
-                >
-                  <input
-                    type="radio"
-                    className="w-3.5 h-3.5 hover:cursor-pointer"
-                    id={country.slug.current}
-                    checked={isSelected(country.slug.current) ? true : false}
-                    onClick={() => {
-                      handleTagClick(country.slug.current)
-                      isSelected(country.slug.current ? "true" : "false")
-                    }}
-                  />
-                  <label
-                    className="text-xs text-grey font-medium whitespace-nowrap hover:cursor-pointer"
-                    htmlFor={country.slug.current}
-                  >
-                    {country?.name?.[locale]}
-                  </label>
-                </div>
-              ))}
+              <RadioGroup
+                onValueChange={(e) => {
+                  router.push(pathname + "?" + createQueryString("price", e), {
+                    scroll: false,
+                  })
+                }}
+                defaultValue=""
+              >
+                {priceTags?.map((country: any, index: number) => (
+                  <div key={index} className="flex items-center space-x-2">
+                    <RadioGroupItem
+                      value={country.name[locale]}
+                      id={`r-${index}`}
+                    />
+                    <Label htmlFor={`r-${index}`}>{country.name[locale]}</Label>
+                  </div>
+                ))}
+              </RadioGroup>
             </AccordionContent>
           </AccordionItem>
         ))}
       </Accordion>
-
       <Accordion
         type="single"
         collapsible
@@ -138,34 +145,30 @@ export default function FilterSidebar({
         {durationItems.map((item: any, index: number) => (
           <AccordionItem key={index} value={item.name}>
             <AccordionTrigger
-              className={`text-darkBlue md:text-lg font-medium md:p-[18px] p-3 bg-lightBlue max-md:rounded-[8px\]`}
+              className={`text-darkBlue md:text-lg font-medium md:p-[18px] p-3 bg-lightBlue max-md:rounded-[8px]`}
             >
               {item.name?.[locale]}
             </AccordionTrigger>
             <AccordionContent className="grid grid-cols-2 gap-y-2.5 justify-between items-center">
-              {durationTags?.map((country: any, index: number) => (
-                <div
-                  key={index}
-                  className="flex gap-2 px-6 items-center pt-2.5"
-                >
-                  <input
-                    type="radio"
-                    className="w-3.5 h-3.5 hover:cursor-pointer"
-                    id={country.slug.current}
-                    checked={isSelected(country.slug.current) ? true : false}
-                    onClick={() => {
-                      handleTagClick(country.slug.current)
-                      isSelected(country.slug.current ? "true" : "false")
-                    }}
-                  />
-                  <label
-                    className="text-xs text-grey font-medium whitespace-nowrap hover:cursor-pointer"
-                    htmlFor={country.slug.current}
-                  >
-                    {country?.name?.[locale]}
-                  </label>
-                </div>
-              ))}
+              <RadioGroup
+                onValueChange={(e) => {
+                  router.push(
+                    pathname + "?" + createQueryString("duration", e),
+                    { scroll: false }
+                  )
+                }}
+                defaultValue=""
+              >
+                {durationTags?.map((country: any, index: number) => (
+                  <div key={index} className="flex items-center space-x-2">
+                    <RadioGroupItem
+                      value={country.name[locale]}
+                      id={`r-${index}`}
+                    />
+                    <Label htmlFor={`r-${index}`}>{country.name[locale]}</Label>
+                  </div>
+                ))}
+              </RadioGroup>
             </AccordionContent>
           </AccordionItem>
         ))}

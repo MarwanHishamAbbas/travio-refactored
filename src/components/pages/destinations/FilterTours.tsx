@@ -19,15 +19,20 @@ import FilterSidebar from "./FilterSidebar"
 
 const FilterTourSection = ({ data, locale, tags }: any) => {
   const searchParams = useSearchParams()
-  const urlTags = searchParams?.getAll("tag")
+  const urlTags = searchParams?.getAll("tags")
   const articalTags = urlTags && urlTags.length > 0 ? urlTags : tags
-  console.log(data)
+  const duration = searchParams?.get("duration")
+  const priceTag = searchParams?.get("price")
 
   const {
     data: tagsToures,
     mutate,
     isLoading,
-  } = useSWR("/tagsToures", () => getTourByTags(articalTags))
+  } = useSWR("/tagsToures", () =>
+    getTourByTags(articalTags, locale, duration ?? "", priceTag ?? "")
+  )
+
+  console.log(priceTag)
 
   useEffect(() => {
     mutate("/blogsTags")

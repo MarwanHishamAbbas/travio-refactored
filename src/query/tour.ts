@@ -81,18 +81,54 @@ export async function getAllhandles() {
 }
 
 // get toures on base of the tags slug
-export async function getTourByTags(tags: string[]) {
+export async function getTourByTags(
+  tags: string[],
+  locale: string,
+  duration: string,
+  priceTag: string
+) {
   if (!tags.length) {
     return []
   }
 
+  const searchTags = `count(tags[@->slug.current in ${JSON.stringify(tags)}])`
+
+  if (!duration) {
+    console.log("no duration")
+  }
+  if (!priceTag) {
+    console.log("no Price Tag")
+  }
+
+  const searchDuration = duration.trim() === "7-14 Days" ? "12 Days" : duration
+
+  const durationQuery = searchDuration
+    ? `&& overview_card.duration.[${JSON.stringify(locale)}] == ${JSON.stringify(searchDuration)}`
+    : ""
+
+  const priceQuery = (priceTag: string) => {
+    priceTag = priceTag.trim()
+    switch (priceTag) {
+      case "1000$-1500$":
+        console.log("Hit this case")
+        return `&& price_overrides[0].price.discounted_price['en'] <= '1500' && price_overrides[0].price.discounted_price['en'] >= '1000'`
+
+      case "Under $1,000":
+        return `&& price_overrides[0].price.discounted_price['en'] < '1000'`
+
+      case "Over 2000$":
+        return `&& price_overrides[0].price.discounted_price['en'] > '2000'`
+      default:
+        return ""
+    }
+  }
   const query = `*[_type == "tour_page"  && 
-    count(tags[@->slug.current in ${JSON.stringify(tags)}]) > 0
+    ${searchTags} > 0 ${durationQuery} ${priceQuery(priceTag)}
    ]{
     slug,
     overview_card,
     hero_section,
-    price_overrides
+    price_overrides,
   }
   `
 
