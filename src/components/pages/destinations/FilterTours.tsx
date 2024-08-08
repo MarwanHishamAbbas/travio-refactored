@@ -23,13 +23,22 @@ const FilterTourSection = ({ data, locale, tags }: any) => {
   const articalTags = urlTags && urlTags.length > 0 ? urlTags : tags
   const duration = searchParams?.get("duration")
   const priceTag = searchParams?.get("price")
+  const destinationTags = searchParams?.getAll("destinationTags")
+
+  console.log(destinationTags)
 
   const {
     data: tagsToures,
     mutate,
     isLoading,
   } = useSWR("/tagsToures", () =>
-    getTourByTags(articalTags, locale, duration ?? "", priceTag ?? "")
+    getTourByTags(
+      articalTags,
+      locale,
+      duration ?? "",
+      priceTag ?? "",
+      destinationTags
+    )
   )
 
   console.log(priceTag)

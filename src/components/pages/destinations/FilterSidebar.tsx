@@ -21,36 +21,24 @@ export default function FilterSidebar({
   const router = useRouter()
   const pathname = usePathname()
 
-  const isSelected = (item: string) =>
-    searchParams?.getAll("tag").includes(item?.toLowerCase())
-
-  const handleTagClick = (item: string) => {
-    const existingTags = searchParams?.getAll("tag")
-    const newTags = Array.isArray(existingTags) ? existingTags : []
-    const tag = item.trim().toLowerCase()
-
-    if (newTags.includes(tag)) {
-      newTags.splice(newTags.indexOf(tag), 1)
-    } else {
-      newTags.push(tag)
-    }
-
-    const uniqueTags = Array.from(new Set(newTags)) // Ensure no duplicates
-
-    if (pathname) {
-      router.push(
-        `${pathname}?${uniqueTags.map((t) => `tag=${encodeURIComponent(t)}`).join("&")}`,
-        {
-          scroll: false,
-        }
-      )
-    }
-  }
-
   const createQueryString = useCallback(
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams.toString())
       params.set(name, value)
+
+      return params.toString()
+    },
+    [searchParams]
+  )
+
+  const createDestinationQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString())
+      if (params.has(name, value)) {
+        params.delete(name, value)
+      } else {
+        params.append(name, value)
+      }
 
       return params.toString()
     },
@@ -83,10 +71,18 @@ export default function FilterSidebar({
                     type="radio"
                     className="w-3.5 h-3.5 hover:cursor-pointer"
                     id={country.slug.current}
-                    checked={isSelected(country.slug.current) ? true : false}
                     onClick={() => {
-                      handleTagClick(country.slug.current)
-                      isSelected(country.slug.current ? "true" : "false")
+                      router.push(
+                        pathname +
+                          "?" +
+                          createDestinationQueryString(
+                            "destinationTags",
+                            country.slug.current
+                          ),
+                        {
+                          scroll: false,
+                        }
+                      )
                     }}
                   />
                   <label

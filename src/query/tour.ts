@@ -85,13 +85,14 @@ export async function getTourByTags(
   tags: string[],
   locale: string,
   duration: string,
-  priceTag: string
+  priceTag: string,
+  destinationTags: string[]
 ) {
   if (!tags.length) {
     return []
   }
 
-  const searchTags = `count(tags[@->slug.current in ${JSON.stringify(tags)}])`
+  const searchTags = `count(tags[@->slug.current in ${JSON.stringify(tags.concat(destinationTags))}])`
 
   if (!duration) {
     console.log("no duration")
