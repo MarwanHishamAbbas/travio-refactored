@@ -25,8 +25,6 @@ const FilterTourSection = ({ data, locale, tags }: any) => {
   const priceTag = searchParams?.get("price")
   const destinationTags = searchParams?.getAll("destinationTags")
 
-  console.log(destinationTags)
-
   const {
     data: tagsToures,
     mutate,
@@ -40,8 +38,6 @@ const FilterTourSection = ({ data, locale, tags }: any) => {
       destinationTags
     )
   )
-
-  console.log(priceTag)
 
   useEffect(() => {
     mutate("/blogsTags")
@@ -88,10 +84,8 @@ const FilterTourSection = ({ data, locale, tags }: any) => {
                   days={data.overview_card?.duration?.[locale]}
                   cities={data.overview_card.cities}
                   countries={data.overview_card.countries}
-                  old_price={
-                    data.price_overrides[0].price.discounted_price[locale]
-                  }
-                  price={data.price_overrides[0].price.initial_price[locale]}
+                  old_price={data.overview_card.price.initial_price[locale]}
+                  price={data.overview_card.price.discounted_price[locale]}
                 />
               ))
             )}
